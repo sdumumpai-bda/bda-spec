@@ -1,0 +1,67 @@
+# ─────────────────────────────────────────────────────────────
+# bda-spec — gitignore
+# ─────────────────────────────────────────────────────────────
+
+# Personal / machine-local config — ห้าม commit
+# คัดลอกจาก .bda-spec.local.yml.example แล้วปรับ paths ของตัวเอง
+.bda-spec.local.yml
+.bda-spec/local/
+.bda-spec.cache/
+
+# Daily log destination ที่อยู่นอก repo (ถ้าคน sync ผ่าน symlink)
+docs/75-Checkins/*.local.md
+
+# Raw test artifacts (Tier 1) — gitignored, อาจมี PII ดิบ
+# Curated copies (post-mask) อยู่ใน docs/<context>/evidence/ ของ vault
+# ดู EVIDENCE-PATHS.md
+test-artifacts/
+.bda-spec.cache/test-runs/
+
+# Evidence ที่ยังไม่ผ่าน masking — ห้าม commit
+docs/**/evidence/raw/
+docs/**/screenshots/unmasked/
+*.unmasked.png
+*.unmasked.jpg
+
+# Standards local cache (ผลของ /bda-sync ที่เป็น tmp)
+standards/.cache/
+standards/.tmp/
+
+# Backup files จากการ migration หรือ sync (auto-generated)
+*.md.new
+*.md.bak
+*.md.orig
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
+.cursor/
+
+# Obsidian local-only
+docs/.obsidian/workspace.json
+docs/.obsidian/workspace-mobile.json
+docs/.obsidian/cache/
+
+# Node / Python / etc — ขึ้นกับ stack ของ project
+node_modules/
+.next/
+dist/
+build/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.env.local
+
+# Logs
+*.log
+logs/
+
+# Test/build artifacts (ของ project — ปรับเพิ่มเองตาม stack)
+coverage/
+.nyc_output/

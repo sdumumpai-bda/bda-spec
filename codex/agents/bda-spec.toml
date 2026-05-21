@@ -1,0 +1,19 @@
+[agent]
+name = "bda-spec"
+description = "BDA AI + Obsidian docs-driven development workflow"
+instructions = "codex/AGENTS.md"
+commands_dir = "commands"
+config = ".bda-spec.yml"
+
+[rules]
+vault_first = true
+mandatory_output_sections = [
+  "BDA Standard files used",
+  "Pipeline trace",
+  "Commands run",
+  "Verification / Evidence",
+  "Limitations / Risks / Next steps"
+]
+plan_implement_separation = true
+no_fake_evidence = true
+language = "th"

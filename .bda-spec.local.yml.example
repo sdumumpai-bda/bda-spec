@@ -1,0 +1,84 @@
+# ─────────────────────────────────────────────────────────────
+# bda-spec personal config (local-only, gitignored)
+# ─────────────────────────────────────────────────────────────
+# คัดลอกไฟล์นี้เป็น `.bda-spec.local.yml` (ลบ `.example`)
+# แล้วปรับ paths ตามเครื่องของคุณ
+#
+# Override ตัวที่อยู่ใน `.bda-spec.yml` ได้ — ทุก key ใน file นี้
+# ทับ default ของ shared config
+#
+# ห้าม commit ไฟล์นี้ — `.gitignore` block ไว้แล้ว
+# ─────────────────────────────────────────────────────────────
+
+# Paths — เฉพาะเครื่องของคุณ
+paths:
+  # ถ้า Obsidian vault อยู่นอก project (เช่น shared org vault หรือ iCloud)
+  # ใส่ absolute path ที่นี่; commands จะใช้ตัวนี้แทน `vault_path` ใน .bda-spec.yml
+  # ทิ้งว่างไว้ = ใช้ vault ใน repo (docs/)
+  external_vault: ""
+  # ตัวอย่าง: external_vault: "/Volumes/workspace/BDAObsidian/MyProject"
+
+  # ตำแหน่งที่ /bda-checkin จะ mirror executive daily log ไปด้วย
+  # (นอกเหนือจาก docs/75-Checkins/YYYY-MM-DD.md ใน repo)
+  daily_log_mirror: ""
+  # ตัวอย่าง: daily_log_mirror: "/Volumes/workspace/BDAObsidian/BDA-Daily/<your-name>/<project>/_daily-log"
+
+  # ที่เก็บ evidence ดิบก่อน mask (screenshots, logs, traces)
+  # /bda-evidence จะ copy เข้า vault หลัง mask
+  evidence_staging: ""
+  # ตัวอย่าง: evidence_staging: "~/Desktop/bda-evidence-raw"
+
+  # ที่เก็บ secret/credential สำหรับการ test (ถ้าจำเป็น)
+  # ห้ามใส่ secret ใน vault — ใช้ path นี้ + env var
+  secrets_file: ""
+  # ตัวอย่าง: secrets_file: "~/.secrets/bda-project-x.env"
+
+# Personal preferences
+user:
+  name: ""                       # ชื่อที่ปรากฏใน checkin/handoff (default: $USER)
+  email: ""                      # ใช้ใน git commit ถ้าต่างจาก global
+  timezone: "Asia/Bangkok"       # override ของ .bda-spec.yml ถ้าทำงานคนละ TZ
+  default_confidence: "Med"      # default ค่า Confidence ใน daily log (High/Med/Low)
+
+# AI billing tracking — เฉพาะของคุณ
+ai_usage:
+  track_tokens: true             # บันทึก token + cost ใน daily log
+  default_model: "claude-sonnet-4-6"
+  cost_per_1m_input_usd: 3.00    # ค่า input token (อัพเดทเองตาม pricing)
+  cost_per_1m_output_usd: 15.00  # ค่า output token
+
+# Local overrides สำหรับ subagents (ทับ .bda-spec.yml)
+subagents_override:
+  # ถ้าคุณอยาก disable subagent บางตัวเฉพาะเครื่องของคุณ (เช่น figma ไม่มี license)
+  # figma: false
+  # mobile: false
+
+# Custom commands ของคุณเอง (ไม่ commit)
+# commands ที่อยู่ใน list นี้จะ load จาก .bda-spec/local/commands/ ก่อน commands/
+local_commands_dir: ".bda-spec/local/commands"
+
+# Custom template overrides ของคุณเอง (ไม่ commit)
+# template lookup chain: local_templates_dir → templates/ → standards/templates/
+local_templates_dir: ".bda-spec/local/templates"
+
+# ─────────────────────────────────────────────────────────────
+# Evidence upload (Google Drive / cloud storage)
+# ─────────────────────────────────────────────────────────────
+# ใช้กับ /bda-upload และ scripts/upload-evidence.sh
+# Prerequisites: rclone configured (https://rclone.org/drive/)
+#
+evidence_upload:
+  provider: gdrive               # gdrive | s3 | dropbox | onedrive (rclone-supported)
+  rclone_remote: bda-gdrive      # ชื่อ remote ที่ตั้งใน rclone config
+  gdrive_folder: ""              # path ใน GDrive (เช่น "BDA-Evidence/MyProject")
+  link_visibility: org           # private | org | anyone (default: org)
+  org_domain: "bda.co.th"        # ใช้กับ link_visibility=org
+  folder_structure: by-date      # by-date | by-feature | flat
+  max_size_mb: 50                # skip ไฟล์ที่ใหญ่กว่านี้ (ใช้ --force-size override)
+  cleanup_local_after_upload: false   # ลบ local copy หลัง upload? (default: เก็บ)
+  auto_upload_on_evidence: false      # /bda-evidence trigger /bda-upload ทันที?
+
+# Debug
+debug:
+  verbose: false                 # ให้ command print Phase/decision ทั้งหมด
+  dry_run: false                 # default --dry-run สำหรับ /bda-git

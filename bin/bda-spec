@@ -1,0 +1,148 @@
+#!/usr/bin/env bash
+# bda-spec CLI — convenience wrapper around scripts/install.sh
+# Install:
+#   sudo ln -s "$(pwd)/bin/bda-spec" /usr/local/bin/bda-spec
+# Or add bda-spec/bin to PATH
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BDA_SPEC_HOME="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+print_help() {
+  cat <<EOF
+bda-spec — AI + Obsidian docs-driven development workflow
+
+USAGE
+  bda-spec <command> [args]
+
+COMMANDS
+  init [name] [--ai <list>]  Initialize bda-spec (greenfield: name/, brownfield/empty: --here)
+  init --here [--ai <list>]  Initialize in current directory
+                             --ai accepts: claude,codex,google,gpt,glm,all (default: interactive)
+  upgrade                  Bump bda-spec template (preserves templates/, docs/, config)
+  update                   Alias of upgrade (older naming)
+  sync                     Pull latest BDA standard into standards/ (project must be initialized)
+  doctor                   Diagnose project — check vault, configs, subagents
+  test                     Run smoke tests (scripts/test.sh)
+  paths [--json]           Show resolved paths from .bda-spec.yml + .bda-spec.local.yml
+  version                  Show version
+  help                     Show this help
+
+EXAMPLES
+  # New project (greenfield)
+  bda-spec init my-awesome-app
+  cd my-awesome-app
+  claude    # then run /bda-init
+
+  # Existing project (brownfield)
+  cd existing-project
+  bda-spec init --here
+
+  # Upgrade
+  bda-spec update
+
+EOF
+}
+
+cmd_init() {
+  local target="" here=0 ai_flag=""
+  while [ "$#" -gt 0 ]; do
+    case "$1" in
+      --here) here=1; shift ;;
+      --force) FORCE_FLAG="--force"; shift ;;
+      --no-sample) NO_SAMPLE_FLAG="--no-sample"; shift ;;
+      --ai) ai_flag="--ai $2"; shift 2 ;;
+      --yes|-y) YES_FLAG="--yes"; shift ;;
+      -*) echo "Unknown flag: $1" >&2; exit 1 ;;
+      *) target="$1"; shift ;;
+    esac
+  done
+
+  if [ "$here" -eq 1 ] || [ -z "$target" ]; then
+    target="$(pwd)"
+  else
+    mkdir -p "$target"
+    target="$(cd "$target" && pwd)"
+  fi
+
+  bash "$BDA_SPEC_HOME/scripts/install.sh" \
+    "$target" \
+    --source "$BDA_SPEC_HOME" \
+    ${ai_flag:-} ${FORCE_FLAG:-} ${NO_SAMPLE_FLAG:-} ${YES_FLAG:-}
+}
+
+cmd_update() {
+  bash "$BDA_SPEC_HOME/scripts/install.sh" \
+    --source "$BDA_SPEC_HOME" \
+    --target "$(pwd)" \
+    --force --no-sample
+}
+
+cmd_sync() {
+  [ -f ".bda-spec.yml" ] || { echo "Not a bda-spec project (no .bda-spec.yml)" >&2; exit 1; }
+  bash "$BDA_SPEC_HOME/scripts/sync-standards.sh" 2>/dev/null \
+    || echo "Run /bda-sync inside Claude Code instead (sync-standards.sh not yet shipped)"
+}
+
+cmd_doctor() {
+  [ -f ".bda-spec.yml" ] || { echo "Not a bda-spec project (no .bda-spec.yml)" >&2; exit 1; }
+  set +e   # don't abort on individual check failures
+  set +o pipefail 2>/dev/null || true
+  echo "bda-spec doctor"
+  echo "  Config:           $([ -f .bda-spec.yml ] && echo OK || echo MISSING)"
+  echo "  Personal config:  $([ -f .bda-spec.local.yml ] && echo OK || echo "(not set — copy .bda-spec.local.yml.example)")"
+  echo "  CLAUDE.md:        $([ -f CLAUDE.md ] && echo OK || echo MISSING)"
+  echo "  AI-README.md:     $([ -f AI-README.md ] && echo OK || echo MISSING)"
+  echo "  .gitignore:       $([ -f .gitignore ] && echo OK || echo "(missing — recommended)")"
+  echo "  commands/:        $([ -d commands ] && echo "$(ls commands/bda-*.md 2>/dev/null | wc -l) commands" || echo MISSING)"
+  echo "  .claude/commands: $([ -d .claude/commands ] && echo "$(ls .claude/commands/*.md 2>/dev/null | wc -l) shims" || echo MISSING)"
+  echo "  .claude/agents/:  $([ -d .claude/agents ] && echo "$(ls .claude/agents/*.md 2>/dev/null | wc -l) agents" || echo MISSING)"
+  echo "  standards/:       $([ -d standards ] && echo "v$(cat standards/VERSION 2>/dev/null || echo unknown)" || echo MISSING)"
+  echo "  templates/:       $([ -d templates ] && echo "$(ls templates/*.md 2>/dev/null | wc -l) templates (project-shared)" || echo MISSING)"
+  echo "  scripts/:         $([ -f scripts/install.sh ] && [ -f scripts/upgrade.sh ] && [ -f scripts/test.sh ] && [ -f scripts/bda-paths.sh ] && echo "OK (4 helpers)" || echo "(some missing)")"
+  local vault
+  vault="$(grep -E '^vault_path:' .bda-spec.yml 2>/dev/null | awk '{print $2}' | tr -d '"')"
+  vault="${vault:-docs}"
+  echo "  vault ($vault): $([ -d "$vault" ] && echo OK || echo MISSING)"
+  for sub in 00-Index 10-PRD 20-Features 30-Roles 40-Functions 50-Phases 60-Flows 70-Reference 75-Checkins 80-ImplementPlan 85-FixLog 90-TestPlan 95-Handoff; do
+    [ -d "$vault/$sub" ] || echo "    ⚠ Missing: $vault/$sub"
+  done
+}
+
+cmd_version() {
+  local v
+  v="$(cat "$BDA_SPEC_HOME/VERSION" 2>/dev/null || echo "0.1.0")"
+  echo "bda-spec $v"
+}
+
+cmd_test() {
+  bash "$BDA_SPEC_HOME/scripts/test.sh" "$@"
+}
+
+cmd_upgrade() {
+  bash "$BDA_SPEC_HOME/scripts/upgrade.sh" "$@"
+}
+
+cmd_paths() {
+  bash "$BDA_SPEC_HOME/scripts/bda-paths.sh" "$@"
+}
+
+main() {
+  local cmd="${1:-help}"
+  shift || true
+  case "$cmd" in
+    init)         cmd_init "$@" ;;
+    upgrade)      cmd_upgrade "$@" ;;
+    update)       cmd_update "$@" ;;
+    sync)         cmd_sync "$@" ;;
+    doctor)       cmd_doctor "$@" ;;
+    test)         cmd_test "$@" ;;
+    paths)        cmd_paths "$@" ;;
+    version)      cmd_version ;;
+    help|-h|--help) print_help ;;
+    *) echo "Unknown command: $cmd" >&2; print_help >&2; exit 1 ;;
+  esac
+}
+
+main "$@"

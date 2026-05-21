@@ -1,0 +1,40 @@
+---
+tags: [type/phase]
+phase_number: 1
+status: planning              # planning | active | done
+start_date: <YYYY-MM-DD>
+target_date: <YYYY-MM-DD>
+---
+
+# Phase <N> — <Phase title>
+
+## 1. Goal
+<paragraph อธิบาย phase นี้คืออะไร + target outcome>
+
+## 2. Scope
+**In:**
+- [[FEAT-<slug>]] — <priority>
+- [[FEAT-<slug>]]
+
+**Out:** (next phase)
+- <future feature>
+
+## 3. Milestones
+| Milestone | Target date | Status |
+|---|---|---|
+| <M1> | <date> | planning/active/done |
+
+## 4. Acceptance for phase complete
+- [ ] All features in scope: status: done
+- [ ] All test plans passed
+- [ ] /bda-verify passed on each feature
+- [ ] /bda-secure passed on full scope
+- [ ] Handoff doc created: [[HOR-<phase>-<date>]]
+
+## 5. Risks
+- <risk> → mitigation
+
+## 6. Progress
+- (auto-updated by /bda-checkin end + /bda-implement)
+- <Feature>: <status>
+- ...

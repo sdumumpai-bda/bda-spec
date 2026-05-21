@@ -1,0 +1,180 @@
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+  Template: FEATURE (FEAT-*)
+═══════════════════════════════════════════════════════════════════════════════
+  ใช้กับคำสั่ง: /bda-new, /bda-doc feature, /bda-plan (อ่านเพื่อสร้าง plan)
+  Override ของ: standards/templates/feature.md
+  Lookup chain : .bda-spec/local/templates/feature.md  →  templates/feature.md  →  standards/templates/feature.md
+  Adopted patterns (spec-kit):
+    • User Stories แบบ prioritized P1/P2/P3 แต่ละ story ต้อง **Independent Test ได้**
+    • Acceptance Criteria เป็น Given/When/Then per story (ไม่ใช่ bullet ลอย)
+    • Cross-ref: FR refs (จาก SRS) + Function refs (FN-*) + DS components (ถ้า frontend)
+    • Implementation status table (ทำได้/กำลังทำ/รอ approve)
+  /bda-analyze จะอ่าน FR refs + ดู task coverage ใน plan file ที่ link
+═══════════════════════════════════════════════════════════════════════════════
+-->
+
+---
+tags: [type/feature]
+status: planning              # planning | approved | in-progress | done | abandoned
+priority: P1                  # P1 | P2 | P3 (รวมของ feature; user story อาจ mixed)
+version: 0.1.0
+date: <YYYY-MM-DD>
+prd: "[[PRD-<slug>]]"
+srs: "[[SRS-<slug>]]"
+phase: "[[PHASE-1-MVP]]"
+related_frs:                  # FR-### ที่ feature นี้ implement
+  - FR-001
+  - FR-002
+related_functions:
+  - "[[FN-Web-<slug>]]"
+  - "[[FN-API-<slug>]]"
+blocked_by: []                # FEAT-### ที่ต้องเสร็จก่อน
+ui_components_used: []        # จาก DS-Components.md
+design_tokens_used: []        # จาก DS-Tokens.md
+---
+
+# FEAT-<slug> — <Feature title>
+
+<!-- Tip: feature ต้องเล็กพอที่จะ ship 1 sprint ได้ (≤ 2 สัปดาห์); ถ้าใหญ่กว่า → ตัดเป็นหลาย FEAT -->
+
+## 1. Goal
+
+<!-- Tip: 1–2 ประโยค ตอบ "feature นี้ทำให้ user ทำอะไรได้" — outcome ไม่ใช่ task list -->
+
+ให้สมาชิกห้องสมุดยืมหนังสือผ่าน Librarian ที่เคาน์เตอร์ได้ภายใน ≤ 90 วินาที โดยระบบบันทึก loan + อัปเดต book status atomically + แสดง due date ทันที
+
+## 2. Roles
+
+<!-- Tip: ใคร "ทำอะไร" ใน feature นี้ — link กลับ Role doc -->
+
+- **[[Role-Member]]** — เห็น loan history + due date ของตัวเอง
+- **[[Role-Librarian]]** — execute checkout, override edge case (เช่น loan limit), เห็น audit ของตัวเอง
+- **[[Role-Admin]]** — เห็น audit ทั้งระบบ + override business rule (manual)
+
+## 3. User Stories (Prioritized)
+
+<!-- Tip: ดึงจาก PRD § User Stories Overview แล้วลงรายละเอียด acceptance Given/When/Then -->
+<!-- ทุก story ต้อง **Independent Test ได้** — implement แค่ story เดียวก็ใช้งานจริงได้ -->
+
+### US1 — Member checkout หนังสือ ขั้นพื้นฐาน (Priority: P1) — MVP
+
+**As a** Member **I want** ยืมหนังสือผ่าน Librarian ที่เคาน์เตอร์ **so that** เอาหนังสือกลับบ้านได้
+
+**Independent Test:**
+1. Seed DB: 1 active member (0 active loans), 1 available book
+2. Librarian login → scan member barcode → scan book barcode → กด confirm
+3. Verify: loan record สร้าง, book status = borrowed, UI แสดง due_date
+4. ใช้ได้แบบ standalone — ไม่ต้องมี search/overdue/email ก่อน
+
+**Acceptance Criteria (Given/When/Then):**
+
+1. **Given** Member มี active loan = 2 + Book A available, **When** Librarian กด checkout Book A ให้ Member, **Then** loan record สร้าง + Book A → borrowed + UI แสดง due_date = today + 14 days
+2. **Given** Member มี active loan = 5, **When** Librarian กด checkout, **Then** ระบบ reject + แสดง error "เกินสิทธิ์ยืม (max 5)"
+3. **Given** Book A `status = borrowed`, **When** Librarian scan Book A, **Then** ระบบ reject + suggest "เล่มนี้ถูกยืมอยู่ ดูคิวจอง?"
+4. **Given** ระหว่าง checkout เกิด DB error, **When** กด confirm, **Then** ไม่มี loan record สร้าง (rollback) + แสดง error + ให้ retry
+
+**FR refs covered:** FR-001, FR-010 (auth)
+**Function refs:** [[FN-Web-Lib-Checkout]], [[FN-API-Loan-Create]]
+**DS components used:** `Button`, `Input`, `Toast`, `Modal` (confirm)
+**Risks:** race condition (2 librarian → เล่มเดียวกัน) → ใช้ DB unique constraint
+
+---
+
+### US2 — Member ดู loan history + due date ของตัวเอง (Priority: P2)
+
+**As a** Member **I want** ดู loan ปัจจุบัน + history ของตัวเอง **so that** รู้ว่ามีหนังสือต้องคืนเมื่อไร
+
+**Independent Test:** Member login → เปิด `/my-loans` → เห็น list loan active + history (paginated)
+
+**Acceptance Criteria:**
+
+1. **Given** Member มี loan active 2 รายการ + history 5 รายการ, **When** เปิด `/my-loans`, **Then** เห็น 2 section (active, history) + due_date highlight ถ้าใกล้ครบกำหนด (≤ 3 วัน)
+2. **Given** Member ไม่เคยยืม, **When** เปิด `/my-loans`, **Then** เห็น empty state + CTA "ค้นหาหนังสือ"
+3. **Given** Member ไม่ login, **When** เปิด `/my-loans`, **Then** redirect ไป `/login` + return URL
+
+**FR refs covered:** FR-005 (loan history read), FR-010
+**Function refs:** [[FN-Web-Member-Loans]], [[FN-API-Loan-List]]
+**DS components used:** `Card`, `Badge`, `EmptyState`, `Pagination`
+**Risks:** ข้อมูลย้อนหลังเยอะ → ต้อง pagination + index `loan(member_id, created_at desc)`
+
+---
+
+### US3 — Librarian override loan limit (Priority: P3)
+
+**As a** Librarian **I want** override loan limit ของ member ในกรณีพิเศษ (เช่น อาจารย์ขอยืม 10 เล่มสำหรับห้องวิจัย) **so that** ให้บริการกรณีที่ business rule ปกติไม่ครอบคลุม
+
+**Independent Test:** Librarian + Member ที่มี 5 active loans → checkout เล่มที่ 6 → เห็นปุ่ม "override" → กด + กรอกเหตุผล → loan สร้าง + audit log ระบุ override
+
+**Acceptance Criteria:**
+
+1. **Given** Member มี active loan = 5, **When** Librarian กด checkout + กด override + กรอกเหตุผล (≥ 10 chars), **Then** loan สร้าง + audit log บันทึก `override_reason`
+2. **Given** override โดยไม่กรอกเหตุผล, **When** submit, **Then** ระบบ reject + แสดง error
+3. **Given** Member role login + พยายาม override endpoint, **When** call API, **Then** HTTP 403
+
+**FR refs covered:** FR-001 (extended), FR-040 (audit override)
+**Function refs:** [[FN-Web-Lib-Checkout-Override]], [[FN-API-Loan-Override]]
+**DS components used:** `Modal`, `Textarea`, `Button` (danger variant)
+**Risks:** abuse — librarian override บ่อยเกิน → add weekly audit dashboard ใน Admin view
+
+---
+
+## 4. Functions Involved
+
+<!-- Tip: link FN-* docs; แต่ละ FN มี state diagram + API contract ของตัวเอง -->
+
+- **[[FN-Web-Lib-Checkout]]** — UI flow ที่ librarian ใช้ scan + confirm
+- **[[FN-Web-Member-Loans]]** — UI ที่ member ดูประวัติยืม
+- **[[FN-API-Loan-Create]]** — POST `/api/loans` (server-side validation + atomic write)
+- **[[FN-API-Loan-List]]** — GET `/api/members/:id/loans`
+- **[[FN-API-Loan-Override]]** — POST `/api/loans/override` (librarian-only)
+
+## 5. UX Flows
+
+- "[[FLOW-checkout-counter]]"
+- "[[FLOW-member-loan-history]]"
+
+## 6. Test Plan
+
+<!-- Tip: link ไป `90-TestPlan/TP-FEAT-<slug>.md` ที่มี scenario ครบ + evidence manifest -->
+
+- **[[TP-FEAT-<slug>]]** — รวม scenario per story + edge cases + a11y check + load smoke
+
+## 7. Design System Compliance
+
+<!-- Tip: บังคับใช้ tokens + components จาก DS; ถ้าต้อง component ใหม่ → run /bda-design ก่อน /bda-plan -->
+
+- **Tokens used**: `color.primary`, `color.danger`, `space.4`, `space.6`, `radius.md`, `typography.body`
+- **Components used**: `Button`, `Input`, `Modal`, `Toast`, `Badge`, `Card`, `EmptyState`, `Pagination`, `Textarea`
+- **New components needed**: _none_ (ถ้ามี → /bda-design component <name> ก่อน)
+- **A11y check**: keyboard nav + screen reader (NVDA) + contrast WCAG AA
+
+## 8. Implementation Status
+
+<!-- Tip: ตารางนี้ /bda-analyze จะอ่าน + เทียบกับ plan files; update ทุกครั้งที่ status เปลี่ยน -->
+
+| User Story | Priority | Status        | Plan file                                              | FR covered      | Evidence                          |
+|------------|----------|---------------|--------------------------------------------------------|-----------------|-----------------------------------|
+| US1        | P1       | in-progress   | [[80-ImplementPlan/2026-05-20-1430-checkout-mvp]]      | FR-001, FR-010  | pending                           |
+| US2        | P2       | planning      | _ยังไม่มี plan_                                         | FR-005, FR-010  | —                                 |
+| US3        | P3       | planning      | _ยังไม่มี plan_                                         | FR-001 ext, FR-040 | —                              |
+
+## 9. Risks
+
+- **R1** — Race condition ตอน checkout — mitigation: DB unique partial index `WHERE status = 'open'`
+- **R2** — Barcode scanner ส่ง character เร็วเกินไป UI debounce ไม่ทัน — mitigation: รับ input ทั้ง buffer ก่อน parse ใน 50 ms window
+- **R3** — Member ไม่มี email ใน DB → checkout ผ่าน แต่ส่ง reminder ไม่ได้ — mitigation: warn บน UI + flag ใน audit
+
+## 10. Clarifications
+
+<!-- Tip: section นี้ถูกเติมโดย `/bda-clarify` — ห้ามแก้ด้วยมือ -->
+
+_ยังไม่มี clarification session_
+
+## 11. Pipeline trace
+
+- **Understand**: SRS + PRD + REF-AuthorizationMatrix + DS-Components read (link path)
+- **Plan**: feature draft → /bda-clarify (อาจมี) → plan files per US (link)
+- **Execute**: link ไป plan + commit hash
+- **Verify**: TP-FEAT-<slug> result + a11y evidence
+- **Handoff**: link ใน HOR-* + IMPLEMENTATION-STATUS dashboard

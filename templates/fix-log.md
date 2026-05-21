@@ -1,0 +1,58 @@
+---
+tags: [type/fix-log]
+date: <YYYY-MM-DD HH:mm>
+title: <one-line bug title>
+status: in-progress           # in-progress | fixed | wont-fix | regressed
+severity: P1                   # P0 blocker | P1 major | P2 minor | P3 polish
+area: <api | web | mobile | cross>
+reported_by: <user | qa | self | customer>
+related_plan: <path or none>
+---
+
+# <Bug title>
+
+## Symptom
+<what user sees / what's broken>
+
+## Reproduction
+1. <step 1>
+2. <step 2>
+3. Expected: <X>; Actual: <Y>
+
+## Root Cause
+<technical cause — file path, function, line — from grep/read>
+
+## Vault Context Read
+- <[[FN-related]]>
+- <[[REF-AuthorizationMatrix]] if auth-related>
+
+## Before Evidence
+- Error log: <path or paste>
+- Screenshot: <path>
+- Console output: <paste>
+
+## Fix Approach
+<paragraph อธิบาย fix ที่จะทำ — ยังไม่ใช่โค้ด>
+
+## Affected Files
+- `path/to/file1.ts` — <what to change>
+
+## Test Cases (เพื่อพิสูจน์ว่า fix ใช้ได้)
+- [ ] Test 1: <scenario>
+- [ ] Regression test: <scenario>
+
+## Risk
+- <risk> → mitigation: <plan>
+
+## Next
+- [ ] สร้าง implement plan ลิงก์มาที่นี่
+- [ ] รัน /bda-implement
+- [ ] หลัง fix: update status: fixed + after evidence
+
+---
+
+## After Evidence (filled after fix)
+- Screenshot: <path>
+- Test results: <pass/fail count>
+- Commit: <hash>
+- Status: <fixed | regressed | wont-fix>
