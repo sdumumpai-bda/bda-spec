@@ -64,11 +64,11 @@ Interactive — ถาม batch:
 
 | Context | Folder |
 |---|---|
-| Feature | `docs/20-Features/<FEAT-slug>/evidence/` |
-| Fix | `docs/85-FixLog/<fix-slug>/evidence/` |
-| Plan | `docs/80-ImplementPlan/<plan-slug>.evidence/` |
-| Test scenario | `docs/90-TestPlan/<TP-slug>/evidence/` |
-| Handoff | `docs/95-Handoff/<HOR-slug>.evidence/` |
+| Feature | `docs/obsidian-vault/20-Features/<FEAT-slug>/evidence/` |
+| Fix | `docs/obsidian-vault/85-FixLog/<fix-slug>/evidence/` |
+| Plan | `docs/obsidian-vault/80-ImplementPlan/<plan-slug>.evidence/` |
+| Test scenario | `docs/obsidian-vault/90-TestPlan/<TP-slug>/evidence/` |
+| Handoff | `docs/obsidian-vault/95-Handoff/<HOR-slug>.evidence/` |
 
 Filename: `<SCENARIO-ID>-<STEP>-<state>-<HHMMSS>.<ext>`
 ตัวอย่าง: `TC-Checkout-001-03-submit-success-143022.png`
@@ -106,7 +106,7 @@ Filename: `<SCENARIO-ID>-<STEP>-<state>-<HHMMSS>.<ext>`
 /bda-evidence audit
   → scan all evidence files
   → find unmasked PII (email regex, phone, common names)
-  → docs/95-Handoff/EVIDENCE-AUDIT-<date>.md
+  → docs/obsidian-vault/95-Handoff/EVIDENCE-AUDIT-<date>.md
 ```
 
 ## Gotchas / ข้อควรระวัง

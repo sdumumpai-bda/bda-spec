@@ -25,7 +25,7 @@ model: claude-sonnet-4-6
 | free text | **Brainstorm** with seed |
 | `--import <path>` | **Import** existing PRD file |
 
-ถ้าใน `docs/10-PRD/` มีไฟล์อยู่แล้ว → แจ้ง user + ถามว่าจะเริ่มอันใหม่ หรือต่อจากของเดิม
+ถ้าใน `docs/obsidian-vault/10-PRD/` มีไฟล์อยู่แล้ว → แจ้ง user + ถามว่าจะเริ่มอันใหม่ หรือต่อจากของเดิม
 
 ## Phase 1 (Brainstorm mode) — เปิด idea
 
@@ -41,7 +41,7 @@ model: claude-sonnet-4-6
 
 ### 1.1 PRD draft
 
-`docs/10-PRD/PRD-<project-slug>.md` ตาม `templates/prd.md` (ถ้าไม่มีใน `templates/` ใช้ `standards/templates/prd.md`)
+`docs/obsidian-vault/10-PRD/PRD-<project-slug>.md` ตาม `templates/prd.md` (ถ้าไม่มีใน `templates/` ใช้ `standards/templates/prd.md`)
 
 Frontmatter:
 ```yaml
@@ -60,19 +60,19 @@ authors: [<user>]
 
 ### 1.3 สร้าง SRS
 
-`docs/10-PRD/SRS-<project-slug>.md` ตาม `templates/srs.md`
+`docs/obsidian-vault/10-PRD/SRS-<project-slug>.md` ตาม `templates/srs.md`
 
 Section: System overview, User stories, Functional requirements (FR-001, FR-002, ...), Non-functional requirements, Acceptance criteria
 
 ### 1.4 สร้าง Tech spec
 
-`docs/70-Reference/REF-TechStack.md` + `docs/70-Reference/REF-Architecture.md` ตาม `templates/tech-spec.md`
+`docs/obsidian-vault/70-Reference/REF-TechStack.md` + `docs/obsidian-vault/70-Reference/REF-Architecture.md` ตาม `templates/tech-spec.md`
 
 Section: Tech stack, Architecture diagram (Mermaid), Data model, API contracts (REST/GraphQL), Auth, Deployment
 
 ### 1.5 สร้าง Phase plan
 
-`docs/50-Phases/PHASE-1-MVP.md` — แตก SRS เป็น features ใน Phase 1
+`docs/obsidian-vault/50-Phases/PHASE-1-MVP.md` — แตก SRS เป็น features ใน Phase 1
 
 ### 1.6 Update 00-Index/IMPLEMENTATION-STATUS.md
 
@@ -86,7 +86,7 @@ test -f "$PRD_PATH" || echo "ไฟล์ไม่พบ"
 ```
 
 1. อ่าน PRD ที่ user ให้
-2. Copy/move → `docs/10-PRD/PRD-<slug>.md`
+2. Copy/move → `docs/obsidian-vault/10-PRD/PRD-<slug>.md`
 3. ถ้า frontmatter ไม่ครบ → เติมให้ตาม template (ถาม user ถ้าจำเป็น)
 4. **Gap analysis** — เทียบกับ `templates/prd.md`:
    - หา section ที่ขาด (Goals, Non-goals, Personas, KPIs, Risks, ฯลฯ)
@@ -98,7 +98,7 @@ test -f "$PRD_PATH" || echo "ไฟล์ไม่พบ"
 
 ## Phase 2 — Plan trail
 
-ทุกการสร้าง doc ต้อง log ลง `docs/75-Checkins/<today>.md` ใน section "Created":
+ทุกการสร้าง doc ต้อง log ลง `docs/obsidian-vault/75-Checkins/<today>.md` ใน section "Created":
 
 ```markdown
 ## Notes

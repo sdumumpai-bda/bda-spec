@@ -28,7 +28,7 @@
   4. Framework (React/Vue/Svelte/Flutter/SwiftUI/Compose)
   5. Target users (consumer/professional/a11y-critical)
 
-→ สร้าง 7 ไฟล์ใน docs/70-Reference/DesignSystem/
+→ สร้าง 7 ไฟล์ใน docs/obsidian-vault/70-Reference/DesignSystem/
 → เปิด preview.html ด้วย browser ได้เลย
 ```
 
@@ -63,7 +63,7 @@
 ## Output ที่ได้
 
 ```
-docs/70-Reference/DesignSystem/
+docs/obsidian-vault/70-Reference/DesignSystem/
 ├── README.md
 ├── DS-Tokens.md            ← colors, typography, spacing, radius, shadow, motion
 ├── DS-Components.md        ← Button, Input, Card, Modal, Toast, …
@@ -106,7 +106,7 @@ docs/70-Reference/DesignSystem/
 /bda-design audit
   → scan frontend/src/, mobile/lib/
   → report: 5 violations (3 inline color, 2 ad-hoc component)
-  → docs/70-Reference/DesignSystem/audit-2026-05-21.md
+  → docs/obsidian-vault/70-Reference/DesignSystem/audit-2026-05-21.md
 ```
 
 ## Gotchas / ข้อควรระวัง
@@ -124,7 +124,7 @@ docs/70-Reference/DesignSystem/
 - หลัง `/bda-design init`: [/bda-plan](./bda-plan.md) (plan ต้องระบุ Design System Compliance section)
 - Audit: [/bda-verify](./bda-verify.md) (ทำ design audit ใน Phase 6)
 - Subagent: [`.claude/agents/design.md`](../.claude/agents/design.md), `frontend.md`, `mobile.md`
-- Vault path: `docs/70-Reference/DesignSystem/`
+- Vault path: `docs/obsidian-vault/70-Reference/DesignSystem/`
 
 ## FAQ
 

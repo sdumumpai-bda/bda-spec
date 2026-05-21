@@ -5,7 +5,7 @@ model: claude-sonnet-4-6
 
 # /bda-design — Design System สำหรับ project
 
-สร้าง/อัพเดท design system ใน `docs/70-Reference/DesignSystem/` — เมื่อ design system มีอยู่ frontend/mobile subagents **ถูกบังคับ** ให้ใช้
+สร้าง/อัพเดท design system ใน `docs/obsidian-vault/70-Reference/DesignSystem/` — เมื่อ design system มีอยู่ frontend/mobile subagents **ถูกบังคับ** ให้ใช้
 
 ## Trigger
 
@@ -21,7 +21,7 @@ model: claude-sonnet-4-6
 ## Phase 0 — Detect state
 
 ```bash
-test -d docs/70-Reference/DesignSystem && ls docs/70-Reference/DesignSystem/
+test -d docs/obsidian-vault/70-Reference/DesignSystem && ls docs/obsidian-vault/70-Reference/DesignSystem/
 ```
 
 | สภาพ | Action |
@@ -33,7 +33,7 @@ test -d docs/70-Reference/DesignSystem && ls docs/70-Reference/DesignSystem/
 
 สร้าง:
 ```
-docs/70-Reference/DesignSystem/
+docs/obsidian-vault/70-Reference/DesignSystem/
 ├── README.md
 ├── DS-Tokens.md            colors, typography, spacing, radius, shadow, motion
 ├── DS-Components.md        Button, Input, Card, Modal, Toast, ...
@@ -132,7 +132,7 @@ Pattern = combination ของ components ที่ recurring (form layout, lis
 - มี component ad-hoc ที่ควรใช้ DS component แทนไหม?
 - contrast ตามมาตรฐาน WCAG AA ผ่านไหม?
 - focus state ครบไหม?
-Output: report ที่ `docs/70-Reference/DesignSystem/audit-<date>.md`
+Output: report ที่ `docs/obsidian-vault/70-Reference/DesignSystem/audit-<date>.md`
 
 ## Phase 3 — Force-use rule (สำคัญ)
 
@@ -152,8 +152,8 @@ Subagent `frontend.md` และ `mobile.md` มี gate:
 ## Phase 4 — Link จาก docs
 
 อัพเดท:
-- `docs/00-Index/IMPLEMENTATION-STATUS.md` — เพิ่ม "Design System: v1.0.0 active + [preview](docs/70-Reference/DesignSystem/preview.html)"
-- `docs/70-Reference/README.md` — link ไป DS-*.md + preview.html
+- `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` — เพิ่ม "Design System: v1.0.0 active + [preview](docs/obsidian-vault/70-Reference/DesignSystem/preview.html)"
+- `docs/obsidian-vault/70-Reference/README.md` — link ไป DS-*.md + preview.html
 - Feature/Function docs ที่มี UI → require section "Design System Compliance"
 
 ### 4.1 Generate/Update preview.html

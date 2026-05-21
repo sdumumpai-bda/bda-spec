@@ -179,7 +179,7 @@ bash scripts/upload-evidence.sh --feature "$CONTEXT_SLUG" --pending
 
 ## Phase 7 — Update IMPLEMENTATION-STATUS + checkin
 
-อัพเดท `docs/00-Index/IMPLEMENTATION-STATUS.md`:
+อัพเดท `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md`:
 - Evidence count for feature/fix
 - Last evidence captured timestamp
 
@@ -195,7 +195,7 @@ Scan all evidence files ใน repo:
 - Find unflagged-but-questionable filenames (e.g., `customer-data.csv`)
 - Check manifest count vs filesystem count
 
-Report ที่ `docs/95-Handoff/EVIDENCE-AUDIT-<date>.md`
+Report ที่ `docs/obsidian-vault/95-Handoff/EVIDENCE-AUDIT-<date>.md`
 
 ## Output (5 หัวข้อบังคับ)
 

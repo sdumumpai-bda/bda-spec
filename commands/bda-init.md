@@ -7,10 +7,10 @@ model: claude-sonnet-4-6
 BDA Standard v0.7.0 alignment (matches `commands/init.md`):
 - bda-init covers the install/bootstrap responsibility + BDA v0.7.0 init context-priming step
 - Phase 8 (added) → generate/update Obsidian context manifest using `standards/templates/obsidian-context.md`
-  Default location in bda-spec: `docs/00-Index/IMPLEMENTATION-STATUS.md` (with Agent Context section)
+  Default location in bda-spec: `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` (with Agent Context section)
 - Phase 9 (added) → initialize session/evidence indexes:
-  - `docs/75-Checkins/_index.md`
-  - `docs/95-Handoff/_index.md` (evidence_index)
+  - `docs/obsidian-vault/75-Checkins/_index.md`
+  - `docs/obsidian-vault/95-Handoff/_index.md` (evidence_index)
 - All subsequent commands (plan/fix/doc/implement) read the manifest BEFORE working
 -->
 
@@ -204,16 +204,16 @@ find . -type d \( -name "components" -o -name "screens" -o -name "pages" \) 2>/d
 ```
 
 จาก scan → สร้าง draft ของ:
-- `docs/70-Reference/REF-TechStack.md` (auto-fill จาก dependencies)
-- `docs/70-Reference/REF-APIIntegration.md` (auto-fill endpoints ที่เจอ)
-- `docs/00-Index/IMPLEMENTATION-STATUS.md` (mark project as: `adopted from existing codebase`)
+- `docs/obsidian-vault/70-Reference/REF-TechStack.md` (auto-fill จาก dependencies)
+- `docs/obsidian-vault/70-Reference/REF-APIIntegration.md` (auto-fill endpoints ที่เจอ)
+- `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` (mark project as: `adopted from existing codebase`)
 
 ### 3.2 Import README (ถ้า user เลือก yes ใน 1.2)
 
 อ่าน `README.md` ของ project แล้วเสนอ:
-- หา section ที่เป็น product description → ใส่ใน `docs/10-PRD/PRD-<slug>.md`
+- หา section ที่เป็น product description → ใส่ใน `docs/obsidian-vault/10-PRD/PRD-<slug>.md`
 - หา section ที่เป็น install/usage → reference ใน `REF-TechStack.md`
-- หา features list → สร้าง `docs/20-Features/FEAT-*.md` draft
+- หา features list → สร้าง `docs/obsidian-vault/20-Features/FEAT-*.md` draft
 
 แสดง user เห็น mapping → ถาม confirm ก่อนสร้างจริง
 
@@ -222,7 +222,7 @@ find . -type d \( -name "components" -o -name "screens" -o -name "pages" \) 2>/d
 > "Brownfield project ที่ adopt — มี code อยู่แล้ว แต่ไม่มี docs ครบ"
 >
 > เสนอ:
-> - สร้าง `docs/75-Checkins/<today>.md` พร้อม note: "Started adopting bda-spec into existing codebase"
+> - สร้าง `docs/obsidian-vault/75-Checkins/<today>.md` พร้อม note: "Started adopting bda-spec into existing codebase"
 > - ตั้งงานแรก: `/bda-plan reverse-engineer existing X` หรือ `/bda-doc PRD` เพื่อเติม PRD
 
 ### 3.4 ไม่แตะโค้ดเดิม — กฎเหล็ก

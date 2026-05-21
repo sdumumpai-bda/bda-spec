@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git rm *)",
+      "Bash(rm /Volumes/testspace/AI-workflow/bda-spec/.git/index.lock && git status --short)"
+    ]
+  }
+}

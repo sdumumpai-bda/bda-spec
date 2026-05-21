@@ -14,7 +14,7 @@
 ## Quick start
 
 ```
-/bda-git --plan docs/80-ImplementPlan/2026-05-21-add-search.md
+/bda-git --plan docs/obsidian-vault/80-ImplementPlan/2026-05-21-add-search.md
 ```
 
 ตัวอย่าง output:
@@ -100,7 +100,7 @@ figma  [read-only]  skipped
 ตัวอย่าง 2: bug fix
 ```
 1. /bda-fix → /bda-plan fix:<slug> → /bda-implement
-2. /bda-git --fix docs/85-FixLog/<slug>.md
+2. /bda-git --fix docs/obsidian-vault/85-FixLog/<slug>.md
    → message: fix(web): search returns empty
 ```
 

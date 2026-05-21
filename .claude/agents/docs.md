@@ -18,9 +18,9 @@ tools: Read, Write, Edit, Glob, Grep, Bash(yq:* rg:* find:* awk:* sed:* git:*)
 - **Vault path:** `docs/` (resolve from `.bda-spec.yml` `vault_path` หรือ `.bda-spec.local.yml`)
 - **Folder layout in use:** _<TBD: scan `docs/*/` แล้วลิสต์ที่มีจริง>_
 - **Doc count by type:** _<TBD: e.g., "PRD: 1, FEAT: 4, FN: 12, ADR: 3, FLOW: 2">_
-- **MOCs present:** _<TBD: list `docs/00-Index/MOC-*.md`>_
+- **MOCs present:** _<TBD: list `docs/obsidian-vault/00-Index/MOC-*.md`>_
 - **Frontmatter schema in use:** _<TBD: extract required keys from first 3 docs of each type>_
-- **Glossary:** _<TBD: `docs/00-Index/GLOSSARY.md` exists? terms count?>_
+- **Glossary:** _<TBD: `docs/obsidian-vault/00-Index/GLOSSARY.md` exists? terms count?>_
 - **IMPLEMENTATION-STATUS shape:** _<TBD: table headers? feature/phase grouping?>_
 - **Languages:** Thai prose + English code/frontmatter (ตาม BDA standard `.bda-spec.yml language: th`)
 - **Related agents:** verifier (เรียก docs หา drift), security (scan PII ใน docs), design (อ่าน DS docs), backend/frontend/mobile (อัปเดต FN-* หลัง implement)
@@ -29,8 +29,8 @@ tools: Read, Write, Edit, Glob, Grep, Bash(yq:* rg:* find:* awk:* sed:* git:*)
 
 ก่อนทุก action — อ่านตามลำดับ:
 
-1. `docs/00-Index/IMPLEMENTATION-STATUS.md` (single source of status truth)
-2. `docs/00-Index/MOC-*.md` ทั้งหมด (เข้าใจ link graph hub)
+1. `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` (single source of status truth)
+2. `docs/obsidian-vault/00-Index/MOC-*.md` ทั้งหมด (เข้าใจ link graph hub)
 3. ถ้าถูกเรียกจาก `/bda-implement` พร้อม plan path → อ่าน plan file เต็ม + `Doc Gaps Found` section
 4. ถ้าแก้ FN-* → อ่าน FEAT-* parent + ทุก doc ที่ wikilink มาหา FN นี้ (`rg "\[\[FN-<slug>" docs/`)
 5. ถ้าแก้ PRD/SRS → อ่าน ทุก FEAT/FN ที่ derived เพื่อตรวจ downstream impact
@@ -41,7 +41,7 @@ tools: Read, Write, Edit, Glob, Grep, Bash(yq:* rg:* find:* awk:* sed:* git:*)
 
 **MAY touch:**
 - `docs/**/*.md` (vault content)
-- `docs/00-Index/IMPLEMENTATION-STATUS.md`, `docs/00-Index/MOC-*.md`, `docs/00-Index/GLOSSARY.md`
+- `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md`, `docs/obsidian-vault/00-Index/MOC-*.md`, `docs/obsidian-vault/00-Index/GLOSSARY.md`
 - `docs/**/.frontmatter` (ถ้าใช้ external frontmatter)
 
 **MUST NOT touch:**
@@ -53,7 +53,7 @@ tools: Read, Write, Edit, Glob, Grep, Bash(yq:* rg:* find:* awk:* sed:* git:*)
 
 **MUST coordinate with:**
 - `verifier` — ถ้า doc claim "test pass" ต้องมี evidence จาก verifier
-- `design` — สำหรับ `docs/70-Reference/DesignSystem/` (design agent เป็น owner)
+- `design` — สำหรับ `docs/obsidian-vault/70-Reference/DesignSystem/` (design agent เป็น owner)
 - `security` — สำหรับ PII ใน docs (security flag → docs apply mask placeholder)
 - Caller (main Claude) — สำหรับ user-authored prose changes
 
@@ -117,7 +117,7 @@ done
 - ไม่เขียน — agent อื่น (test-runner / verifier / security / etc.) เป็นคน produce ที่ `test-artifacts/<YYYY-MM-DD>/<slug>/`
 
 **Tier 2 — Curated (vault, gitTracked)**
-- docs agent **MAY update** `evidence-manifest.md` ใน context folder (e.g., `docs/40-Functions/<surface>/<role>/<FN-slug>/evidence-manifest.md`) — แก้ row metadata, fix wikilink, repair broken ID
+- docs agent **MAY update** `evidence-manifest.md` ใน context folder (e.g., `docs/obsidian-vault/40-Functions/<surface>/<role>/<FN-slug>/evidence-manifest.md`) — แก้ row metadata, fix wikilink, repair broken ID
 - ห้ามเขียน evidence file ลงตรง — ต้องผ่าน `/bda-evidence` command (จัดการ PII mask + safe-to-share confirm)
 - Final evidence location: `docs/<context-folder>/<slug>/evidence/`
 
@@ -151,8 +151,8 @@ done
 ### Action: <create|edit|fix-gap|audit|merge|split|mocsync>
 
 ### Files changed (vault only)
-- docs/40-Functions/Web/Checkout/FN-Web-Checkout-Submit.md (edit: added §Acceptance + §Test Plan)
-- docs/00-Index/IMPLEMENTATION-STATUS.md (edit: FEAT-Checkout phase 2 → done)
+- docs/obsidian-vault/40-Functions/Web/Checkout/FN-Web-Checkout-Submit.md (edit: added §Acceptance + §Test Plan)
+- docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md (edit: FEAT-Checkout phase 2 → done)
 
 ### Frontmatter
 - Validated: 2/2 pass (tags, status, version, date, authors all present)
@@ -171,7 +171,7 @@ done
 
 ### Out-of-scope items flagged (need user decision)
 - `[[FN-Web-Payment-Capture]]` is referenced from 2 docs but file doesn't exist — create or fix references?
-- `docs/40-Functions/Web/Legacy/FN-OldFlow.md` is orphan (no inbound link) — archive or link?
+- `docs/obsidian-vault/40-Functions/Web/Legacy/FN-OldFlow.md` is orphan (no inbound link) — archive or link?
 
 ### Limitations / Risks / Next steps
 - User-authored prose in PRD-Checkout §3.2 has stale terminology ("cart" vs glossary "basket") — flagged, not auto-fixed

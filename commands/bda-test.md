@@ -61,7 +61,7 @@ Prompt:
 ```
 Target: <web | app | api>
 Scope: <files changed | plan file>
-Vault context: docs/90-TestPlan/ (อ่านที่มี relevant)
+Vault context: docs/obsidian-vault/90-TestPlan/ (อ่านที่มี relevant)
 
 Tasks:
 1. Run smoke tests สำหรับ surface ที่เปลี่ยน
@@ -85,7 +85,7 @@ Tasks:
 
 ทุก test run สร้าง:
 ```
-docs/90-TestPlan/evidence/<YYYY-MM-DD>-<slug>/
+docs/obsidian-vault/90-TestPlan/evidence/<YYYY-MM-DD>-<slug>/
 ├── report.md              # summary + status per scenario
 ├── screenshots/           # <SCENARIO-ID>-<STEP-NO>-<short-state>.png
 ├── console.log
@@ -125,7 +125,7 @@ Scenarios: 5 (PASS: 4, FAIL: 1, BLOCKED: 0)
 [FAIL] TC-003 — Search returns empty when DB has results
   Page: /search
   Console: TypeError: cannot read 'items' of undefined
-  Screenshot: docs/90-TestPlan/evidence/<slug>/TC-003-04-error-state.png
+  Screenshot: docs/obsidian-vault/90-TestPlan/evidence/<slug>/TC-003-04-error-state.png
   
 Next: รัน /bda-fix "search returns empty..." → diagnose
 ```

@@ -154,7 +154,7 @@ Trigger:
             /bda-checkin note test "manual test feature X"
 ก่อนเลิก:   /bda-checkin end             ← executive summary + AI usage
 
-→ ทั้งหมดใน docs/75-Checkins/<today>.md ไฟล์เดียว
+→ ทั้งหมดใน docs/obsidian-vault/75-Checkins/<today>.md ไฟล์เดียว
 → ถ้า set daily_log_mirror ใน .bda-spec.local.yml → mirror อัตโนมัติ
 ```
 
@@ -163,7 +163,7 @@ Trigger:
 ```
 1. /bda-design init                       ← bootstrap minimal DS
    → สร้าง DS-Tokens.md, DS-Components.md, ..., preview.html
-2. เปิด docs/70-Reference/DesignSystem/preview.html ด้วย browser
+2. เปิด docs/obsidian-vault/70-Reference/DesignSystem/preview.html ด้วย browser
 3. /bda-design tokens                     ← ปรับ token (brand colors, type)
 4. /bda-design component <name>           ← เพิ่ม component ใหม่
 5. /bda-design audit                      ← ตรวจ implementation vs DS

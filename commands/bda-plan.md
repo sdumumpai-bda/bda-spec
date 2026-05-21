@@ -19,7 +19,7 @@ BDA Standard v0.7.0 alignment (matches `commands/plan-work.md` + `workflows/obsi
 
 ```
 /bda-plan <task description>
-/bda-plan <task> --revise docs/80-ImplementPlan/YYYY-MM-DD-HHmm-<slug>.md
+/bda-plan <task> --revise docs/obsidian-vault/80-ImplementPlan/YYYY-MM-DD-HHmm-<slug>.md
 ```
 
 ว่าง → ถาม "วางแผนงานอะไร?"
@@ -34,17 +34,17 @@ BDA Standard v0.7.0 alignment (matches `commands/plan-work.md` + `workflows/obsi
 
 ## Phase 1 — อ่าน vault context (บังคับ)
 
-1. อ่าน `docs/00-Index/IMPLEMENTATION-STATUS.md`
+1. อ่าน `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md`
 2. อ่านเอกสารที่เกี่ยวกับ task:
-   - Feature/PRD → `docs/10-PRD/PRD-*.md` + `docs/20-Features/FEAT-*.md`
-   - Role/menu → `docs/30-Roles/`
-   - Function/API → `docs/40-Functions/`
-   - Phase task → `docs/50-Phases/PHASE-*.md`
-   - Flow → `docs/60-Flows/`
-   - Auth → `docs/70-Reference/REF-AuthorizationMatrix.md`
-   - API contracts → `docs/70-Reference/REF-APIIntegration.md`
-   - Tech stack → `docs/70-Reference/REF-TechStack.md`
-   - **Design system** → `docs/70-Reference/DesignSystem/` (ถ้ามี — บังคับ frontend/mobile ใช้)
+   - Feature/PRD → `docs/obsidian-vault/10-PRD/PRD-*.md` + `docs/obsidian-vault/20-Features/FEAT-*.md`
+   - Role/menu → `docs/obsidian-vault/30-Roles/`
+   - Function/API → `docs/obsidian-vault/40-Functions/`
+   - Phase task → `docs/obsidian-vault/50-Phases/PHASE-*.md`
+   - Flow → `docs/obsidian-vault/60-Flows/`
+   - Auth → `docs/obsidian-vault/70-Reference/REF-AuthorizationMatrix.md`
+   - API contracts → `docs/obsidian-vault/70-Reference/REF-APIIntegration.md`
+   - Tech stack → `docs/obsidian-vault/70-Reference/REF-TechStack.md`
+   - **Design system** → `docs/obsidian-vault/70-Reference/DesignSystem/` (ถ้ามี — บังคับ frontend/mobile ใช้)
 3. อ่านทุก doc ที่เกี่ยวข้องเต็มๆ (ไม่ใช่แค่ skim)
 4. List ทุก doc ใน plan file (เป็นหลักฐาน)
 
@@ -63,7 +63,7 @@ BDA Standard v0.7.0 alignment (matches `commands/plan-work.md` + `workflows/obsi
 
 ## Phase 3 — สร้าง plan file
 
-Path: `docs/80-ImplementPlan/YYYY-MM-DD-HHmm-<slug>.md`
+Path: `docs/obsidian-vault/80-ImplementPlan/YYYY-MM-DD-HHmm-<slug>.md`
 
 (slug = kebab-case, ≤ 5 คำ)
 
@@ -77,9 +77,9 @@ status: planning            # planning | approved | in-progress | done | abandon
 submodule_target: <api | web | mobile | docs | all>
 subagent_target: <backend | frontend | mobile | docs | design | all>
 related_docs:
-  - docs/10-PRD/PRD-xxx.md
-  - docs/20-Features/FEAT-xxx.md
-  - docs/40-Functions/FN-xxx.md
+  - docs/obsidian-vault/10-PRD/PRD-xxx.md
+  - docs/obsidian-vault/20-Features/FEAT-xxx.md
+  - docs/obsidian-vault/40-Functions/FN-xxx.md
 estimate_hours: <number>
 risk_level: <low | medium | high>
 ---
@@ -87,12 +87,12 @@ risk_level: <low | medium | high>
 # <Task title>
 
 ## Vault Context Read
-- docs/00-Index/IMPLEMENTATION-STATUS.md
-- docs/10-PRD/PRD-xxx.md (section: ...)
-- docs/20-Features/FEAT-xxx.md (FR-001, FR-002)
-- docs/40-Functions/FN-xxx.md
-- docs/70-Reference/REF-TechStack.md
-- docs/70-Reference/DesignSystem/DS-Components.md  ← ถ้า frontend/mobile
+- docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md
+- docs/obsidian-vault/10-PRD/PRD-xxx.md (section: ...)
+- docs/obsidian-vault/20-Features/FEAT-xxx.md (FR-001, FR-002)
+- docs/obsidian-vault/40-Functions/FN-xxx.md
+- docs/obsidian-vault/70-Reference/REF-TechStack.md
+- docs/obsidian-vault/70-Reference/DesignSystem/DS-Components.md  ← ถ้า frontend/mobile
 
 ## Task
 <clear one-paragraph task description>
@@ -158,7 +158,7 @@ risk_level: <low | medium | high>
 
 แสดง plan file ที่สร้าง + ข้อความ:
 
-> Plan สร้างเสร็จ: `docs/80-ImplementPlan/2026-05-20-1430-add-search-feature.md`
+> Plan สร้างเสร็จ: `docs/obsidian-vault/80-ImplementPlan/2026-05-20-1430-add-search-feature.md`
 >
 > ขั้นต่อไป:
 > - Review plan + set `status: approved` ใน frontmatter
@@ -169,7 +169,7 @@ risk_level: <low | medium | high>
 
 ## Phase 6 — Log checkin
 
-เพิ่ม entry ใน `docs/75-Checkins/<today>.md`:
+เพิ่ม entry ใน `docs/obsidian-vault/75-Checkins/<today>.md`:
 
 ```markdown
 - HH:MM — [type/plan] Created plan: 2026-05-20-1430-add-search-feature.md (status: planning)

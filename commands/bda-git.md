@@ -10,8 +10,8 @@ Commit + push ทั้ง submodules + main repo ตาม plan/fix scope ห�
 ## Trigger
 
 ```
-/bda-git --plan docs/80-ImplementPlan/<slug>.md
-/bda-git --fix docs/85-FixLog/<slug>.md
+/bda-git --plan docs/obsidian-vault/80-ImplementPlan/<slug>.md
+/bda-git --fix docs/obsidian-vault/85-FixLog/<slug>.md
 /bda-git --message "feat: add search"
 /bda-git --branch <name>
 /bda-git --status

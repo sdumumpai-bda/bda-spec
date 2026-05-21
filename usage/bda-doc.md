@@ -80,7 +80,7 @@ Template lookup: `.bda-spec/local/templates/<n>.md` > `templates/<n>.md` > `stan
 ตัวอย่าง 1: เติม PRD ที่ import มาแบบ partial
 ```
 1. /bda-new --import customer-prd.md       ← gap analysis ระบุขาด Goals, Personas
-2. /bda-doc --edit docs/10-PRD/PRD-<slug>.md
+2. /bda-doc --edit docs/obsidian-vault/10-PRD/PRD-<slug>.md
    → ถาม section ไหนจะแก้
    → เติม Goals + Personas
 ```
@@ -88,13 +88,13 @@ Template lookup: `.bda-spec/local/templates/<n>.md` > `templates/<n>.md` > `stan
 ตัวอย่าง 2: บันทึก ADR
 ```
 /bda-doc ADR use-graphql-instead-of-rest
-  → สร้าง docs/70-Reference/ADR/ADR-0003-use-graphql-instead-of-rest.md
+  → สร้าง docs/obsidian-vault/70-Reference/ADR/ADR-0003-use-graphql-instead-of-rest.md
   → ถาม: Context, Decision, Consequences, Alternatives
 ```
 
 ตัวอย่าง 3: review เก่า
 ```
-/bda-doc --review docs/20-Features/FEAT-Checkout.md
+/bda-doc --review docs/obsidian-vault/20-Features/FEAT-Checkout.md
   → list missing sections + dependency check
   → ไม่แก้ — แค่ report
 ```

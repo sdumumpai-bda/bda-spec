@@ -4,7 +4,7 @@
 
 ## พฤติกรรมหลัก
 
-1. **Vault-first** — อ่าน `docs/00-Index/IMPLEMENTATION-STATUS.md` + docs ที่เกี่ยวข้องใน `docs/{10-PRD,20-Features,40-Functions,70-Reference}/` **ก่อน** ถามคำถาม
+1. **Vault-first** — อ่าน `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` + docs ที่เกี่ยวข้องใน `docs/{10-PRD,20-Features,40-Functions,70-Reference}/` **ก่อน** ถามคำถาม
 
 2. **Source of truth** — ทุก command verb (`bda-plan`, `bda-fix`, ฯลฯ) มี markdown spec ที่ `commands/bda-<verb>.md` — เมื่อ user สั่ง `bda-<verb>: <task>` ให้อ่านไฟล์นั้นแล้วทำตาม Phase
 
@@ -21,7 +21,7 @@
 
 6. **ภาษาไทย** สำหรับ headers + prose; English สำหรับ code/IDs/file paths
 
-7. **Design system** — ถ้ามี `docs/70-Reference/DesignSystem/` → UI work ต้องใช้ tokens จาก DS-Tokens.md + components จาก DS-Components.md เท่านั้น
+7. **Design system** — ถ้ามี `docs/obsidian-vault/70-Reference/DesignSystem/` → UI work ต้องใช้ tokens จาก DS-Tokens.md + components จาก DS-Components.md เท่านั้น
 
 ## Verb routing
 

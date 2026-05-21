@@ -91,7 +91,7 @@ Template lookup: `templates/<name>.md` first, fallback `standards/templates/<nam
 
 ## Phase 5 — Design system bind (ถ้า doc เป็น Function/Feature ที่มี UI)
 
-ถ้า `docs/70-Reference/DesignSystem/` มีอยู่:
+ถ้า `docs/obsidian-vault/70-Reference/DesignSystem/` มีอยู่:
 - Section "UI Components Used" ใน doc → ระบุ components จาก `DS-Components.md`
 - Section "Design Tokens Used" → ระบุ tokens จาก `DS-Tokens.md`
 - Validate ว่า component ที่อ้างมีอยู่จริงใน design system

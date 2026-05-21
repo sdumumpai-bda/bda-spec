@@ -13,7 +13,7 @@
 ## Quick start
 
 ```
-/bda-implement docs/80-ImplementPlan/2026-05-21-1430-add-search.md
+/bda-implement docs/obsidian-vault/80-ImplementPlan/2026-05-21-1430-add-search.md
 ```
 
 หรือ auto-locate by slug:
@@ -59,9 +59,9 @@
 
 - Code changes (production + test files)
 - `test-artifacts/<YYYY-MM-DD>/<plan-slug>/` (raw evidence, gitignored — Tier 1)
-- `docs/90-TestPlan/evidence/<slug>/` หรือ `docs/<context>/evidence/` (curated, masked — Tier 2)
+- `docs/obsidian-vault/90-TestPlan/evidence/<slug>/` หรือ `docs/<context>/evidence/` (curated, masked — Tier 2)
 - Plan file update: `status: done` + `## Implementation Result` section
-- `docs/00-Index/IMPLEMENTATION-STATUS.md` mark feature/phase done
+- `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` mark feature/phase done
 - Checkin entry: `HH:MM — [type/implement] Completed <slug> — files: N, tests: N`
 
 ## Workflow ที่นิยม

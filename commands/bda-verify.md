@@ -35,7 +35,7 @@ model: claude-sonnet-4-6
 
 ## Phase 3 — Evidence audit
 
-ตรวจ `docs/90-TestPlan/evidence/<scope>/`:
+ตรวจ `docs/obsidian-vault/90-TestPlan/evidence/<scope>/`:
 - [ ] Manifest มี
 - [ ] Screenshot ครบตาม test plan
 - [ ] PII masked
@@ -61,14 +61,14 @@ model: claude-sonnet-4-6
 
 ## Phase 6 — Design system audit (ถ้ามี frontend/mobile)
 
-ถ้า `docs/70-Reference/DesignSystem/` มีอยู่ + scope กระทบ UI:
+ถ้า `docs/obsidian-vault/70-Reference/DesignSystem/` มีอยู่ + scope กระทบ UI:
 - เรียก /bda-design audit logic
 - ตรวจ component compliance, contrast, focus state
 - Report violations
 
 ## Phase 7 — Handoff report
 
-สร้าง `docs/95-Handoff/HOR-<YYYY-MM-DD>-<slug>.md`:
+สร้าง `docs/obsidian-vault/95-Handoff/HOR-<YYYY-MM-DD>-<slug>.md`:
 
 ```markdown
 ---
@@ -117,7 +117,7 @@ recipient: <if specific>
 
 ## Pipeline trace
 - Understand: /bda-new / /bda-plan
-- Plan: docs/80-ImplementPlan/<slug>.md
+- Plan: docs/obsidian-vault/80-ImplementPlan/<slug>.md
 - Execute: /bda-implement → subagent <name>
 - Verify: /bda-test + /bda-verify (this report)
 - Handoff: this document
@@ -126,8 +126,8 @@ recipient: <if specific>
 - (list ทุก slash command + bash command ที่รันจริง)
 
 ## Evidence Manifest
-- docs/80-ImplementPlan/<slug>.md (plan, status: done)
-- docs/90-TestPlan/evidence/<slug>/ (N screenshots, N logs)
+- docs/obsidian-vault/80-ImplementPlan/<slug>.md (plan, status: done)
+- docs/obsidian-vault/90-TestPlan/evidence/<slug>/ (N screenshots, N logs)
 - Git commits: <commit hashes>
 
 ## Limitations / Risks / Next steps

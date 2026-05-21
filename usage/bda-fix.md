@@ -19,7 +19,7 @@
 
 ตัวอย่างไฟล์ที่ได้:
 ```
-docs/85-FixLog/2026-05-21-1430-search-stuck-underscore.md
+docs/obsidian-vault/85-FixLog/2026-05-21-1430-search-stuck-underscore.md
 
 ---
 status: in-progress
@@ -35,7 +35,7 @@ area: web
 
 ```
 /bda-fix "<bug description>"
-/bda-fix <bug> --update docs/85-FixLog/<file>.md
+/bda-fix <bug> --update docs/obsidian-vault/85-FixLog/<file>.md
 ```
 
 | Flag | Default | ใช้สำหรับ |
@@ -46,7 +46,7 @@ area: web
 
 1. **Phase 1** — Detect mode (new vs --update)
 2. **Phase 2** — Diagnose (read-only): identify area, reproduce (read code preferred), grep/Read root cause, draft fix approach + test cases
-3. **Phase 3** — สร้าง fix-log `docs/85-FixLog/YYYY-MM-DD-HHMM-<slug>.md`
+3. **Phase 3** — สร้าง fix-log `docs/obsidian-vault/85-FixLog/YYYY-MM-DD-HHMM-<slug>.md`
 4. **Phase 4** — Auto-link plan: เสนอ `/bda-plan fix:<slug>` หรือ `/bda-implement --from-fix` (P3 polish เท่านั้น)
 5. **Phase 5** — Update mode (append section: investigation update, new evidence, status change)
 6. **Phase 6** — Log checkin
@@ -76,7 +76,7 @@ Body:
 
 ## Output ที่ได้
 
-- `docs/85-FixLog/YYYY-MM-DD-HHMM-<slug>.md`
+- `docs/obsidian-vault/85-FixLog/YYYY-MM-DD-HHMM-<slug>.md`
 - Before evidence files (ใน `docs/<context>/evidence/` หรือ shown path)
 - Checkin entry: `HH:MM — [type/fix-diagnose] Created fix-log: <slug> (severity: P1, area: web)`
 - **ไม่แตะโค้ด**
@@ -111,7 +111,7 @@ Body:
 
 ตัวอย่าง 3: regression
 ```
-1. /bda-fix "search ค้างอีกแล้ว" --update docs/85-FixLog/2026-05-10-search-stuck.md
+1. /bda-fix "search ค้างอีกแล้ว" --update docs/obsidian-vault/85-FixLog/2026-05-10-search-stuck.md
    → append section: "Investigation update — regressed after refactor"
    → change status: in-progress → regressed
 ```
@@ -131,7 +131,7 @@ Body:
 - ก่อน `/bda-fix`: ผู้ใช้ report bug / `/bda-test` เจอ FAIL
 - หลัง `/bda-fix`: [/bda-plan](./bda-plan.md) `fix:<slug>` → [/bda-implement](./bda-implement.md)
 - Evidence: [/bda-evidence](./bda-evidence.md) (before/after)
-- Vault path: `docs/85-FixLog/`
+- Vault path: `docs/obsidian-vault/85-FixLog/`
 - Template: `templates/fix-log.md`
 
 ## FAQ

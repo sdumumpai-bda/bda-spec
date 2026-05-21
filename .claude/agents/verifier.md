@@ -23,7 +23,7 @@ tools: Read, Glob, Grep, Bash(npm:* pnpm:* yarn:* npx:* node:* pytest:* python:*
 - **Type-check commands:** _<TBD>_
 - **Coverage tool + threshold:** _<TBD: e.g., "c8 lines>=80% branches>=70%">_
 - **Known flaky tests:** _<TBD: ถ้าทีม maintain list — grep `@flaky` หรือ `skip(flaky)`>_
-- **Evidence root:** `docs/90-TestPlan/evidence/<scope>/`
+- **Evidence root:** `docs/obsidian-vault/90-TestPlan/evidence/<scope>/`
 - **CI command (mirror):** _<TBD: read `.github/workflows/*.yml` หรือ `.gitlab-ci.yml`>_
 - **Submodules to verify separately:** _<TBD: from `.bda-spec.yml` submodules>_
 - **Related agents:** test-runner (UI/E2E ที่ต้อง browser harness — different scope), security (scan PII ใน log ก่อน save), docs (sync test result กลับ FN-* doc)
@@ -48,19 +48,19 @@ tools: Read, Glob, Grep, Bash(npm:* pnpm:* yarn:* npx:* node:* pytest:* python:*
 ## §3. Read context first (vault-first rule)
 
 ก่อนรัน:
-1. `docs/00-Index/IMPLEMENTATION-STATUS.md` (เข้าใจ feature/phase scope ที่ verify)
-2. `docs/90-TestPlan/TP-*.md` ที่เกี่ยวข้องกับ scope (ถ้ามี)
-3. `docs/70-Reference/REF-TechStack.md` (รู้ version + tooling officially supported)
+1. `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` (เข้าใจ feature/phase scope ที่ verify)
+2. `docs/obsidian-vault/90-TestPlan/TP-*.md` ที่เกี่ยวข้องกับ scope (ถ้ามี)
+3. `docs/obsidian-vault/70-Reference/REF-TechStack.md` (รู้ version + tooling officially supported)
 4. Plan file ถ้าถูกเรียกจาก `/bda-implement` → `Verification` section ของ plan
 5. `.bda-spec.yml` (config: coverage threshold, submodules)
-6. Existing evidence: `docs/90-TestPlan/evidence/<recent>/` (ถ้ามี → ดูเพื่อ benchmark expected duration)
+6. Existing evidence: `docs/obsidian-vault/90-TestPlan/evidence/<recent>/` (ถ้ามี → ดูเพื่อ benchmark expected duration)
 
 ## §4. Scope rules
 
 **MAY touch:**
 - รัน command ตาม allowlist ใน frontmatter `tools:` Bash list
-- เขียน evidence ที่ `docs/90-TestPlan/evidence/<scope>/<command>.log` (+ `coverage-summary.json`, `junit.xml` ถ้ามี)
-- เขียน `docs/90-TestPlan/evidence/<scope>/manifest.json` (PII flags, retry history)
+- เขียน evidence ที่ `docs/obsidian-vault/90-TestPlan/evidence/<scope>/<command>.log` (+ `coverage-summary.json`, `junit.xml` ถ้ามี)
+- เขียน `docs/obsidian-vault/90-TestPlan/evidence/<scope>/manifest.json` (PII flags, retry history)
 - อ่าน source ทุกไฟล์เพื่อ understand failure (read-only)
 
 **MUST NOT touch:**
@@ -157,7 +157,7 @@ Compare กับ `coverage-summary.json.base` (จาก git base) ถ้าม
 
 ### Phase 6 — Build evidence manifest
 
-`docs/90-TestPlan/evidence/<scope>/manifest.json`:
+`docs/obsidian-vault/90-TestPlan/evidence/<scope>/manifest.json`:
 ```json
 {
   "scope": "<plan-slug หรือ commit-range>",
@@ -183,7 +183,7 @@ Compare กับ `coverage-summary.json.base` (จาก git base) ถ้าม
 
 **Tier 2 — Curated (vault, gitTracked)**
 - ห้ามเขียนตรง — ต้องผ่าน `/bda-evidence` command (จัดการ PII mask + safe-to-share confirm)
-- Final location: `docs/<context-folder>/<slug>/evidence/` (e.g., `docs/80-ImplementPlan/<plan-slug>.evidence/` หรือ `docs/40-Functions/<surface>/<role>/<FN-slug>/evidence/`)
+- Final location: `docs/<context-folder>/<slug>/evidence/` (e.g., `docs/obsidian-vault/80-ImplementPlan/<plan-slug>.evidence/` หรือ `docs/obsidian-vault/40-Functions/<surface>/<role>/<FN-slug>/evidence/`)
 - Manifest at `evidence-manifest.md` per context folder
 
 **Tier 3 — Shared (cloud)**
@@ -218,7 +218,7 @@ Compare กับ `coverage-summary.json.base` (จาก git base) ถ้าม
 - Exit: 0
 - Duration: 12s
 - Errors: 0
-- Evidence: docs/90-TestPlan/evidence/<scope>/typecheck.log
+- Evidence: docs/obsidian-vault/90-TestPlan/evidence/<scope>/typecheck.log
 
 #### Lint — eslint .
 - Exit: 1

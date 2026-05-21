@@ -50,7 +50,7 @@
 ## ขั้นตอนภายใน (Phase summary)
 
 1. **Phase 0** — Resolve config + detect ช่วงเวลา + suggest section
-2. **Phase 1** — สร้างไฟล์ `docs/75-Checkins/<YYYY-MM-DD>.md` (ถ้ายังไม่มี)
+2. **Phase 1** — สร้างไฟล์ `docs/obsidian-vault/75-Checkins/<YYYY-MM-DD>.md` (ถ้ายังไม่มี)
 3. **Phase 2** — Morning: gather context (เมื่อวาน carry-over, in-progress plan/fix) → batch 3 questions → fill section 1
 4. **Phase 3** — Midday: read morning + git activity → batch 3 questions → fill section 2
 5. **Phase 4** — Note: append timestamped entry (ไม่ overwrite)
@@ -72,7 +72,7 @@
 ## Output ที่ได้
 
 ```
-docs/75-Checkins/<YYYY-MM-DD>.md   ← 1 ไฟล์/วัน, 5 sections
+docs/obsidian-vault/75-Checkins/<YYYY-MM-DD>.md   ← 1 ไฟล์/วัน, 5 sections
 
 Section 1. Morning — Goals & Plan
 Section 2. Midday — Progress
@@ -138,7 +138,7 @@ Mirror (ถ้า set `daily_log_mirror`):
 - ก่อน `/bda-checkin end`: [/bda-upload](./bda-upload.md) (มี gdrive_link), [/bda-implement](./bda-implement.md) (plan status updates)
 - หลัง `/bda-checkin end`: mirror file ส่งให้ผู้บริหาร / `git push` ไป repo
 - Template: `standards/templates/daily-log-v5.md` (จาก thai-cleft)
-- Vault path: `docs/75-Checkins/`
+- Vault path: `docs/obsidian-vault/75-Checkins/`
 
 ## FAQ
 

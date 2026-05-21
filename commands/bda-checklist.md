@@ -95,7 +95,7 @@ Examples สำหรับ `security`:
 
 ## Phase 3 — Write file
 
-Path: `docs/95-Handoff/checklists/<domain>-<scope>-<YYYY-MM-DD>.md`
+Path: `docs/obsidian-vault/95-Handoff/checklists/<domain>-<scope>-<YYYY-MM-DD>.md`
 
 หรือ append ถ้า `--append`
 

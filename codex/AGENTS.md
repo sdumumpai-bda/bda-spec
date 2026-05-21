@@ -32,7 +32,7 @@ bda-spec มี 13 commands ที่ source-of-truth อยู่ที่ `com
 
 ## Universal rules (จาก BDA AI Dev Standard)
 
-1. **Vault-first** — อ่าน `docs/00-Index/IMPLEMENTATION-STATUS.md` + relevant docs ก่อนถามคำถาม
+1. **Vault-first** — อ่าน `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` + relevant docs ก่อนถามคำถาม
 2. **5 mandatory output sections** ทุก response:
    - BDA Standard files used
    - Pipeline trace: Understand → Plan → Execute → Verify → Handoff

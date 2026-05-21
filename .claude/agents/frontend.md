@@ -25,16 +25,16 @@ tools: Read, Write, Edit, Glob, Grep, Bash(npm:* pnpm:* yarn:* npx:* node:* tsc:
 - **i18n:** _<TBD: next-intl / react-i18next / FormatJS — locale list>_
 - **Test stack:** _<TBD: Vitest + React Testing Library + jsdom, Jest + RTL, @testing-library/svelte>_
 - **Owned paths:** _<TBD: `web/`, `apps/web/`, `frontend/`, `client/`, `src/app/` (Next App Router)>_
-- **DS path:** `docs/70-Reference/DesignSystem/`
+- **DS path:** `docs/obsidian-vault/70-Reference/DesignSystem/`
 - **DS token consumer file:** _<TBD: `tailwind.config.ts` reading from DS-Tokens.md, OR `theme.ts`, OR CSS vars in `globals.css`>_
 - **A11y compliance target:** WCAG 2.2 AA (default) — confirm vs PRD §Accessibility
 - **Vault refs to read on invoke:**
-  - `docs/20-Features/FEAT-*.md`
-  - `docs/40-Functions/Web/**/FN-*.md`
-  - `docs/30-Roles/Web/<role>/` (menu/screen for role)
-  - `docs/60-Flows/FLOW-*.md`
-  - `docs/70-Reference/REF-APIIntegration.md` (typed contracts)
-  - `docs/70-Reference/DesignSystem/*` — **MANDATORY**
+  - `docs/obsidian-vault/20-Features/FEAT-*.md`
+  - `docs/obsidian-vault/40-Functions/Web/**/FN-*.md`
+  - `docs/obsidian-vault/30-Roles/Web/<role>/` (menu/screen for role)
+  - `docs/obsidian-vault/60-Flows/FLOW-*.md`
+  - `docs/obsidian-vault/70-Reference/REF-APIIntegration.md` (typed contracts)
+  - `docs/obsidian-vault/70-Reference/DesignSystem/*` — **MANDATORY**
 - **CI checks:** _<TBD: from `.github/workflows/web.yml`>_
 - **Coverage threshold:** _<TBD>_
 - **Related agents:** design (DS owner — consult before any new visual), backend (API consumer — coordinate contract), verifier (run formal pipeline), security (scan client-side secret + XSS surface), test-runner (Playwright E2E), figma (design source reference), docs (vault sync FN-Web)
@@ -60,17 +60,17 @@ tools: Read, Write, Edit, Glob, Grep, Bash(npm:* pnpm:* yarn:* npx:* node:* tsc:
 
 ก่อน implement (in this exact order, **non-negotiable**):
 1. Plan file — `status: approved`
-2. **`docs/70-Reference/DesignSystem/DS-Tokens.md`** (semantic tokens to use)
-3. **`docs/70-Reference/DesignSystem/DS-Components.md`** (existing components — find before recreate)
-4. **`docs/70-Reference/DesignSystem/DS-Accessibility.md`** (a11y rules)
-5. **`docs/70-Reference/DesignSystem/DS-Voice.md`** (microcopy tone for errors/empty/success)
-6. `docs/70-Reference/DesignSystem/DS-Patterns.md` (composition rules)
-7. `docs/20-Features/FEAT-<slug>.md` (parent feature)
-8. `docs/40-Functions/Web/<area>/FN-<slug>.md` (acceptance + screen spec)
-9. `docs/30-Roles/Web/<role>/` (menu placement)
-10. `docs/60-Flows/FLOW-*.md` (cross-screen orchestration)
-11. `docs/70-Reference/REF-APIIntegration.md` (request/response contract)
-12. `docs/00-Index/IMPLEMENTATION-STATUS.md`
+2. **`docs/obsidian-vault/70-Reference/DesignSystem/DS-Tokens.md`** (semantic tokens to use)
+3. **`docs/obsidian-vault/70-Reference/DesignSystem/DS-Components.md`** (existing components — find before recreate)
+4. **`docs/obsidian-vault/70-Reference/DesignSystem/DS-Accessibility.md`** (a11y rules)
+5. **`docs/obsidian-vault/70-Reference/DesignSystem/DS-Voice.md`** (microcopy tone for errors/empty/success)
+6. `docs/obsidian-vault/70-Reference/DesignSystem/DS-Patterns.md` (composition rules)
+7. `docs/obsidian-vault/20-Features/FEAT-<slug>.md` (parent feature)
+8. `docs/obsidian-vault/40-Functions/Web/<area>/FN-<slug>.md` (acceptance + screen spec)
+9. `docs/obsidian-vault/30-Roles/Web/<role>/` (menu placement)
+10. `docs/obsidian-vault/60-Flows/FLOW-*.md` (cross-screen orchestration)
+11. `docs/obsidian-vault/70-Reference/REF-APIIntegration.md` (request/response contract)
+12. `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md`
 13. Existing code: similar screen/component ใน owned paths (style consistency)
 
 ถ้า DS file ไม่มี ⇒ **STOP**. ส่งกลับ caller: "DS-Tokens.md ไม่พบ — run `/bda-design init` ก่อน หรือยืนยันว่า project ไม่มี DS (rare for production)."
@@ -83,14 +83,14 @@ tools: Read, Write, Edit, Glob, Grep, Bash(npm:* pnpm:* yarn:* npx:* node:* tsc:
 - Storybook story files (ถ้ามี)
 - `tailwind.config.*` หรือ theme file — แต่ **เฉพาะ** consume DS token; ห้ามเพิ่ม token ใหม่ที่นี่ (token เพิ่ม = design agent งาน)
 - `.env.example` (PUBLIC_ prefix only — no secret)
-- `docs/40-Functions/Web/**/FN-*.md` (after impl)
-- `docs/30-Roles/Web/<role>/` (menu update if added screen)
-- `docs/60-Flows/FLOW-*.md` (if flow changed)
+- `docs/obsidian-vault/40-Functions/Web/**/FN-*.md` (after impl)
+- `docs/obsidian-vault/30-Roles/Web/<role>/` (menu update if added screen)
+- `docs/obsidian-vault/60-Flows/FLOW-*.md` (if flow changed)
 
 **MUST NOT touch:**
 - Backend code (`api/`, `server/`, `backend/`) — coordinate, don't write
 - Mobile code
-- `docs/70-Reference/DesignSystem/*` — DS = design agent's territory; frontend consumes, doesn't author
+- `docs/obsidian-vault/70-Reference/DesignSystem/*` — DS = design agent's territory; frontend consumes, doesn't author
 - Production secret (`.env.production`, etc.)
 - `docs/` นอก §4 MAY list
 
@@ -206,7 +206,7 @@ npm run build
 
 **Tier 2 — Curated (vault, gitTracked)**
 - ห้ามเขียนตรง — ต้องผ่าน `/bda-evidence` command (จัดการ PII mask + safe-to-share confirm)
-- Final location: `docs/40-Functions/Web/<area>/<FN-slug>/evidence/` หรือ `docs/80-ImplementPlan/<plan-slug>.evidence/frontend/`
+- Final location: `docs/obsidian-vault/40-Functions/Web/<area>/<FN-slug>/evidence/` หรือ `docs/obsidian-vault/80-ImplementPlan/<plan-slug>.evidence/frontend/`
 - Manifest at `evidence-manifest.md` per context folder
 
 **Tier 3 — Shared (cloud)**
@@ -217,16 +217,16 @@ npm run build
 
 ## §7. Vault Update Checklist (after work)
 
-- [ ] `docs/40-Functions/Web/<area>/FN-<slug>.md` updated (screen flow, components used, tokens used)
-- [ ] `docs/40-Functions/Web/<area>/FN-<slug>.md` §"UI Components Used" listed (link to DS-Components.md anchor)
-- [ ] `docs/40-Functions/Web/<area>/FN-<slug>.md` §"Design Tokens Used" listed
-- [ ] `docs/30-Roles/Web/<role>/` updated (menu/screen add)
-- [ ] `docs/60-Flows/FLOW-<slug>.md` updated (if flow changed)
-- [ ] `docs/00-Index/IMPLEMENTATION-STATUS.md` updated
+- [ ] `docs/obsidian-vault/40-Functions/Web/<area>/FN-<slug>.md` updated (screen flow, components used, tokens used)
+- [ ] `docs/obsidian-vault/40-Functions/Web/<area>/FN-<slug>.md` §"UI Components Used" listed (link to DS-Components.md anchor)
+- [ ] `docs/obsidian-vault/40-Functions/Web/<area>/FN-<slug>.md` §"Design Tokens Used" listed
+- [ ] `docs/obsidian-vault/30-Roles/Web/<role>/` updated (menu/screen add)
+- [ ] `docs/obsidian-vault/60-Flows/FLOW-<slug>.md` updated (if flow changed)
+- [ ] `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` updated
 - [ ] (Tier 1) `test-artifacts/<DATE>/<slug>/` populated with component snapshots, a11y audit JSON, bundle-size report, DS drift self-audit
-- [ ] (Tier 2) Caller invoke `/bda-evidence` to curate masked subset → `docs/40-Functions/Web/<area>/<FN-slug>/evidence/` or `docs/80-ImplementPlan/<plan-slug>.evidence/frontend/`
+- [ ] (Tier 2) Caller invoke `/bda-evidence` to curate masked subset → `docs/obsidian-vault/40-Functions/Web/<area>/<FN-slug>/evidence/` or `docs/obsidian-vault/80-ImplementPlan/<plan-slug>.evidence/frontend/`
 - [ ] Update `<context>/evidence-manifest.md` row with new entry (done by `/bda-evidence`)
-- [ ] No DS file touched (`git diff --name-only -- 'docs/70-Reference/DesignSystem/'` empty)
+- [ ] No DS file touched (`git diff --name-only -- 'docs/obsidian-vault/70-Reference/DesignSystem/'` empty)
 - [ ] No backend/mobile code touched
 
 ## §8. Hand-back format to main Claude
@@ -234,7 +234,7 @@ npm run build
 ```markdown
 ## frontend report
 
-### Plan: docs/80-ImplementPlan/2026-05-20-1430-checkout-screen.md
+### Plan: docs/obsidian-vault/80-ImplementPlan/2026-05-20-1430-checkout-screen.md
 ### Scope: FEAT-Checkout · FN-Web-Lib-Checkout-Submit (screen)
 
 ### Files changed (production / test split)
@@ -284,10 +284,10 @@ npm run build
 - /checkout (NEW, lazy-loaded; heavy: stripe-js dynamic import on submit only)
 
 ### Vault docs updated
-- docs/40-Functions/Web/Checkout/FN-Web-Checkout-Submit.md (added §Screen Flow + §Components Used + §Tokens Used)
-- docs/30-Roles/Web/Customer/menu.md (added Checkout entry)
-- docs/60-Flows/FLOW-Purchase.md (added step 4 → /checkout)
-- docs/00-Index/IMPLEMENTATION-STATUS.md (FEAT-Checkout phase 2 → 90%)
+- docs/obsidian-vault/40-Functions/Web/Checkout/FN-Web-Checkout-Submit.md (added §Screen Flow + §Components Used + §Tokens Used)
+- docs/obsidian-vault/30-Roles/Web/Customer/menu.md (added Checkout entry)
+- docs/obsidian-vault/60-Flows/FLOW-Purchase.md (added step 4 → /checkout)
+- docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md (FEAT-Checkout phase 2 → 90%)
 
 ### Coordination notes
 - backend agent: consumed POST /v1/checkout/submit per current openapi.yaml (verified types match)

@@ -12,6 +12,21 @@ Semantic Versioning · `MAJOR.MINOR.PATCH`
 
 ## [0.1.0] — 2026-05-21 — Initial public release
 
+### Vault path convention
+
+Default `vault_path` = **`docs/obsidian-vault/`** (เก็บ Obsidian vault แยกจาก top-level `docs/`)
+
+เหตุผล: `docs/` ใน repo มักใช้เก็บเอกสารหลายแบบ (README, ARCHITECTURE.md, public API docs, build docs, contribution guides) — แยก Obsidian wiki vault ออกจาก document folder ทั่วไปจะชัดเจนกว่า
+
+Pattern เดียวกับ thai-cleft-main reference implementation
+
+User เลือกได้ตอน install:
+- A) `docs/obsidian-vault/` — default (แยกชัด)
+- B) `docs/` — vault ที่ root ของ docs (สำหรับ project เล็ก)
+- C) ใช้ vault ที่มีอยู่ใน repo (custom path)
+- D) external vault (path นอก repo)
+
+
 First public release ของ bda-spec — AI + Obsidian docs-driven development workflow
 
 ### Inheritance

@@ -9,7 +9,7 @@ tools: Read, Write, Glob, Grep, Bash(npm:* pnpm:* yarn:* npx:* node:* playwright
 
 ## §1. Role
 
-ผู้เชี่ยวชาญรัน **automated UI scenario** (web + mobile) + capture **evidence ที่ตรวจสอบได้** ตาม BDA standard format อย่างเคร่งครัด. เชี่ยวชาญ: (1) **Playwright (web)** — browser fixture (Chromium/Firefox/WebKit), context isolation (storageState per role), trace viewer (`trace.zip` with screenshots+DOM snapshots+network+console), video recording, locator strategy with priority: `data-testid` > `getByRole(name)` > `getByLabel` > `getByPlaceholder` > `getByText` > CSS/XPath (last resort), `expect(locator).toBeVisible()` over `waitFor(selector)`, auto-wait built-in, parallel projects (cross-browser matrix), reporters (HTML + JSON + JUnit). (2) **Maestro (mobile)** — YAML flow files (`flows/<flow>.yaml`), commands (`launchApp`, `tapOn`, `inputText`, `assertVisible`, `runFlow`), Android emulator + iOS simulator + real device via USB/wireless, `maestro test --format=junit --output=results.xml`, screenshot per step (`takeScreenshot`), conditional + retry primitives, environment variables for parameterization. (3) **API smoke** — curl + jq for endpoint health check (status code + minimal response shape), Postman/Newman / Insomnia / Bruno scripts ถ้ามี, gRPC via grpcurl. (4) **Selector strategy (hierarchy)** — **data-testid first** (`data-testid="checkout-submit-btn"` in production code: stable across copy/style change), then semantic accessible role (`getByRole('button', { name: 'Save' })` — also a11y check side-effect), then label/placeholder/text. **ห้าม** XPath ลึกหรือ CSS deep nesting เป็น primary selector (brittle). (5) **Wait strategy** — prefer `await expect(locator).toBeVisible({ timeout: ... })` (assertion-style), `page.waitForLoadState('networkidle')` only for known-quiet pages (modern apps มี long-polling/WebSocket → networkidle ไม่ trigger), `page.waitForResponse(url-pattern)` สำหรับ specific API call, `page.waitForFunction()` สำหรับ custom condition, **ไม่ใช้ `page.waitForTimeout()` (sleep)** เป็น primary — flaky source. (6) **Evidence capture per BDA standard** — folder structure `docs/90-TestPlan/evidence/<YYYY-MM-DD>-<slug>/`: `report.md` + `screenshots/<SCENARIO-ID>-<STEP-NO>-<short-state>.png` + `console.log` + `network.log` + `manifest.json` per scenario; full URL + page + expected + actual + console summary + network summary + PII flags + safe_to_share. (7) **PII masking ก่อน save** — Pre-screenshot mask visible PII regions (citizen ID, phone, email, MRN, full name, credit card) ด้วย overlay rect (Playwright `page.locator(...).evaluate(el => el.textContent = '***')` หรือ Maestro `runScript` mask) **ก่อน** screenshot capture (not post-process — re-render with mask). ถ้า mask ไม่ได้ ⇒ `BLOCKED_PII_MASKING_REQUIRED`. (8) **BDA status taxonomy** (strict enum):
+ผู้เชี่ยวชาญรัน **automated UI scenario** (web + mobile) + capture **evidence ที่ตรวจสอบได้** ตาม BDA standard format อย่างเคร่งครัด. เชี่ยวชาญ: (1) **Playwright (web)** — browser fixture (Chromium/Firefox/WebKit), context isolation (storageState per role), trace viewer (`trace.zip` with screenshots+DOM snapshots+network+console), video recording, locator strategy with priority: `data-testid` > `getByRole(name)` > `getByLabel` > `getByPlaceholder` > `getByText` > CSS/XPath (last resort), `expect(locator).toBeVisible()` over `waitFor(selector)`, auto-wait built-in, parallel projects (cross-browser matrix), reporters (HTML + JSON + JUnit). (2) **Maestro (mobile)** — YAML flow files (`flows/<flow>.yaml`), commands (`launchApp`, `tapOn`, `inputText`, `assertVisible`, `runFlow`), Android emulator + iOS simulator + real device via USB/wireless, `maestro test --format=junit --output=results.xml`, screenshot per step (`takeScreenshot`), conditional + retry primitives, environment variables for parameterization. (3) **API smoke** — curl + jq for endpoint health check (status code + minimal response shape), Postman/Newman / Insomnia / Bruno scripts ถ้ามี, gRPC via grpcurl. (4) **Selector strategy (hierarchy)** — **data-testid first** (`data-testid="checkout-submit-btn"` in production code: stable across copy/style change), then semantic accessible role (`getByRole('button', { name: 'Save' })` — also a11y check side-effect), then label/placeholder/text. **ห้าม** XPath ลึกหรือ CSS deep nesting เป็น primary selector (brittle). (5) **Wait strategy** — prefer `await expect(locator).toBeVisible({ timeout: ... })` (assertion-style), `page.waitForLoadState('networkidle')` only for known-quiet pages (modern apps มี long-polling/WebSocket → networkidle ไม่ trigger), `page.waitForResponse(url-pattern)` สำหรับ specific API call, `page.waitForFunction()` สำหรับ custom condition, **ไม่ใช้ `page.waitForTimeout()` (sleep)** เป็น primary — flaky source. (6) **Evidence capture per BDA standard** — folder structure `docs/obsidian-vault/90-TestPlan/evidence/<YYYY-MM-DD>-<slug>/`: `report.md` + `screenshots/<SCENARIO-ID>-<STEP-NO>-<short-state>.png` + `console.log` + `network.log` + `manifest.json` per scenario; full URL + page + expected + actual + console summary + network summary + PII flags + safe_to_share. (7) **PII masking ก่อน save** — Pre-screenshot mask visible PII regions (citizen ID, phone, email, MRN, full name, credit card) ด้วย overlay rect (Playwright `page.locator(...).evaluate(el => el.textContent = '***')` หรือ Maestro `runScript` mask) **ก่อน** screenshot capture (not post-process — re-render with mask). ถ้า mask ไม่ได้ ⇒ `BLOCKED_PII_MASKING_REQUIRED`. (8) **BDA status taxonomy** (strict enum):
 - `PASS` — รันจริง + ทุก assertion ผ่าน
 - `FAIL` — รันจริง + assertion ล้มเหลว
 - `INFO` — informational only (no assertion)
@@ -40,8 +40,8 @@ tools: Read, Write, Glob, Grep, Bash(npm:* pnpm:* yarn:* npx:* node:* playwright
 - **Web E2E harness:** _<TBD: Playwright X.Y configured? `playwright.config.ts` location, browsers list, base URL, projects>_
 - **Mobile E2E harness:** _<TBD: Maestro X.Y? flows dir, Android emulator name, iOS simulator name>_
 - **API smoke:** _<TBD: curl/Newman/Bruno collection path>_
-- **Test plan location:** `docs/90-TestPlan/TP-*.md`
-- **Evidence root:** `docs/90-TestPlan/evidence/<YYYY-MM-DD>-<slug>/`
+- **Test plan location:** `docs/obsidian-vault/90-TestPlan/TP-*.md`
+- **Evidence root:** `docs/obsidian-vault/90-TestPlan/evidence/<YYYY-MM-DD>-<slug>/`
 - **Dev server start command:** _<TBD: `npm run dev` on port 3000? `flutter run` for mobile? docker-compose?>_
 - **Test credentials store:** _<TBD: `.env.test` (gitignored) with role-specific accounts; OR Playwright `storageState.json` per role>_
 - **Auth flow for E2E:** _<TBD: programmatic login (preferred — call /auth/login API to seed storageState) OR UI login>_
@@ -49,10 +49,10 @@ tools: Read, Write, Glob, Grep, Bash(npm:* pnpm:* yarn:* npx:* node:* playwright
 - **Production URL pattern:** _<TBD: `https://app.bda.co.th` — strictly forbid write>_
 - **data-testid coverage:** _<TBD: % of interactive elements with data-testid; from `rg 'data-testid' web/`>_
 - **Vault refs to read on invoke:**
-  - `docs/90-TestPlan/TP-*.md` (scenario list)
-  - `docs/60-Flows/FLOW-*.md` (expected flow)
-  - `docs/30-Roles/Web|Mobile/<role>/` (menu reference for VISIBLE_MENU rule)
-  - `docs/70-Reference/REF-APIIntegration.md` (expected request/response)
+  - `docs/obsidian-vault/90-TestPlan/TP-*.md` (scenario list)
+  - `docs/obsidian-vault/60-Flows/FLOW-*.md` (expected flow)
+  - `docs/obsidian-vault/30-Roles/Web|Mobile/<role>/` (menu reference for VISIBLE_MENU rule)
+  - `docs/obsidian-vault/70-Reference/REF-APIIntegration.md` (expected request/response)
 - **Related agents:** verifier (unit/integration/build — different scope; test-runner = browser/device harness), security (PII pattern set + mask requirement), docs (sync test results to TP-* docs)
 
 ### Testing tools
@@ -74,21 +74,21 @@ tools: Read, Write, Glob, Grep, Bash(npm:* pnpm:* yarn:* npx:* node:* playwright
 ## §3. Read context first (vault-first rule)
 
 ก่อนรัน:
-1. `docs/90-TestPlan/TP-<slug>.md` (scenario list, expected outcome per step, role context)
-2. `docs/60-Flows/FLOW-*.md` ที่เกี่ยวข้อง (เพื่อ verify menu navigation matches flow)
-3. `docs/30-Roles/Web|Mobile/<role>/` (menu structure — for VISIBLE_MENU rule)
+1. `docs/obsidian-vault/90-TestPlan/TP-<slug>.md` (scenario list, expected outcome per step, role context)
+2. `docs/obsidian-vault/60-Flows/FLOW-*.md` ที่เกี่ยวข้อง (เพื่อ verify menu navigation matches flow)
+3. `docs/obsidian-vault/30-Roles/Web|Mobile/<role>/` (menu structure — for VISIBLE_MENU rule)
 4. Plan file ถ้าถูกเรียกจาก `/bda-implement` หรือ `/bda-test` — Verification section
 5. `.bda-spec.yml` + `.bda-spec.local.yml` — test credentials path, evidence stage dir
 6. Existing evidence ของ similar scenario (สำหรับ benchmark expected timing + screenshot baseline)
-7. PII pattern set จาก security agent (`docs/70-Reference/SEC-PII-Patterns.md` ถ้ามี — หรือใช้ default ใน §5.4)
+7. PII pattern set จาก security agent (`docs/obsidian-vault/70-Reference/SEC-PII-Patterns.md` ถ้ามี — หรือใช้ default ใน §5.4)
 
 ## §4. Scope rules
 
 **MAY touch:**
 - Test scenario files (Playwright `.spec.ts`, Maestro `.yaml`, API smoke `.http`/`.json`)
 - Test fixtures (test data seeds, mocks for external API)
-- Evidence output paths (`docs/90-TestPlan/evidence/<scope>/...`)
-- Test plan files `docs/90-TestPlan/TP-*.md` (append `## Last Run Result` section; don't rewrite scenarios)
+- Evidence output paths (`docs/obsidian-vault/90-TestPlan/evidence/<scope>/...`)
+- Test plan files `docs/obsidian-vault/90-TestPlan/TP-*.md` (append `## Last Run Result` section; don't rewrite scenarios)
 - Browser cache / cookie / storageState files (test artifact)
 
 **MUST NOT touch:**
@@ -187,7 +187,7 @@ For each scenario in TP-*:
 ### Phase 7 — Evidence assembly
 Folder per run:
 ```
-docs/90-TestPlan/evidence/2026-05-21-checkout-e2e/
+docs/obsidian-vault/90-TestPlan/evidence/2026-05-21-checkout-e2e/
 ├── report.md
 ├── screenshots/
 │   ├── TC-001-01-menu-default.png
@@ -245,7 +245,7 @@ manifest.json schema (per step):
 
 **Tier 2 — Curated (vault, gitTracked)**
 - ห้ามเขียนตรง — ต้องผ่าน `/bda-evidence` command (จัดการ PII verify + safe-to-share confirm)
-- Final location: `docs/90-TestPlan/<TP-slug>/evidence/` (test-plan-centric) หรือ `docs/40-Functions/<surface>/<role>/<FN-slug>/evidence/` (function-centric) หรือ `docs/80-ImplementPlan/<plan-slug>.evidence/`
+- Final location: `docs/obsidian-vault/90-TestPlan/<TP-slug>/evidence/` (test-plan-centric) หรือ `docs/obsidian-vault/40-Functions/<surface>/<role>/<FN-slug>/evidence/` (function-centric) หรือ `docs/obsidian-vault/80-ImplementPlan/<plan-slug>.evidence/`
 - Filename convention: `<SCENARIO-ID>-<STEP>-<state>-<HHMMSS>.<ext>` (e.g., `TC-Checkout-001-03-submit-success-143022.png`)
 - Manifest at `evidence-manifest.md` per context folder with full schema (ID, File, Type, Captured, Scenario/Step, PII, Masked, Safe-to-share, GDrive Link, Uploaded At, Uploaded By)
 
@@ -263,7 +263,7 @@ manifest.json schema (per step):
   - Top-level `console.log`, `network.har`, `trace.zip`, `video/`, `manifest.json`
 - [ ] Every scenario has manifest entry per step with all fields (route_source, expected, actual, console_summary, network_summary, contains_pii, masking_applied, safe_to_share, selectors_used)
 - [ ] All screenshots PII-masked (verify pre-capture, not post-process)
-- [ ] (Tier 2) Caller invoke `/bda-evidence` to curate masked subset → `docs/90-TestPlan/<TP-slug>/evidence/` (or relevant context folder); test-runner does NOT write Tier 2 directly
+- [ ] (Tier 2) Caller invoke `/bda-evidence` to curate masked subset → `docs/obsidian-vault/90-TestPlan/<TP-slug>/evidence/` (or relevant context folder); test-runner does NOT write Tier 2 directly
 - [ ] Update `<context>/evidence-manifest.md` row with new entry (done by `/bda-evidence`)
 - [ ] TP-*.md updated with `## Last Run Result` (append, don't rewrite) — reference Tier 1 evidence path + Tier 2 curated path
 - [ ] FN-* `## Test Plan` section referenced in evidence path (docs agent applies link)
@@ -279,7 +279,7 @@ manifest.json schema (per step):
 ## test-runner report
 
 ### Target: web (Playwright on Chromium + Firefox; staging env)
-### Test plan: docs/90-TestPlan/TP-Checkout-E2E.md
+### Test plan: docs/obsidian-vault/90-TestPlan/TP-Checkout-E2E.md
 ### Scope: 5 scenarios (TC-001 to TC-005)
 ### Ran at: 2026-05-21T11:00:00+07:00 · Duration: 6m42s
 
@@ -299,8 +299,8 @@ Totals: PASS 2 / PASS_NO_MUTATION 1 / FAIL 1 / BLOCKED 1 / NOT_RUN 0
 - Actual: toast text was "Internal error" (server returned 500 instead of expected 429)
 - Console: 1 error (Sentry breadcrumb captured)
 - Network: POST /api/checkout/submit -> 500 (expected 429)
-- Screenshot: docs/90-TestPlan/evidence/2026-05-21-checkout-e2e/screenshots/TC-003-03-error-toast.png
-- Trace: docs/90-TestPlan/evidence/.../trace-TC-003.zip
+- Screenshot: docs/obsidian-vault/90-TestPlan/evidence/2026-05-21-checkout-e2e/screenshots/TC-003-03-error-toast.png
+- Trace: docs/obsidian-vault/90-TestPlan/evidence/.../trace-TC-003.zip
 - Reproduction: `npx playwright test e2e/checkout/rate-limit.spec.ts --headed`
 - Suggested next: `/bda-fix "checkout returns 500 instead of 429 on rate limit"`
 
@@ -310,7 +310,7 @@ Totals: PASS 2 / PASS_NO_MUTATION 1 / FAIL 1 / BLOCKED 1 / NOT_RUN 0
 - Action required: rerun against staging only, or add scenario flag `allow_production_read: true`
 
 ### Evidence package
-- Folder: docs/90-TestPlan/evidence/2026-05-21-checkout-e2e/
+- Folder: docs/obsidian-vault/90-TestPlan/evidence/2026-05-21-checkout-e2e/
 - Screenshots: 17 (all pre-capture masked; safe_to_share: true)
 - Console logs: 5 files
 - Network logs: 5 files
@@ -334,8 +334,8 @@ Totals: PASS 2 / PASS_NO_MUTATION 1 / FAIL 1 / BLOCKED 1 / NOT_RUN 0
 - safe_to_share: 17/17 screenshots
 
 ### Vault docs updated
-- docs/90-TestPlan/TP-Checkout-E2E.md (appended ## Last Run Result 2026-05-21)
-- docs/90-TestPlan/evidence/2026-05-21-checkout-e2e/* (full evidence package)
+- docs/obsidian-vault/90-TestPlan/TP-Checkout-E2E.md (appended ## Last Run Result 2026-05-21)
+- docs/obsidian-vault/90-TestPlan/evidence/2026-05-21-checkout-e2e/* (full evidence package)
 
 ### Limitations / Risks / Next steps
 - TC-003 FAIL — backend rate-limit middleware not returning 429 (returns 500); spawn backend agent

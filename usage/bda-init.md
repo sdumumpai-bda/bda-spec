@@ -66,7 +66,7 @@
 - `.bda-spec.local.yml` (gitignored — personal paths)
 - `standards/VERSION` (pinned)
 - `.claude/commands/`, `.claude/agents/` (จาก installer)
-- (brownfield) PRD draft จาก README ใน `docs/10-PRD/PRD-<slug>.md`
+- (brownfield) PRD draft จาก README ใน `docs/obsidian-vault/10-PRD/PRD-<slug>.md`
 
 ## Vault location options (Phase 1.2)
 

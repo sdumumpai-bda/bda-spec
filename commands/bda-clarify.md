@@ -126,7 +126,7 @@ User ตอบ → record + ไป question ถัดไป
 
 ## Phase 5 — Log + handoff
 
-Append ใน `docs/75-Checkins/<today>.md` Notes:
+Append ใน `docs/obsidian-vault/75-Checkins/<today>.md` Notes:
 ```
 - HH:MM — [type/clarify] /bda-clarify on <target> — 5 questions resolved (1 deferred); affected: <link list>
 ```

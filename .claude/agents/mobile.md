@@ -25,16 +25,16 @@ tools: Read, Write, Edit, Glob, Grep, Bash(flutter:* dart:* pub:* npm:* pnpm:* y
 - **Push:** _<TBD: firebase_messaging / @react-native-firebase/messaging / APNs+FCM native>_
 - **CI:** _<TBD: Fastlane / EAS / Bitrise / Xcode Cloud / Codemagic>_
 - **Owned paths:** _<TBD: `mobile/`, `apps/mobile/`, `app/lib/` (Flutter), `app/src/` (RN), `ios/` + `android/` native>_
-- **DS path:** `docs/70-Reference/DesignSystem/`
+- **DS path:** `docs/obsidian-vault/70-Reference/DesignSystem/`
 - **DS theme consumer:** _<TBD: `theme/app_theme.dart` reading from DS-Tokens, OR `styles/theme.ts`, OR `Theme.swift`, OR `Theme.kt`>_
 - **A11y target:** WCAG 2.2 AA + platform-specific (VoiceOver labels mandatory, TalkBack content desc mandatory)
 - **Deep link schemes:** _<TBD: `app://`, Universal Link domains>_
 - **Vault refs to read on invoke:**
-  - `docs/40-Functions/Mobile/**/FN-*.md`
-  - `docs/30-Roles/Mobile/<role>/`
-  - `docs/60-Flows/FLOW-*.md`
-  - `docs/70-Reference/REF-APIIntegration.md`
-  - `docs/70-Reference/DesignSystem/*` — **MANDATORY**
+  - `docs/obsidian-vault/40-Functions/Mobile/**/FN-*.md`
+  - `docs/obsidian-vault/30-Roles/Mobile/<role>/`
+  - `docs/obsidian-vault/60-Flows/FLOW-*.md`
+  - `docs/obsidian-vault/70-Reference/REF-APIIntegration.md`
+  - `docs/obsidian-vault/70-Reference/DesignSystem/*` — **MANDATORY**
 - **Related agents:** design (DS owner), backend (API contract), verifier (formal pipeline), security (cert pinning + secret + offline data encryption), test-runner (Maestro flows), docs (vault sync FN-Mobile)
 
 ### Testing tools
@@ -58,15 +58,15 @@ tools: Read, Write, Edit, Glob, Grep, Bash(flutter:* dart:* pub:* npm:* pnpm:* y
 
 ก่อน implement:
 1. Plan file — `status: approved`
-2. **`docs/70-Reference/DesignSystem/DS-Tokens.md`**
-3. **`docs/70-Reference/DesignSystem/DS-Components.md`**
-4. **`docs/70-Reference/DesignSystem/DS-Accessibility.md`**
-5. **`docs/70-Reference/DesignSystem/DS-Voice.md`**
-6. `docs/40-Functions/Mobile/<area>/FN-<slug>.md`
-7. `docs/30-Roles/Mobile/<role>/` (tab/screen for role)
-8. `docs/60-Flows/FLOW-*.md`
-9. `docs/70-Reference/REF-APIIntegration.md`
-10. `docs/00-Index/IMPLEMENTATION-STATUS.md`
+2. **`docs/obsidian-vault/70-Reference/DesignSystem/DS-Tokens.md`**
+3. **`docs/obsidian-vault/70-Reference/DesignSystem/DS-Components.md`**
+4. **`docs/obsidian-vault/70-Reference/DesignSystem/DS-Accessibility.md`**
+5. **`docs/obsidian-vault/70-Reference/DesignSystem/DS-Voice.md`**
+6. `docs/obsidian-vault/40-Functions/Mobile/<area>/FN-<slug>.md`
+7. `docs/obsidian-vault/30-Roles/Mobile/<role>/` (tab/screen for role)
+8. `docs/obsidian-vault/60-Flows/FLOW-*.md`
+9. `docs/obsidian-vault/70-Reference/REF-APIIntegration.md`
+10. `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md`
 11. Existing code: similar screen ใน owned paths
 
 ถ้า DS file ไม่มี ⇒ **STOP**. ส่งกลับ caller.
@@ -79,9 +79,9 @@ tools: Read, Write, Edit, Glob, Grep, Bash(flutter:* dart:* pub:* npm:* pnpm:* y
 - iOS Info.plist (permission rationale, URL schemes, ATS exception with justification)
 - Android AndroidManifest.xml (permissions, intent filter for deep link, FCM service)
 - Build config (`pubspec.yaml`, `package.json`, `Podfile`, `build.gradle`) — version bump + dep add per plan
-- `docs/40-Functions/Mobile/**/FN-*.md` (after impl)
-- `docs/30-Roles/Mobile/<role>/`
-- `docs/60-Flows/FLOW-*.md`
+- `docs/obsidian-vault/40-Functions/Mobile/**/FN-*.md` (after impl)
+- `docs/obsidian-vault/30-Roles/Mobile/<role>/`
+- `docs/obsidian-vault/60-Flows/FLOW-*.md`
 
 **MUST NOT touch:**
 - Backend / web frontend code
@@ -220,7 +220,7 @@ xcodebuild -scheme MyApp test -destination 'platform=iOS Simulator,name=iPhone 1
 
 **Tier 2 — Curated (vault, gitTracked)**
 - ห้ามเขียนตรง — ต้องผ่าน `/bda-evidence` command (จัดการ PII mask + safe-to-share confirm — VERY IMPORTANT for mobile screenshots which often show patient/user data)
-- Final location: `docs/40-Functions/Mobile/<area>/<FN-slug>/evidence/` หรือ `docs/80-ImplementPlan/<plan-slug>.evidence/mobile/`
+- Final location: `docs/obsidian-vault/40-Functions/Mobile/<area>/<FN-slug>/evidence/` หรือ `docs/obsidian-vault/80-ImplementPlan/<plan-slug>.evidence/mobile/`
 - Manifest at `evidence-manifest.md` per context folder
 
 **Tier 3 — Shared (cloud)**
@@ -231,19 +231,19 @@ xcodebuild -scheme MyApp test -destination 'platform=iOS Simulator,name=iPhone 1
 
 ## §7. Vault Update Checklist (after work)
 
-- [ ] `docs/40-Functions/Mobile/<area>/FN-<slug>.md` updated (screen flow, widgets used, tokens used)
+- [ ] `docs/obsidian-vault/40-Functions/Mobile/<area>/FN-<slug>.md` updated (screen flow, widgets used, tokens used)
 - [ ] §"UI Components Used" + §"Design Tokens Used" sections in FN doc
 - [ ] §"Platform-specific behavior" (iOS vs Android difference noted)
 - [ ] §"Offline behavior" (if applicable)
 - [ ] §"Deep link" (if new route)
 - [ ] §"Permissions" (if new permission requested)
-- [ ] `docs/30-Roles/Mobile/<role>/` menu/tab updated
-- [ ] `docs/60-Flows/FLOW-<slug>.md` updated (if flow changed)
-- [ ] `docs/00-Index/IMPLEMENTATION-STATUS.md` updated
+- [ ] `docs/obsidian-vault/30-Roles/Mobile/<role>/` menu/tab updated
+- [ ] `docs/obsidian-vault/60-Flows/FLOW-<slug>.md` updated (if flow changed)
+- [ ] `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` updated
 - [ ] Info.plist usage descriptions updated for new permission
 - [ ] AndroidManifest permissions updated
 - [ ] (Tier 1) `test-artifacts/<DATE>/<slug>/` populated with iOS+Android screenshots, Maestro flow JSON, widget test snapshots, a11y manual results
-- [ ] (Tier 2) Caller invoke `/bda-evidence` to curate PII-masked subset → `docs/40-Functions/Mobile/<area>/<FN-slug>/evidence/` or `docs/80-ImplementPlan/<plan-slug>.evidence/mobile/`
+- [ ] (Tier 2) Caller invoke `/bda-evidence` to curate PII-masked subset → `docs/obsidian-vault/40-Functions/Mobile/<area>/<FN-slug>/evidence/` or `docs/obsidian-vault/80-ImplementPlan/<plan-slug>.evidence/mobile/`
 - [ ] Update `<context>/evidence-manifest.md` row with new entry (done by `/bda-evidence`)
 - [ ] No DS file / backend / web frontend touched
 
@@ -252,7 +252,7 @@ xcodebuild -scheme MyApp test -destination 'platform=iOS Simulator,name=iPhone 1
 ```markdown
 ## mobile report
 
-### Plan: docs/80-ImplementPlan/2026-05-20-1430-patient-visit.md
+### Plan: docs/obsidian-vault/80-ImplementPlan/2026-05-20-1430-patient-visit.md
 ### Scope: FEAT-Visit · FN-Mobile-Patient-Visit (Flutter)
 
 ### Files changed (production / test split)
@@ -316,10 +316,10 @@ xcodebuild -scheme MyApp test -destination 'platform=iOS Simulator,name=iPhone 1
 - Offline banner shown when no connectivity
 
 ### Vault docs updated
-- docs/40-Functions/Mobile/Visit/FN-Mobile-Patient-Visit.md (full update)
-- docs/30-Roles/Mobile/HCW/tabs.md (added Visit tab)
-- docs/60-Flows/FLOW-VisitRecord.md (updated mobile path)
-- docs/00-Index/IMPLEMENTATION-STATUS.md (FEAT-Visit phase 1 → 100%)
+- docs/obsidian-vault/40-Functions/Mobile/Visit/FN-Mobile-Patient-Visit.md (full update)
+- docs/obsidian-vault/30-Roles/Mobile/HCW/tabs.md (added Visit tab)
+- docs/obsidian-vault/60-Flows/FLOW-VisitRecord.md (updated mobile path)
+- docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md (FEAT-Visit phase 1 → 100%)
 
 ### Coordination notes
 - backend: consumed POST /v1/visits per openapi.yaml (verified)

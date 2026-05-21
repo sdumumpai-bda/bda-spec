@@ -9,7 +9,7 @@
 .bda-spec.cache/
 
 # Daily log destination ที่อยู่นอก repo (ถ้าคน sync ผ่าน symlink)
-docs/75-Checkins/*.local.md
+docs/obsidian-vault/75-Checkins/*.local.md
 
 # Raw test artifacts (Tier 1) — gitignored, อาจมี PII ดิบ
 # Curated copies (post-mask) อยู่ใน docs/<context>/evidence/ ของ vault
@@ -65,3 +65,7 @@ logs/
 # Test/build artifacts (ของ project — ปรับเพิ่มเองตาม stack)
 coverage/
 .nyc_output/
+
+.claude/settings.local.json
+
+.claude/settings.local.json

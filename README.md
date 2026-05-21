@@ -76,8 +76,8 @@ cd my-app
 /bda-new                                 ← brainstorm → PRD + SRS + Tech-spec
 /bda-design init                         ← (optional) design system + preview.html
 /bda-plan FEAT-X                         ← วางแผน feature
-# [user review plan ใน docs/80-ImplementPlan/, mark status: approved]
-/bda-implement docs/80-ImplementPlan/... ← ลงมือผ่าน subagent
+# [user review plan ใน docs/obsidian-vault/80-ImplementPlan/, mark status: approved]
+/bda-implement docs/obsidian-vault/80-ImplementPlan/... ← ลงมือผ่าน subagent
 /bda-test                                ← smoke test
 /bda-evidence --upload                   ← เก็บ + upload หลักฐาน
 /bda-verify                              ← handoff report
@@ -108,7 +108,7 @@ cd my-app
                                           + ccusage tokens + GDrive links
 ```
 
-ผลออกที่ `docs/75-Checkins/YYYY-MM-DD.md` (BDA Daily Log v5 schema)
+ผลออกที่ `docs/obsidian-vault/75-Checkins/YYYY-MM-DD.md` (BDA Daily Log v5 schema)
 
 ### D. Brownfield adopt (มี code อยู่แล้ว)
 

@@ -24,7 +24,7 @@ Security pre-flight
 ✅ Secret scan: clean (5 files scanned)
 ✅ PII scan: clean (12 docs scanned)
 🟡 Screenshot masking: 2 screenshots missing PII flag
-   - docs/90-TestPlan/evidence/2026-05-20-search/TC-001-03-results.png
+   - docs/obsidian-vault/90-TestPlan/evidence/2026-05-20-search/TC-001-03-results.png
 ✅ Public-repo guardrails: ok
 🟡 npm audit: 3 high-severity (express@4.17 → 4.19)
 ✅ Production guardrails: ok

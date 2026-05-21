@@ -15,7 +15,9 @@ project:
 mode: standalone
 
 # Obsidian vault location (relative to bda-spec root)
-vault_path: docs
+# Default: docs/obsidian-vault — แยกจาก docs/ เพื่อให้ docs/ เก็บเอกสารอื่นๆได้ด้วย
+# (README, ARCHITECTURE.md, public API docs, etc.)
+vault_path: docs/obsidian-vault
 
 # BDA Standard version pinned for this project
 # Bump via /bda-sync — never edit manually unless syncing

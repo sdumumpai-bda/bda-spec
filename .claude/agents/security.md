@@ -43,10 +43,10 @@ tools: Read, Glob, Grep, Bash(gitleaks:* trufflehog:* git:* rg:* find:* jq:* yq:
 ## §3. Read context first (vault-first rule)
 
 ก่อนทุก scan:
-1. `docs/00-Index/IMPLEMENTATION-STATUS.md` (scope rough)
-2. `docs/70-Reference/REF-AuthorizationMatrix.md` (auth model — primary threat surface)
-3. `docs/70-Reference/REF-APIIntegration.md` (public surface — endpoint inventory)
-4. `docs/10-PRD/PRD-*.md` §Compliance / §Privacy section (ถ้ามี — compliance regime สำคัญต่อ blocker rule)
+1. `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` (scope rough)
+2. `docs/obsidian-vault/70-Reference/REF-AuthorizationMatrix.md` (auth model — primary threat surface)
+3. `docs/obsidian-vault/70-Reference/REF-APIIntegration.md` (public surface — endpoint inventory)
+4. `docs/obsidian-vault/10-PRD/PRD-*.md` §Compliance / §Privacy section (ถ้ามี — compliance regime สำคัญต่อ blocker rule)
 5. `.security-allowlist.yml` (false positive allowlist — ต้องเคารพแต่ verify เหตุผล)
 6. `.gitleaks.toml` / `.pre-commit-config.yaml` (existing baseline)
 7. Plan file ถ้าถูกเรียกจาก `/bda-secure` → `Security Considerations` section
@@ -57,13 +57,13 @@ tools: Read, Glob, Grep, Bash(gitleaks:* trufflehog:* git:* rg:* find:* jq:* yq:
 **MAY touch (read + scan only):**
 - Source code (READ for scan; **ห้ามแก้**)
 - `docs/**` (scan PII)
-- `docs/90-TestPlan/evidence/**` (scan PII ใน screenshot manifest + log)
+- `docs/obsidian-vault/90-TestPlan/evidence/**` (scan PII ใน screenshot manifest + log)
 - Dependency manifests + lockfiles (read)
 - Git history `git log -p` (scan committed secrets)
 - `.env*` files (scan + verify gitignored)
 
 **MAY write:**
-- `docs/90-TestPlan/evidence/<scope>/security-scan.md` (report)
+- `docs/obsidian-vault/90-TestPlan/evidence/<scope>/security-scan.md` (report)
 - `.security-allowlist.yml` (proposal — caller approves)
 - Append entry to security findings log (read by `/bda-verify`)
 
@@ -83,7 +83,7 @@ tools: Read, Glob, Grep, Bash(gitleaks:* trufflehog:* git:* rg:* find:* jq:* yq:
 ## §5. Gates (must-not-skip)
 
 - **§5.1** **Secret found** → **BLOCK**. ระบุ file:line + secret type + recommended action (revoke + rotate via provider). ห้าม echo full secret string ใน hand-back (mask: prefix 4 + `***` + suffix 4)
-- **§5.2** **PII unmasked** ใน `docs/85-FixLog/`, `docs/90-TestPlan/evidence/`, `docs/95-Handoff/` → **BLOCK** ถ้าไม่มี `masking_applied: true` ใน manifest. PII = Thai national ID (with checksum match), Thai phone (mobile/landline pattern), email, MRN, credit card (Luhn match), full name + DOB combo
+- **§5.2** **PII unmasked** ใน `docs/obsidian-vault/85-FixLog/`, `docs/obsidian-vault/90-TestPlan/evidence/`, `docs/obsidian-vault/95-Handoff/` → **BLOCK** ถ้าไม่มี `masking_applied: true` ใน manifest. PII = Thai national ID (with checksum match), Thai phone (mobile/landline pattern), email, MRN, credit card (Luhn match), full name + DOB combo
 - **§5.3** **Public repo + confidential content**: remote visibility = public AND มี file/doc tagged `confidential|internal|restricted|nda` ⇒ **BLOCK**. ใช้ `gh repo view --json visibility` หรือ infer จาก HTTPS URL (best-effort + assume public if uncertain)
 - **§5.4** `.env.production`, `.env.local`, `*.pfx`, `*.p12`, `*.jks`, `serviceAccount*.json`, `*-key.json` committed to tracked files ⇒ **BLOCK**
 - **§5.5** Dependency CVE: high/critical severity in production deps ⇒ **WARN** (ไม่ block แต่ surface), critical + actively exploited (`KEV` catalog or CVSS≥9.0 with available exploit) ⇒ **BLOCK**
@@ -133,7 +133,7 @@ VIS=$(gh repo view --json visibility -q .visibility 2>/dev/null || echo "unknown
    ```
 5. **MRN/HN** — `(HN|AN|VN|MRN)[ -]?\d{4,10}`
 6. **Address Thai** — heuristic (เลขที่ + ตำบล/อำเภอ/จังหวัด) — soft flag
-7. Scan in: `docs/85-FixLog/`, `docs/90-TestPlan/evidence/**/*.{md,json,log,txt}`, `docs/95-Handoff/` + manifest.json fields
+7. Scan in: `docs/obsidian-vault/85-FixLog/`, `docs/obsidian-vault/90-TestPlan/evidence/**/*.{md,json,log,txt}`, `docs/obsidian-vault/95-Handoff/` + manifest.json fields
 
 ### Phase 4 — STRIDE lite (เมื่อมี auth/authz/data-flow change)
 สำหรับแต่ละ changed endpoint/handler/service:
@@ -178,7 +178,7 @@ trivy fs --severity HIGH,CRITICAL .
 
 **Tier 2 — Curated (vault, gitTracked)**
 - ห้ามเขียนตรง — ต้องผ่าน `/bda-evidence` command (จัดการ PII mask + safe-to-share confirm)
-- Final location: `docs/<context-folder>/<slug>/evidence/` — usually `docs/80-ImplementPlan/<plan-slug>.evidence/security/` หรือ `docs/95-Handoff/<HOR-slug>.evidence/security/`
+- Final location: `docs/<context-folder>/<slug>/evidence/` — usually `docs/obsidian-vault/80-ImplementPlan/<plan-slug>.evidence/security/` หรือ `docs/obsidian-vault/95-Handoff/<HOR-slug>.evidence/security/`
 - Curated report = summary table only; raw matches stripped or hash-redacted
 
 **Tier 3 — Shared (cloud)**
@@ -222,8 +222,8 @@ trivy fs --severity HIGH,CRITICAL .
 ### PII scan
 - Files scanned: 23 (docs + evidence)
 - Findings: 2
-  - `docs/85-FixLog/2026-05-15-patient.md:42` — Thai national ID `1-2345-67890-12-3` (checksum verified valid) → unmasked
-  - `docs/90-TestPlan/evidence/2026-05-19-search/screenshots/TC-001-03.png` — manifest `contains_pii: true` but `masking_applied: false`
+  - `docs/obsidian-vault/85-FixLog/2026-05-15-patient.md:42` — Thai national ID `1-2345-67890-12-3` (checksum verified valid) → unmasked
+  - `docs/obsidian-vault/90-TestPlan/evidence/2026-05-19-search/screenshots/TC-001-03.png` — manifest `contains_pii: true` but `masking_applied: false`
 - Verdict: BLOCKED (until masked)
 
 ### Public-repo guardrail

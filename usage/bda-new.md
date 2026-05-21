@@ -50,13 +50,13 @@
 
 ## Output ที่ได้
 
-- `docs/10-PRD/PRD-<slug>.md` — Product Requirements (status: draft)
-- `docs/10-PRD/SRS-<slug>.md` — Software Requirements (FR-001, FR-002, …)
-- `docs/70-Reference/REF-TechStack.md` — tech stack list
-- `docs/70-Reference/REF-Architecture.md` — Mermaid diagram + data model + API contracts
-- `docs/50-Phases/PHASE-1-MVP.md` — Phase 1 breakdown
-- `docs/00-Index/IMPLEMENTATION-STATUS.md` — เพิ่ม project entry (status: planning)
-- `docs/75-Checkins/<today>.md` — log entries
+- `docs/obsidian-vault/10-PRD/PRD-<slug>.md` — Product Requirements (status: draft)
+- `docs/obsidian-vault/10-PRD/SRS-<slug>.md` — Software Requirements (FR-001, FR-002, …)
+- `docs/obsidian-vault/70-Reference/REF-TechStack.md` — tech stack list
+- `docs/obsidian-vault/70-Reference/REF-Architecture.md` — Mermaid diagram + data model + API contracts
+- `docs/obsidian-vault/50-Phases/PHASE-1-MVP.md` — Phase 1 breakdown
+- `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` — เพิ่ม project entry (status: planning)
+- `docs/obsidian-vault/75-Checkins/<today>.md` — log entries
 
 ## Workflow ที่นิยม
 
@@ -71,7 +71,7 @@
 ตัวอย่าง 2: มี PRD ของลูกค้าอยู่แล้ว
 ```
 1. /bda-new --import ~/Downloads/customer-prd.docx
-   → อ่าน + copy → docs/10-PRD/PRD-<slug>.md
+   → อ่าน + copy → docs/obsidian-vault/10-PRD/PRD-<slug>.md
    → gap analysis: ขาด Goals, Personas, KPIs
    → user เลือก section ที่จะเติม
 2. /bda-doc PRD-<slug>               ← เติม detail ที่ขาด

@@ -45,7 +45,7 @@ User จะบอกชื่อ verb (เช่น `bda-plan: เพิ่ม s
 ถ้าเข้าถึง file system ไม่ได้ (web chat):
 1. ขอ user paste content ของ `commands/<verb>.md` ที่จะใช้
 2. ขอ user paste `.bda-spec.yml`
-3. ขอ user paste relevant vault docs (`docs/00-Index/IMPLEMENTATION-STATUS.md` + others ตาม task)
+3. ขอ user paste relevant vault docs (`docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` + others ตาม task)
 4. ทำตาม Phase
 5. Output ที่ user สามารถ apply กลับเข้า project ได้
 
@@ -70,6 +70,6 @@ User จะใส่:
 ```
 verb: bda-plan
 task: เพิ่ม search feature ในหน้า patient list
-vault: [paste docs/00-Index/IMPLEMENTATION-STATUS.md + relevant Function specs]
+vault: [paste docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md + relevant Function specs]
 config: [paste .bda-spec.yml]
 ```

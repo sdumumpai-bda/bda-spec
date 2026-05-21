@@ -14,12 +14,12 @@
 paths:
   # ถ้า Obsidian vault อยู่นอก project (เช่น shared org vault หรือ iCloud)
   # ใส่ absolute path ที่นี่; commands จะใช้ตัวนี้แทน `vault_path` ใน .bda-spec.yml
-  # ทิ้งว่างไว้ = ใช้ vault ใน repo (docs/)
+  # ทิ้งว่างไว้ = ใช้ vault ใน repo (docs/obsidian-vault/)
   external_vault: ""
   # ตัวอย่าง: external_vault: "/Volumes/workspace/BDAObsidian/MyProject"
 
   # ตำแหน่งที่ /bda-checkin จะ mirror executive daily log ไปด้วย
-  # (นอกเหนือจาก docs/75-Checkins/YYYY-MM-DD.md ใน repo)
+  # (นอกเหนือจาก docs/obsidian-vault/75-Checkins/YYYY-MM-DD.md ใน repo)
   daily_log_mirror: ""
   # ตัวอย่าง: daily_log_mirror: "/Volumes/workspace/BDAObsidian/BDA-Daily/<your-name>/<project>/_daily-log"
 

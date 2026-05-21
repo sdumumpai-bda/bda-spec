@@ -222,7 +222,7 @@ Library Book Tracker เป็น web application (Next.js + REST API) สำห
 - Postgres 15+ (DB)
 - Node.js 20+ runtime (API + Web)
 - SendGrid account + verified domain
-- BDA Design System v1.x (ใน `docs/70-Reference/DesignSystem/`)
+- BDA Design System v1.x (ใน `docs/obsidian-vault/70-Reference/DesignSystem/`)
 
 ## 9. Out of Scope
 

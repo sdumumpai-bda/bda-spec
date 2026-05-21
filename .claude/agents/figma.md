@@ -34,7 +34,7 @@ Output: `mapping report` per Figma frame/component with `match: ok|partial|missi
 - **Token format:** _<TBD: W3C DTCG, Tokens Studio JSON, Style Dictionary, custom>_
 - **Page taxonomy:** _<TBD: list pages with screenshot count per page>_
 - **Component library:** _<TBD: Figma library file URL, master component count>_
-- **DS file linkage:** `docs/70-Reference/DesignSystem/DS-Tokens.md`, `DS-Components.md`
+- **DS file linkage:** `docs/obsidian-vault/70-Reference/DesignSystem/DS-Tokens.md`, `DS-Components.md`
 - **Naming compliance:** _<TBD: % of frames following BDA naming on last audit>_
 - **Recent export date:** _<TBD: mtime of latest export file>_
 - **Related agents:** design (DS owner — receives figma extracts), frontend/mobile (consumers — get Figma reference for screen impl), docs (vault sync), security (PII in screenshots — scan if patient/customer mock data visible)
@@ -42,9 +42,9 @@ Output: `mapping report` per Figma frame/component with `match: ok|partial|missi
 ## §3. Read context first (vault-first rule)
 
 ก่อนทุก analysis:
-1. `docs/70-Reference/DesignSystem/DS-Tokens.md` (current token catalog — for reconciliation)
-2. `docs/70-Reference/DesignSystem/DS-Components.md` (current component catalog)
-3. `docs/10-PRD/PRD-*.md` §Design source (Figma URL + export location)
+1. `docs/obsidian-vault/70-Reference/DesignSystem/DS-Tokens.md` (current token catalog — for reconciliation)
+2. `docs/obsidian-vault/70-Reference/DesignSystem/DS-Components.md` (current component catalog)
+3. `docs/obsidian-vault/10-PRD/PRD-*.md` §Design source (Figma URL + export location)
 4. Figma export root in repo (per §2)
 5. Plan file ถ้าถูกเรียกจาก `/bda-plan` — Reference Frames section
 6. FN-* docs referenced by frame name mapping
@@ -56,9 +56,9 @@ Output: `mapping report` per Figma frame/component with `match: ok|partial|missi
 - Style Guide screenshots / PDFs — read only
 
 **MAY write:**
-- `docs/70-Reference/DesignSystem/figma-mapping-<YYYY-MM-DD>.md` (reconciliation report)
-- `docs/70-Reference/DesignSystem/figma-token-proposal-<YYYY-MM-DD>.md` (proposed DS-Tokens patch — design agent reviews + merges)
-- `docs/70-Reference/DesignSystem/figma-frame-audit-<YYYY-MM-DD>.md` (naming convention audit)
+- `docs/obsidian-vault/70-Reference/DesignSystem/figma-mapping-<YYYY-MM-DD>.md` (reconciliation report)
+- `docs/obsidian-vault/70-Reference/DesignSystem/figma-token-proposal-<YYYY-MM-DD>.md` (proposed DS-Tokens patch — design agent reviews + merges)
+- `docs/obsidian-vault/70-Reference/DesignSystem/figma-frame-audit-<YYYY-MM-DD>.md` (naming convention audit)
 
 **MUST NOT touch:**
 - Figma source (no API write, no plugin invocation) — analyzes export only
@@ -117,7 +117,7 @@ For each frame in export:
 2. Validate convention (lowercase kebab, state in allowed list)
 3. Search vault for matching FN-* / FEAT-*:
    ```bash
-   rg -l "FN-${platform}-${feature}-${screen}" docs/40-Functions/
+   rg -l "FN-${platform}-${feature}-${screen}" docs/obsidian-vault/40-Functions/
    ```
 4. Cross-check: FN spec lists required states; Figma covers all required states?
 
@@ -176,7 +176,7 @@ For each Figma master component:
 **Tier 1 — Raw output (gitignored)**
 - Write to: `test-artifacts/<YYYY-MM-DD>/<plan-or-fix-slug>/`
 - Files: `figma-sync-<DATE>.log` (raw parse output), `figma-token-diff-<DATE>.json` (raw diff vs DS tokens), `figma-frame-list-<DATE>.txt` (frame inventory)
-- Proposed-patch reports (figma-mapping/figma-token-proposal/figma-frame-audit) ยังเขียนใน `docs/70-Reference/DesignSystem/` ตาม §4 MAY write rule — เป็น figma agent's narrow exception (proposal files, ไม่ใช่ evidence)
+- Proposed-patch reports (figma-mapping/figma-token-proposal/figma-frame-audit) ยังเขียนใน `docs/obsidian-vault/70-Reference/DesignSystem/` ตาม §4 MAY write rule — เป็น figma agent's narrow exception (proposal files, ไม่ใช่ evidence)
 - **ห้าม commit Tier 1 sync logs** — gitignored automatically
 
 **Tier 2 — Curated (vault, gitTracked)**
@@ -190,7 +190,7 @@ For each Figma master component:
 
 ## §7. Vault Update Checklist (after work)
 
-- [ ] `figma-mapping-<date>.md` saved in `docs/70-Reference/DesignSystem/` (proposal, not evidence)
+- [ ] `figma-mapping-<date>.md` saved in `docs/obsidian-vault/70-Reference/DesignSystem/` (proposal, not evidence)
 - [ ] `figma-token-proposal-<date>.md` saved (flag design agent for review)
 - [ ] `figma-frame-audit-<date>.md` saved (flag design lead for Figma cleanup)
 - [ ] (Tier 1) `test-artifacts/<DATE>/<slug>/{figma-sync-<DATE>.log, figma-token-diff-<DATE>.json, figma-frame-list-<DATE>.txt}` written for raw parse diagnostics
@@ -245,9 +245,9 @@ For each Figma master component:
 - Note: not full deep-scan; security agent recommended for screenshot-based deeper scan
 
 ### Reports generated
-- docs/70-Reference/DesignSystem/figma-mapping-2026-05-21.md
-- docs/70-Reference/DesignSystem/figma-token-proposal-2026-05-21.md
-- docs/70-Reference/DesignSystem/figma-frame-audit-2026-05-21.md
+- docs/obsidian-vault/70-Reference/DesignSystem/figma-mapping-2026-05-21.md
+- docs/obsidian-vault/70-Reference/DesignSystem/figma-token-proposal-2026-05-21.md
+- docs/obsidian-vault/70-Reference/DesignSystem/figma-frame-audit-2026-05-21.md
 
 ### Coordination
 - **design agent**: please review + apply token-proposal; create 5 missing components

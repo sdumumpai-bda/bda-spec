@@ -100,7 +100,7 @@ Your answer: [A/B/C/D หรือ ข้อความอื่น]
 
 ตัวอย่าง 2: scan plan ที่ค้าง
 ```
-1. /bda-clarify docs/80-ImplementPlan/2026-05-20-bootstrap-checkout-ui.md
+1. /bda-clarify docs/obsidian-vault/80-ImplementPlan/2026-05-20-bootstrap-checkout-ui.md
 2. (user ตอบ 5 ข้อ)
 3. /bda-plan --revise <same path>    ← incorporate answers
 ```

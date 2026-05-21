@@ -106,7 +106,7 @@ PROJECT_TZ=$(get "project.timezone" "Asia/Bangkok")
 
 MODE_VAL=$(get "mode" "standalone")
 
-VAULT_PATH=$(get "vault_path" "docs")
+VAULT_PATH=$(get "vault_path" "docs/obsidian-vault")
 EXTERNAL_VAULT=$(yget "$LOCAL" "paths.external_vault")
 [ -n "$EXTERNAL_VAULT" ] && VAULT_PATH="$EXTERNAL_VAULT"
 

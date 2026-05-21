@@ -13,7 +13,7 @@ model: claude-sonnet-4-6
 - **Coverage gaps** (FR ไม่ map กับ plan step, function ไม่มี FR)
 - **Inconsistency** (terminology, data model)
 
-Output: report ที่ `docs/95-Handoff/ANALYSIS-<date>-<scope>.md`
+Output: report ที่ `docs/obsidian-vault/95-Handoff/ANALYSIS-<date>-<scope>.md`
 
 > **inspired by:** spec-kit `/analyze`
 > **Read-only** — ไม่แก้ source ใดๆ
@@ -51,7 +51,7 @@ echo "Analyzing $(echo "$ARTIFACTS" | wc -l) artifacts"
 - **Frontmatter**: status, priority, related, blocked_by
 - **Cross-refs**: wikilinks + explicit related lists
 - **Tasks**: checkbox items `- [ ] T### [P?] [USx] desc` from plan files
-- **Constitution refs**: standards/STANDARD.md + standards/policies/* + docs/00-Index/CONSTITUTION.md (if exists)
+- **Constitution refs**: standards/STANDARD.md + standards/policies/* + docs/obsidian-vault/00-Index/CONSTITUTION.md (if exists)
 
 ## Phase 2 — Find issues
 
@@ -100,7 +100,7 @@ Severity scale:
 
 ## Phase 3 — Write report
 
-Path: `docs/95-Handoff/ANALYSIS-<YYYY-MM-DD>-<scope>.md`
+Path: `docs/obsidian-vault/95-Handoff/ANALYSIS-<YYYY-MM-DD>-<scope>.md`
 
 ```markdown
 ---
@@ -149,14 +149,14 @@ status: draft
 
 ## Phase 4 — Update dashboard
 
-Update `docs/00-Index/IMPLEMENTATION-STATUS.md`:
+Update `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md`:
 - Last analysis: `<this report path>` (<date>)
 - Coverage ratio: 83%
 - Outstanding critical: 1
 
 ## Phase 5 — Log
 
-Append ใน `docs/75-Checkins/<today>.md`:
+Append ใน `docs/obsidian-vault/75-Checkins/<today>.md`:
 ```
 - HH:MM — [type/analyze] /bda-analyze <scope> — 6 findings (1 crit, 2 high, 3 med); coverage 83%; report: <link>
 ```

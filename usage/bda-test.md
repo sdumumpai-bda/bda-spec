@@ -51,13 +51,13 @@ git diff --name-only HEAD
 3. **Phase 2** — Spin servers (dev server, emulator/simulator, API) เท่าที่จำเป็น
 4. **Phase 3** — Spawn `test-runner` subagent: smoke tests, screenshots, console+network logs, PII mask, route source trace
 5. **Phase T (Test Plan mode)** — รัน systematic ทุก role × scenario, status taxonomy: PASS/FAIL/INFO/LIMITED/PASS_NO_MUTATION/BLOCKED_*/NOT_RUN
-6. **Phase 4** — Evidence collection: `docs/90-TestPlan/evidence/<YYYY-MM-DD>-<slug>/`
+6. **Phase 4** — Evidence collection: `docs/obsidian-vault/90-TestPlan/evidence/<YYYY-MM-DD>-<slug>/`
 7. **Phase 5** — Visible-menu rule: route source = VISIBLE_MENU / DIRECT_URL_USER / DIRECT_URL_TECHNICAL
 8. **Phase 6** — Output report (PASS/FAIL summary + evidence paths)
 
 ## Output ที่ได้
 
-- `docs/90-TestPlan/evidence/<YYYY-MM-DD>-<slug>/`
+- `docs/obsidian-vault/90-TestPlan/evidence/<YYYY-MM-DD>-<slug>/`
   - `report.md` — summary + status per scenario
   - `screenshots/` — `<SCENARIO-ID>-<STEP-NO>-<state>.png`
   - `console.log`, `network.log`
@@ -89,7 +89,7 @@ git diff --name-only HEAD
 ตัวอย่าง 2: systematic test plan
 ```
 1. /bda-doc TestPlan FEAT-Checkout      ← สร้าง TP-Checkout.md
-2. /bda-test docs/90-TestPlan/TP-Checkout.md
+2. /bda-test docs/obsidian-vault/90-TestPlan/TP-Checkout.md
    → รันทุก role × scenario
    → MANIFEST.md + screenshots ครบ
 ```
@@ -117,7 +117,7 @@ git diff --name-only HEAD
 - ก่อน `/bda-test`: [/bda-implement](./bda-implement.md) (มี code change)
 - หลัง `/bda-test` (fail): [/bda-fix](./bda-fix.md)
 - หลัง `/bda-test` (pass): [/bda-evidence](./bda-evidence.md) (curate) → [/bda-upload](./bda-upload.md) (share)
-- Test plans: `docs/90-TestPlan/`
+- Test plans: `docs/obsidian-vault/90-TestPlan/`
 - Subagent: [`.claude/agents/test-runner.md`](../.claude/agents/test-runner.md)
 - Evidence paths: [`EVIDENCE-PATHS.md`](../EVIDENCE-PATHS.md)
 

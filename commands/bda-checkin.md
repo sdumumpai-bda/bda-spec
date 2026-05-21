@@ -5,7 +5,7 @@ model: claude-sonnet-4-6
 
 # bda-checkin — Daily Check-in (1 file/วัน)
 
-รวม morning + midday + notes + end-of-day ใน **1 ไฟล์ต่อวัน** ที่ `docs/75-Checkins/<YYYY-MM-DD>.md`
+รวม morning + midday + notes + end-of-day ใน **1 ไฟล์ต่อวัน** ที่ `docs/obsidian-vault/75-Checkins/<YYYY-MM-DD>.md`
 
 Auto-detect ช่วงเวลา + section ที่ยังว่าง → ถามว่าจะ update section ไหน
 
@@ -104,14 +104,14 @@ ai_cost_usd: 0
 ### 2.1 อ่าน checkin เมื่อวาน (ถ้ามี)
 ```bash
 YESTERDAY=$(date -v-1d +%Y-%m-%d 2>/dev/null || date -d "yesterday" +%Y-%m-%d)
-test -f "docs/75-Checkins/${YESTERDAY}.md" && \
-  grep -A 10 "## 5. Carry-over" "docs/75-Checkins/${YESTERDAY}.md"
+test -f "docs/obsidian-vault/75-Checkins/${YESTERDAY}.md" && \
+  grep -A 10 "## 5. Carry-over" "docs/obsidian-vault/75-Checkins/${YESTERDAY}.md"
 ```
 
 ### 2.2 สแกน plan/fix ที่ in-progress
 ```bash
 grep -l "^status: in-progress\|^status: planning\|^status: approved" \
-  docs/80-ImplementPlan/*.md docs/85-FixLog/*.md 2>/dev/null
+  docs/obsidian-vault/80-ImplementPlan/*.md docs/obsidian-vault/85-FixLog/*.md 2>/dev/null
 ```
 
 แสดง list → user เลือกว่าจะปิดวันนี้ตัวไหน
@@ -189,7 +189,7 @@ Append:
 ```markdown
 ## 3. Notes (timestamped)
 - **HH:MM** [meeting] ประชุม UAT กับ stakeholder — 45 min — outcome: agreed on Phase 2 scope
-- **HH:MM** [manual-test] login flow บน mobile — pass, screenshot: docs/90-TestPlan/evidence/...
+- **HH:MM** [manual-test] login flow บน mobile — pass, screenshot: docs/obsidian-vault/90-TestPlan/evidence/...
 - **HH:MM** [review] PR #45 — approved with 2 comments
 ```
 
@@ -428,7 +428,7 @@ bash scripts/upload-evidence.sh --pending --dry-run   # show what would upload
 ```
 
 ### 5.4 Update IMPLEMENTATION-STATUS
-ถ้ามี plan/feature completed วันนี้ → update `docs/00-Index/IMPLEMENTATION-STATUS.md`
+ถ้ามี plan/feature completed วันนี้ → update `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md`
 
 ### 5.5 Set status: closed
 Update frontmatter `status: closed` หลัง end-of-day filled
@@ -456,7 +456,7 @@ fi
 1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/templates/daily-log-v5.md`
 2. **Pipeline trace** — Understand (Phase 0 detect) → Plan (Phase 1 file scaffold) → Execute (Phase 2/3/4/5 ตาม section) → Verify (Phase 6 show) → Handoff (status: closed + carry-over)
 3. **Commands run** — `git log`, grep ของ in-progress, file Write
-4. **Verification / Evidence** — `docs/75-Checkins/<date>.md` path + sections filled count
+4. **Verification / Evidence** — `docs/obsidian-vault/75-Checkins/<date>.md` path + sections filled count
 5. **Limitations / Risks / Next steps** — incomplete outcomes ที่ carry over
 
 ## ห้าม

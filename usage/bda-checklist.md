@@ -62,13 +62,13 @@
 1. **Phase 0** — Detect domain
 2. **Phase 1** — Determine scope (target feature / phase / append-vs-new)
 3. **Phase 2** — Generate items (CHK###) — 10-30 ต่อ domain
-4. **Phase 3** — Write file `docs/95-Handoff/checklists/<domain>-<scope>-<date>.md`
+4. **Phase 3** — Write file `docs/obsidian-vault/95-Handoff/checklists/<domain>-<scope>-<date>.md`
 5. **Phase 4** — Review mode (สรุป `[X]` ที่ user mark)
 6. **Phase 5** — Integration: `/bda-verify` ตรวจ checklist; `/bda-implement` warn ถ้า in-review
 
 ## Output ที่ได้
 
-- `docs/95-Handoff/checklists/<domain>-<scope>-<YYYY-MM-DD>.md`
+- `docs/obsidian-vault/95-Handoff/checklists/<domain>-<scope>-<YYYY-MM-DD>.md`
 - Frontmatter: `items_total`, `items_passed`, `items_failed`, `items_pending`, `status: in-review | passed | blocked`
 
 ## Workflow ที่นิยม
@@ -93,7 +93,7 @@
 
 ตัวอย่าง 3: review หลัง user mark
 ```
-/bda-checklist review docs/95-Handoff/checklists/ux-FEAT-Checkout-2026-05-21.md
+/bda-checklist review docs/obsidian-vault/95-Handoff/checklists/ux-FEAT-Checkout-2026-05-21.md
 
 → Total: 10
   Passed [X]: 7
@@ -117,7 +117,7 @@
 - ก่อน `/bda-checklist`: [/bda-new](./bda-new.md), [/bda-clarify](./bda-clarify.md)
 - หลัง `/bda-checklist`: [/bda-verify](./bda-verify.md) (verify will block ถ้า fail)
 - Pair กับ: [/bda-analyze](./bda-analyze.md)
-- Vault path: `docs/95-Handoff/checklists/`
+- Vault path: `docs/obsidian-vault/95-Handoff/checklists/`
 
 ## FAQ
 

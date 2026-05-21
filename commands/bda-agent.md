@@ -81,7 +81,7 @@ yq -i ".subagents.<name> = true" .bda-spec.yml
 5. **Files/paths ที่ agent มี ownership** (e.g., `etl/`, `dags/`, `dbt_project/`)
 6. **Tools ที่ agent ใช้** (Read, Write, Edit, Bash, Glob, Grep, WebFetch, etc.)
 7. **Gates ที่ห้ามข้าม** (e.g., "ห้าม merge ETL change ก่อน rerun data-quality tests")
-8. **Linked vault docs** (ถ้ามี — เช่น `docs/70-Reference/REF-DataPlatform.md`)
+8. **Linked vault docs** (ถ้ามี — เช่น `docs/obsidian-vault/70-Reference/REF-DataPlatform.md`)
 
 ### 2.2 Auto-scan vault for context
 
@@ -125,7 +125,7 @@ tools: Read, Write, Edit, Glob, Grep, Bash[selective allowlist]
 
 ## §3. Read context first (vault-first rule)
 Before any action:
-1. Read `docs/00-Index/IMPLEMENTATION-STATUS.md`
+1. Read `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md`
 2. Read all relevant docs from §2 vault refs
 3. Read active plan if invoked from /bda-implement
 4. Read DS-Tokens.md + DS-Components.md if frontend/mobile
@@ -208,7 +208,7 @@ AI analyze vault → suggest agents ที่ project น่าจะมี
 grep -l "ETL\|pipeline\|warehouse" docs/**/*.md && suggest "data-engineer"
 grep -l "deploy\|infra\|kubernetes\|terraform" docs/**/*.md && suggest "devops"
 grep -l "SEO\|content\|copy" docs/**/*.md && suggest "content-writer"
-ls docs/40-Functions/*Analytics* && suggest "analytics"
+ls docs/obsidian-vault/40-Functions/*Analytics* && suggest "analytics"
 ```
 
 แสดง suggestions + ให้ user เลือกที่จะ create

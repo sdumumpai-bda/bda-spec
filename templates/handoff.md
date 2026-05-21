@@ -54,7 +54,7 @@ recipient: <if specific>
 
 ## Evidence Manifest
 - Plan: <[[80-ImplementPlan/<slug>]]> (status: done)
-- Test evidence: docs/90-TestPlan/evidence/<slug>/ (N screenshots, N logs)
+- Test evidence: docs/obsidian-vault/90-TestPlan/evidence/<slug>/ (N screenshots, N logs)
 - Git commits: <list of hashes>
 
 ## Limitations / Risks / Next steps

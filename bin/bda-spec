@@ -103,7 +103,7 @@ cmd_doctor() {
   echo "  scripts/:         $([ -f scripts/install.sh ] && [ -f scripts/upgrade.sh ] && [ -f scripts/test.sh ] && [ -f scripts/bda-paths.sh ] && echo "OK (4 helpers)" || echo "(some missing)")"
   local vault
   vault="$(grep -E '^vault_path:' .bda-spec.yml 2>/dev/null | awk '{print $2}' | tr -d '"')"
-  vault="${vault:-docs}"
+  vault="${vault:-docs/obsidian-vault}"
   echo "  vault ($vault): $([ -d "$vault" ] && echo OK || echo MISSING)"
   for sub in 00-Index 10-PRD 20-Features 30-Roles 40-Functions 50-Phases 60-Flows 70-Reference 75-Checkins 80-ImplementPlan 85-FixLog 90-TestPlan 95-Handoff; do
     [ -d "$vault/$sub" ] || echo "    ⚠ Missing: $vault/$sub"

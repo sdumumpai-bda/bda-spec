@@ -19,7 +19,7 @@
 
 ตัวอย่างไฟล์ที่ได้:
 ```
-docs/80-ImplementPlan/2026-05-21-1430-add-search-feature.md
+docs/obsidian-vault/80-ImplementPlan/2026-05-21-1430-add-search-feature.md
 
 ---
 tags: [type/plan]
@@ -37,7 +37,7 @@ related_docs: [...]
 
 ```
 /bda-plan "<task description>"
-/bda-plan <task> --revise docs/80-ImplementPlan/<file>.md
+/bda-plan <task> --revise docs/obsidian-vault/80-ImplementPlan/<file>.md
 /bda-plan fix:<slug>                # plan ที่ link จาก fix-log
 ```
 
@@ -56,7 +56,7 @@ related_docs: [...]
 
 ## Output ที่ได้
 
-- `docs/80-ImplementPlan/YYYY-MM-DD-HHmm-<slug>.md` (status: planning, ≤ 5 คำ slug)
+- `docs/obsidian-vault/80-ImplementPlan/YYYY-MM-DD-HHmm-<slug>.md` (status: planning, ≤ 5 คำ slug)
 - Checkin entry: `HH:MM — [type/plan] Created plan: <slug> (status: planning)`
 - **ห้ามแตะโค้ด** — plan file เท่านั้น
 
@@ -100,7 +100,7 @@ Body:
 
 ตัวอย่าง 2: revise plan ที่ค้าง
 ```
-1. /bda-plan "เพิ่ม search" --revise docs/80-ImplementPlan/2026-05-20-1430-add-search.md
+1. /bda-plan "เพิ่ม search" --revise docs/obsidian-vault/80-ImplementPlan/2026-05-20-1430-add-search.md
    → re-read vault (อาจมีการ update)
    → update in-place + แสดง diff
    → STOP รอ review
@@ -130,7 +130,7 @@ Body:
 - หลัง `/bda-plan` (approve แล้ว): [/bda-implement](./bda-implement.md)
 - Analyze: [/bda-analyze](./bda-analyze.md) — coverage check (FR → task ID mapping)
 - Template: `templates/plan.md` (fallback `standards/templates/plan.md`)
-- Vault path: `docs/80-ImplementPlan/`
+- Vault path: `docs/obsidian-vault/80-ImplementPlan/`
 
 ## FAQ
 

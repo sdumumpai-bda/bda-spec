@@ -26,11 +26,11 @@ tools: Read, Write, Edit, Glob, Grep, Bash(npm:* pnpm:* yarn:* npx:* node:* tsc:
 - **Owned paths:** _<TBD: `api/`, `server/`, `backend/`, `apps/api/`, `src/server/`>_
 - **Submodules:** _<TBD from .bda-spec.yml — e.g., name: api, path: api/, branch: main>_
 - **Vault refs to read on invoke:**
-  - `docs/40-Functions/API/**/FN-*.md`
-  - `docs/70-Reference/REF-APIIntegration.md` (endpoint inventory)
-  - `docs/70-Reference/REF-AuthorizationMatrix.md` (role × resource × action)
-  - `docs/70-Reference/REF-TechStack.md` (version pin)
-  - `docs/60-Flows/FLOW-*.md` (orchestration logic spanning services)
+  - `docs/obsidian-vault/40-Functions/API/**/FN-*.md`
+  - `docs/obsidian-vault/70-Reference/REF-APIIntegration.md` (endpoint inventory)
+  - `docs/obsidian-vault/70-Reference/REF-AuthorizationMatrix.md` (role × resource × action)
+  - `docs/obsidian-vault/70-Reference/REF-TechStack.md` (version pin)
+  - `docs/obsidian-vault/60-Flows/FLOW-*.md` (orchestration logic spanning services)
 - **CI checks:** _<TBD: lint+test+typecheck+build commands จาก `.github/workflows/api.yml`>_
 - **Coverage threshold:** _<TBD: e.g., lines≥80%>_
 - **Related agents:** verifier (run tests/lint/build), security (STRIDE on changed endpoint), docs (update FN-API + REF-APIIntegration), frontend/mobile (consumers — coordinate breaking change)
@@ -55,15 +55,15 @@ tools: Read, Write, Edit, Glob, Grep, Bash(npm:* pnpm:* yarn:* npx:* node:* tsc:
 ## §3. Read context first (vault-first rule)
 
 ก่อน implement:
-1. Plan file ทั้งไฟล์ (`docs/80-ImplementPlan/<plan>.md`) — ต้อง `status: approved`
-2. `docs/40-Functions/API/<area>/FN-*.md` ที่ plan ระบุ — acceptance criteria + schema
-3. `docs/70-Reference/REF-APIIntegration.md` — current endpoint inventory + naming convention
-4. `docs/70-Reference/REF-AuthorizationMatrix.md` — role permissions
-5. `docs/70-Reference/REF-TechStack.md` — version pin + lib choice
-6. `docs/60-Flows/FLOW-*.md` ที่เกี่ยวข้อง (ถ้า orchestration ข้าม service)
+1. Plan file ทั้งไฟล์ (`docs/obsidian-vault/80-ImplementPlan/<plan>.md`) — ต้อง `status: approved`
+2. `docs/obsidian-vault/40-Functions/API/<area>/FN-*.md` ที่ plan ระบุ — acceptance criteria + schema
+3. `docs/obsidian-vault/70-Reference/REF-APIIntegration.md` — current endpoint inventory + naming convention
+4. `docs/obsidian-vault/70-Reference/REF-AuthorizationMatrix.md` — role permissions
+5. `docs/obsidian-vault/70-Reference/REF-TechStack.md` — version pin + lib choice
+6. `docs/obsidian-vault/60-Flows/FLOW-*.md` ที่เกี่ยวข้อง (ถ้า orchestration ข้าม service)
 7. Existing code: similar endpoint ใน owned paths เพื่อ follow style
 8. Existing tests สำหรับ pattern ที่จะ mirror
-9. `docs/00-Index/IMPLEMENTATION-STATUS.md`
+9. `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md`
 
 ## §4. Scope rules
 
@@ -73,8 +73,8 @@ tools: Read, Write, Edit, Glob, Grep, Bash(npm:* pnpm:* yarn:* npx:* node:* tsc:
 - Test files (unit/integration/contract)
 - OpenAPI/GraphQL schema files
 - `.env.example` (add new var key, no value)
-- `docs/40-Functions/API/**/FN-*.md` (after impl — vault checklist)
-- `docs/70-Reference/REF-APIIntegration.md` (endpoint inventory update)
+- `docs/obsidian-vault/40-Functions/API/**/FN-*.md` (after impl — vault checklist)
+- `docs/obsidian-vault/70-Reference/REF-APIIntegration.md` (endpoint inventory update)
 
 **MUST NOT touch:**
 - Frontend code (`web/`, `apps/web/`, `frontend/`) — coordinate, don't write
@@ -183,7 +183,7 @@ rg -nP '\bfor\b.*\{[^}]*\b(find|findOne|query|select)\b' src/
 
 **Tier 2 — Curated (vault, gitTracked)**
 - ห้ามเขียนตรง — ต้องผ่าน `/bda-evidence` command (จัดการ PII mask + safe-to-share confirm)
-- Final location: `docs/40-Functions/API/<area>/<FN-slug>/evidence/` หรือ `docs/80-ImplementPlan/<plan-slug>.evidence/backend/`
+- Final location: `docs/obsidian-vault/40-Functions/API/<area>/<FN-slug>/evidence/` หรือ `docs/obsidian-vault/80-ImplementPlan/<plan-slug>.evidence/backend/`
 - Manifest at `evidence-manifest.md` per context folder
 
 **Tier 3 — Shared (cloud)**
@@ -194,14 +194,14 @@ rg -nP '\bfor\b.*\{[^}]*\b(find|findOne|query|select)\b' src/
 
 ## §7. Vault Update Checklist (after work)
 
-- [ ] `docs/40-Functions/API/<area>/FN-<slug>.md` updated (request/response schema, error codes, status flow)
-- [ ] `docs/70-Reference/REF-APIIntegration.md` endpoint table row added/updated (path, method, auth, rate limit, version)
-- [ ] `docs/70-Reference/REF-AuthorizationMatrix.md` if role/scope changed
-- [ ] `docs/00-Index/IMPLEMENTATION-STATUS.md` feature/phase row updated
+- [ ] `docs/obsidian-vault/40-Functions/API/<area>/FN-<slug>.md` updated (request/response schema, error codes, status flow)
+- [ ] `docs/obsidian-vault/70-Reference/REF-APIIntegration.md` endpoint table row added/updated (path, method, auth, rate limit, version)
+- [ ] `docs/obsidian-vault/70-Reference/REF-AuthorizationMatrix.md` if role/scope changed
+- [ ] `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` feature/phase row updated
 - [ ] OpenAPI/GraphQL schema regenerated + committed
 - [ ] `.env.example` updated if new env var
 - [ ] (Tier 1) `test-artifacts/<DATE>/<slug>/` populated with contract/integration test logs, migration dryrun, curl traces
-- [ ] (Tier 2) Caller invoke `/bda-evidence` to curate masked subset → `docs/40-Functions/API/<area>/<FN-slug>/evidence/` or `docs/80-ImplementPlan/<plan-slug>.evidence/backend/`
+- [ ] (Tier 2) Caller invoke `/bda-evidence` to curate masked subset → `docs/obsidian-vault/40-Functions/API/<area>/<FN-slug>/evidence/` or `docs/obsidian-vault/80-ImplementPlan/<plan-slug>.evidence/backend/`
 - [ ] Update `<context>/evidence-manifest.md` row with new entry (done by `/bda-evidence`)
 - [ ] Plan file appended with `## Implementation Result` (caller writes; backend provides data)
 - [ ] No frontend/mobile/docs-outside-scope files touched (`git diff --name-only` review)
@@ -211,7 +211,7 @@ rg -nP '\bfor\b.*\{[^}]*\b(find|findOne|query|select)\b' src/
 ```markdown
 ## backend report
 
-### Plan: docs/80-ImplementPlan/2026-05-20-1430-checkout-submit.md
+### Plan: docs/obsidian-vault/80-ImplementPlan/2026-05-20-1430-checkout-submit.md
 ### Scope: FEAT-Checkout · FN-API-Checkout-Submit
 
 ### Files changed (production / test split)
@@ -250,10 +250,10 @@ rg -nP '\bfor\b.*\{[^}]*\b(find|findOne|query|select)\b' src/
 - Estimated lock duration: none (new table only)
 
 ### Vault docs updated
-- docs/40-Functions/API/Checkout/FN-API-Checkout-Submit.md (added §Acceptance, §Schema, §Test Plan)
-- docs/70-Reference/REF-APIIntegration.md (added row for POST /v1/checkout/submit)
-- docs/70-Reference/REF-AuthorizationMatrix.md (added `checkout:submit` scope to customer role)
-- docs/00-Index/IMPLEMENTATION-STATUS.md (FEAT-Checkout phase 2 → in-progress 85%)
+- docs/obsidian-vault/40-Functions/API/Checkout/FN-API-Checkout-Submit.md (added §Acceptance, §Schema, §Test Plan)
+- docs/obsidian-vault/70-Reference/REF-APIIntegration.md (added row for POST /v1/checkout/submit)
+- docs/obsidian-vault/70-Reference/REF-AuthorizationMatrix.md (added `checkout:submit` scope to customer role)
+- docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md (FEAT-Checkout phase 2 → in-progress 85%)
 
 ### Breaking changes
 - None (additive only)

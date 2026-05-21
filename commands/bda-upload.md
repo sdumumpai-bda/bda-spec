@@ -203,7 +203,7 @@ done
 
 ## Phase 6 — Update checkin (today's daily log)
 
-Append ใน `docs/75-Checkins/<today>.md` Notes:
+Append ใน `docs/obsidian-vault/75-Checkins/<today>.md` Notes:
 
 ```markdown
 - HH:MM — [type/upload] /bda-upload — 15 items uploaded ({contexts}), 2 blocked

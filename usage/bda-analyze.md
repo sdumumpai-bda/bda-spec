@@ -55,14 +55,14 @@ Top risk: FR-002 (Return book) has no plan/task → blocked
 1. **Phase 0** — Resolve scope (project/feature/plan)
 2. **Phase 1** — Gather: extract IDs (PRD, FEAT-*, FN-*, FR-###, SC-###, T###, US###), frontmatter, cross-refs, tasks, constitution refs
 3. **Phase 2** — Find issues: Coverage Table (FR × plan × task × test) + Findings (6 categories: Duplication, Ambiguity, Coverage gap, Constitution, Underspec, Inconsistency)
-4. **Phase 3** — Write report: `docs/95-Handoff/ANALYSIS-<date>-<scope>.md`
+4. **Phase 3** — Write report: `docs/obsidian-vault/95-Handoff/ANALYSIS-<date>-<scope>.md`
 5. **Phase 4** — Update `IMPLEMENTATION-STATUS.md` (last analysis, coverage ratio)
 6. **Phase 5** — Log checkin
 
 ## Output ที่ได้
 
-- `docs/95-Handoff/ANALYSIS-<YYYY-MM-DD>-<scope>.md` — report ใหม่ทุกครั้ง (date-stamped, ไม่ overwrite)
-- `docs/00-Index/IMPLEMENTATION-STATUS.md` update (last analysis link, coverage %, outstanding critical)
+- `docs/obsidian-vault/95-Handoff/ANALYSIS-<YYYY-MM-DD>-<scope>.md` — report ใหม่ทุกครั้ง (date-stamped, ไม่ overwrite)
+- `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` update (last analysis link, coverage %, outstanding critical)
 - Checkin entry
 
 ## Findings categories + severity
@@ -113,7 +113,7 @@ Top risk: FR-002 (Return book) has no plan/task → blocked
 - 🚫 ห้าม mark "covered" ถ้า task ไม่มี ID link ชัด — ใส่ `PARTIAL` แทน
 - 🚫 ห้าม include suggestion ที่ไม่ cite source artifact
 - 🚫 ห้าม overwrite ANALYSIS report เก่า — ใหม่ทุกครั้งเป็นไฟล์ใหม่ date-stamped
-- 💡 Output **คือ report file** — ไม่ใช่ตอบในแชต ดูที่ `docs/95-Handoff/ANALYSIS-*.md`
+- 💡 Output **คือ report file** — ไม่ใช่ตอบในแชต ดูที่ `docs/obsidian-vault/95-Handoff/ANALYSIS-*.md`
 - 💡 ทุก finding มี Recommendation → action ที่ใช้ command อื่นได้
 
 ## Related
@@ -121,7 +121,7 @@ Top risk: FR-002 (Return book) has no plan/task → blocked
 - ก่อน `/bda-analyze`: [/bda-new](./bda-new.md), [/bda-plan](./bda-plan.md), [/bda-doc](./bda-doc.md) (มี artifact ให้ analyze)
 - หลัง findings: [/bda-clarify](./bda-clarify.md) (ambiguity), [/bda-doc](./bda-doc.md) (underspec), [/bda-plan](./bda-plan.md) (coverage gap)
 - Pair กับ: [/bda-checklist](./bda-checklist.md) (spec quality test)
-- Vault path: `docs/95-Handoff/ANALYSIS-*.md`
+- Vault path: `docs/obsidian-vault/95-Handoff/ANALYSIS-*.md`
 
 ## FAQ
 

@@ -62,7 +62,7 @@
 4. /bda-design init                          ← (optional) bootstrap design system
 5. /bda-plan FEAT-X                          ← research vault + plan file
 6. [user review plan, set status: approved ใน frontmatter]
-7. /bda-implement docs/80-ImplementPlan/...  ← execute ผ่าน subagent + capture evidence
+7. /bda-implement docs/obsidian-vault/80-ImplementPlan/...  ← execute ผ่าน subagent + capture evidence
 8. /bda-test                                 ← smoke test ส่วนที่แก้
 9. /bda-secure                               ← pre-flight scan
 10. /bda-verify                              ← handoff report
@@ -92,7 +92,7 @@
 ก่อนเลิก:    /bda-checkin end               ← รวบรวม 7 แหล่งข้อมูล (commits/vault/evidence/no-fake/phase/ccusage/gdrive)
 ```
 
-ทั้งหมดใน `docs/75-Checkins/<YYYY-MM-DD>.md` ไฟล์เดียว
+ทั้งหมดใน `docs/obsidian-vault/75-Checkins/<YYYY-MM-DD>.md` ไฟล์เดียว
 
 ### Brownfield adoption (รับ codebase เดิม)
 

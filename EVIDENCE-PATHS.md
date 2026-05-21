@@ -54,14 +54,14 @@ test-artifacts/2026-05-21/2026-05-20-1430-bootstrap-checkout-ui/
 
 | Context | Path |
 |---|---|
-| Feature-level | `docs/20-Features/<FEAT-slug>/evidence/` |
-| Function-level | `docs/40-Functions/<surface>/<role>/<FN-slug>/evidence/` |
-| Fix log | `docs/85-FixLog/<fix-slug>/evidence/` หรือ `docs/85-FixLog/<file>.evidence/` |
-| Plan-level | `docs/80-ImplementPlan/<plan-slug>.evidence/` |
-| Test plan | `docs/90-TestPlan/<TP-slug>/evidence/` |
-| Handoff | `docs/95-Handoff/<HOR-slug>.evidence/` |
-| Flow | `docs/60-Flows/evidence/` |
-| Project-wide / Cross | `docs/00-Index/evidence/` |
+| Feature-level | `docs/obsidian-vault/20-Features/<FEAT-slug>/evidence/` |
+| Function-level | `docs/obsidian-vault/40-Functions/<surface>/<role>/<FN-slug>/evidence/` |
+| Fix log | `docs/obsidian-vault/85-FixLog/<fix-slug>/evidence/` หรือ `docs/obsidian-vault/85-FixLog/<file>.evidence/` |
+| Plan-level | `docs/obsidian-vault/80-ImplementPlan/<plan-slug>.evidence/` |
+| Test plan | `docs/obsidian-vault/90-TestPlan/<TP-slug>/evidence/` |
+| Handoff | `docs/obsidian-vault/95-Handoff/<HOR-slug>.evidence/` |
+| Flow | `docs/obsidian-vault/60-Flows/evidence/` |
+| Project-wide / Cross | `docs/obsidian-vault/00-Index/evidence/` |
 
 **Filename convention:**
 ```
@@ -121,7 +121,7 @@ evidence_upload:
 | **docs** | ❌ | ❌ (updates manifests only) | ❌ |
 | **verifier** | ✅ BUILD-INFO.md, coverage, lint | via /bda-evidence | via /bda-upload |
 | **security** | ✅ scan reports, CVE lists | via /bda-evidence | via /bda-upload (masked) |
-| **design** | ✅ DS audit reports | preview.html + `docs/70-Reference/DesignSystem/audit-<DATE>.md` | via /bda-upload |
+| **design** | ✅ DS audit reports | preview.html + `docs/obsidian-vault/70-Reference/DesignSystem/audit-<DATE>.md` | via /bda-upload |
 | **backend** | ✅ test results, API contracts checked | via /bda-evidence | via /bda-upload |
 | **frontend** | ✅ component snapshots, a11y audits | via /bda-evidence | via /bda-upload |
 | **mobile** | ✅ device screenshots, Maestro runs | via /bda-evidence | via /bda-upload |

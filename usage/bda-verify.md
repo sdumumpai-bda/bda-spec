@@ -14,12 +14,12 @@
 ## Quick start
 
 ```
-/bda-verify docs/80-ImplementPlan/2026-05-21-1430-add-search.md
+/bda-verify docs/obsidian-vault/80-ImplementPlan/2026-05-21-1430-add-search.md
 ```
 
 ผลลัพธ์:
 ```
-docs/95-Handoff/HOR-2026-05-21-add-search.md
+docs/obsidian-vault/95-Handoff/HOR-2026-05-21-add-search.md
 
 # Add Search Feature — Handoff Report
 ## Summary · What Changed · Verification · DS Compliance · Security · BDA Standard files · Pipeline trace · Commands run · Evidence Manifest · Limitations · Rollback · Approval
@@ -41,14 +41,14 @@ docs/95-Handoff/HOR-2026-05-21-add-search.md
 4. **Phase 4** — Vault consistency (wikilinks, IMPLEMENTATION-STATUS, missing FN-* etc.)
 5. **Phase 5** — Security pre-flight (เรียก `/bda-secure` logic) — STOP ถ้า BLOCKED
 6. **Phase 6** — Design system audit (เรียก `/bda-design audit` logic)
-7. **Phase 7** — สร้าง handoff report `docs/95-Handoff/HOR-<YYYY-MM-DD>-<slug>.md`
+7. **Phase 7** — สร้าง handoff report `docs/obsidian-vault/95-Handoff/HOR-<YYYY-MM-DD>-<slug>.md`
 8. **Phase 8** — Update status (plan → handed-off, IMPLEMENTATION-STATUS, checkin log)
 
 ## Output ที่ได้
 
-- `docs/95-Handoff/HOR-<YYYY-MM-DD>-<slug>.md` — handoff report ที่ครบ 12 sections
+- `docs/obsidian-vault/95-Handoff/HOR-<YYYY-MM-DD>-<slug>.md` — handoff report ที่ครบ 12 sections
 - Plan/fix file → `status: handed-off`
-- `docs/00-Index/IMPLEMENTATION-STATUS.md` mark `ready-for-review`
+- `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` mark `ready-for-review`
 - Checkin log entry
 
 ## Handoff report sections
@@ -89,7 +89,7 @@ Body:
 ```
 1. /bda-fix → /bda-plan → /bda-implement
 2. /bda-test --since HEAD~
-3. /bda-verify --fix docs/85-FixLog/<slug>.md
+3. /bda-verify --fix docs/obsidian-vault/85-FixLog/<slug>.md
 4. /bda-git --fix <fix-log>
 ```
 
@@ -116,7 +116,7 @@ Body:
 - ก่อน `/bda-verify`: [/bda-implement](./bda-implement.md), [/bda-test](./bda-test.md), [/bda-secure](./bda-secure.md), [/bda-evidence](./bda-evidence.md), [/bda-upload](./bda-upload.md)
 - หลัง `/bda-verify`: [/bda-git](./bda-git.md) (commit + push), reviewer review
 - Embedded calls: `/bda-secure` (Phase 5), `/bda-design audit` (Phase 6)
-- Vault path: `docs/95-Handoff/HOR-*.md`
+- Vault path: `docs/obsidian-vault/95-Handoff/HOR-*.md`
 
 ## FAQ
 
@@ -124,7 +124,7 @@ Body:
 A: ไม่ — แก้ blocker (test fail / secret found / unmasked PII) แล้วรัน `/bda-verify` ใหม่ — handoff report จะ regenerate
 
 **Q: Reviewer ตรวจ handoff report ที่ไหน?**
-A: `docs/95-Handoff/HOR-*.md` หรือคลิก GDrive link ของ evidence (ถ้า uploaded แล้ว) — Approval section รอ sign
+A: `docs/obsidian-vault/95-Handoff/HOR-*.md` หรือคลิก GDrive link ของ evidence (ถ้า uploaded แล้ว) — Approval section รอ sign
 
 **Q: ทำไมต้องมี handoff report แยกจาก plan file?**
 A: Plan = ทำอะไร; HOR = ทำแล้วผลเป็นยังไง + evidence + risks + rollback — exec-friendly summary

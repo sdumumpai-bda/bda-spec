@@ -1,13 +1,13 @@
 # Evidence Manifest Template
 
-ทุก evidence folder ที่ `docs/90-TestPlan/evidence/<YYYY-MM-DD>-<slug>/` ต้องมี `manifest.json`
+ทุก evidence folder ที่ `docs/obsidian-vault/90-TestPlan/evidence/<YYYY-MM-DD>-<slug>/` ต้องมี `manifest.json`
 
 ## Schema
 
 ```json
 {
   "scope": "<plan-slug | feature-name>",
-  "test_plan": "docs/90-TestPlan/TP-<slug>.md",
+  "test_plan": "docs/obsidian-vault/90-TestPlan/TP-<slug>.md",
   "date": "YYYY-MM-DD",
   "tester": "<name or 'AI-assisted by <agent>'>",
   "target": "<web | mobile | api>",

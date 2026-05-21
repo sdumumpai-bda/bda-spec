@@ -4,7 +4,7 @@ You are an assistant working in a **bda-spec** project — an AI + Obsidian docs
 
 ## Behavior
 
-1. **Vault-first** — Always read `docs/00-Index/IMPLEMENTATION-STATUS.md` and relevant docs in `docs/{10-PRD,20-Features,40-Functions,70-Reference}/` BEFORE asking clarifying questions.
+1. **Vault-first** — Always read `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` and relevant docs in `docs/{10-PRD,20-Features,40-Functions,70-Reference}/` BEFORE asking clarifying questions.
 
 2. **Source of truth** — Every command verb (`bda-plan`, `bda-fix`, `bda-clarify`, etc.) has a markdown spec at `commands/bda-<verb>.md`. When the user says `bda-<verb>: <task>`, **read that file and follow its Phase structure**.
 
@@ -21,7 +21,7 @@ You are an assistant working in a **bda-spec** project — an AI + Obsidian docs
 
 6. **Thai-first reporting** — Section headers and prose in Thai; code/identifiers/file paths in English.
 
-7. **Design system enforcement** — If `docs/70-Reference/DesignSystem/` exists, UI work must use tokens from `DS-Tokens.md` and components from `DS-Components.md`. Refuse ad-hoc styling.
+7. **Design system enforcement** — If `docs/obsidian-vault/70-Reference/DesignSystem/` exists, UI work must use tokens from `DS-Tokens.md` and components from `DS-Components.md`. Refuse ad-hoc styling.
 
 ## Verb routing
 

@@ -75,7 +75,7 @@ run "README.md exists"             '[ -f README.md ]'
 # Test 2: Folder structure
 # ════════════════════════════════════════════════════════════════════════════
 printf "\n${c_bold}Section 2 — Folder structure${c_reset}\n"
-for d in commands .claude/commands .claude/agents standards/policies standards/checklists standards/templates templates scripts bin codex/agents docs/00-Index docs/10-PRD docs/20-Features docs/30-Roles docs/40-Functions docs/50-Phases docs/60-Flows docs/70-Reference docs/75-Checkins docs/80-ImplementPlan docs/85-FixLog docs/90-TestPlan docs/95-Handoff; do
+for d in commands .claude/commands .claude/agents standards/policies standards/checklists standards/templates templates scripts bin codex/agents docs/obsidian-vault/00-Index docs/obsidian-vault/10-PRD docs/obsidian-vault/20-Features docs/obsidian-vault/30-Roles docs/obsidian-vault/40-Functions docs/obsidian-vault/50-Phases docs/obsidian-vault/60-Flows docs/obsidian-vault/70-Reference docs/obsidian-vault/75-Checkins docs/obsidian-vault/80-ImplementPlan docs/obsidian-vault/85-FixLog docs/obsidian-vault/90-TestPlan docs/obsidian-vault/95-Handoff; do
   run "dir $d"                     "[ -d $d ]"
 done
 
@@ -184,12 +184,12 @@ run "bin/bda-spec doctor runs"     'bash bin/bda-spec doctor 2>&1 | grep -q "com
 # Test 11: Sample vault references valid
 # ════════════════════════════════════════════════════════════════════════════
 printf "\n${c_bold}Section 11 — Sample vault (Library Book Tracker)${c_reset}\n"
-run "IMPLEMENTATION-STATUS"        '[ -s docs/00-Index/IMPLEMENTATION-STATUS.md ]'
-run "PRD file"                     'ls docs/10-PRD/PRD-*.md >/dev/null 2>&1'
-run "Feature files"                'ls docs/20-Features/FEAT-*.md >/dev/null 2>&1'
-run "Function files"               'find docs/40-Functions -name "FN-*.md" | head -1 | xargs test -f'
-run "DesignSystem"                 '[ -d docs/70-Reference/DesignSystem ]'
-run "DS preview.html"              '[ -f docs/70-Reference/DesignSystem/preview.html ]'
+run "IMPLEMENTATION-STATUS"        '[ -s docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md ]'
+run "PRD file"                     'ls docs/obsidian-vault/10-PRD/PRD-*.md >/dev/null 2>&1'
+run "Feature files"                'ls docs/obsidian-vault/20-Features/FEAT-*.md >/dev/null 2>&1'
+run "Function files"               'find docs/obsidian-vault/40-Functions -name "FN-*.md" | head -1 | xargs test -f'
+run "DesignSystem"                 '[ -d docs/obsidian-vault/70-Reference/DesignSystem ]'
+run "DS preview.html"              '[ -f docs/obsidian-vault/70-Reference/DesignSystem/preview.html ]'
 
 # ════════════════════════════════════════════════════════════════════════════
 # Test 12: Template lookup chain integrity

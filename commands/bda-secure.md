@@ -56,7 +56,7 @@ patterns=(
 )
 
 # Scan vault evidence + docs
-find docs/90-TestPlan/evidence docs/85-FixLog docs/95-Handoff -type f \
+find docs/obsidian-vault/90-TestPlan/evidence docs/obsidian-vault/85-FixLog docs/obsidian-vault/95-Handoff -type f \
   \( -name "*.md" -o -name "*.json" -o -name "*.log" \) 2>/dev/null
 ```
 
@@ -64,13 +64,13 @@ Report PII findings → BLOCK ถ้าไม่ได้ mask + ไม่มี
 
 ## Phase 3 — Screenshot masking check
 
-ตรวจ `docs/90-TestPlan/evidence/**/*.png`:
+ตรวจ `docs/obsidian-vault/90-TestPlan/evidence/**/*.png`:
 - ทุก image ต้องมี manifest entry
 - ถ้า `contains_pii: true` ต้องมี `masking_applied: true`
 - ถ้า `safe_to_share: false` → flag ห้าม push
 
 ```bash
-find docs/90-TestPlan/evidence -name "manifest.json" -exec cat {} \;
+find docs/obsidian-vault/90-TestPlan/evidence -name "manifest.json" -exec cat {} \;
 ```
 
 ## Phase 4 — Public-repo guardrails
@@ -123,8 +123,8 @@ Security pre-flight
 ✅ Secret scan: clean (5 files scanned)
 ✅ PII scan: clean (12 docs scanned)
 🟡 Screenshot masking: 2 screenshots missing PII flag
-   - docs/90-TestPlan/evidence/2026-05-20-search/TC-001-03-results.png
-   - docs/90-TestPlan/evidence/2026-05-20-search/TC-002-01-detail.png
+   - docs/obsidian-vault/90-TestPlan/evidence/2026-05-20-search/TC-001-03-results.png
+   - docs/obsidian-vault/90-TestPlan/evidence/2026-05-20-search/TC-002-01-detail.png
 ✅ Public-repo guardrails: ok
 🟡 npm audit: 3 high-severity (express@4.17 — upgrade to 4.19)
 ✅ Production guardrails: ok

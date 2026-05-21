@@ -398,23 +398,23 @@ fi
 # `--here` ≠ brownfield: ผู้ใช้อาจรันใน folder ว่างที่เพิ่งสร้าง หรือใน repo ที่มี code อยู่แล้ว
 # ดังนั้นถามตำแหน่ง vault เป็นคำถามแยก ไม่ผูกกับ mode
 
-vault_default="docs"
-[[ "$MODE" == "brownfield" && -d "$TARGET/docs" ]] && vault_default="docs/bda-vault"
+vault_default="docs/obsidian-vault"
+# ถ้า brownfield + docs/ มีเนื้อหาอื่นๆอยู่ → ใช้ docs/obsidian-vault/ (default) — แยกชัด
+[[ "$MODE" == "brownfield" && -d "$TARGET/docs" && ! -d "$TARGET/docs/obsidian-vault" ]] && vault_default="docs/obsidian-vault"
 
 if [[ $YES -eq 0 ]]; then
   cat <<EOF
 
 📁 Obsidian vault location
-   A) สร้างใหม่ใน docs/                    (default — greenfield)
-   B) สร้างใหม่ใน docs/bda-vault/          (brownfield ที่ docs/ ใช้อยู่แล้ว)
+   A) สร้างใหม่ใน docs/obsidian-vault/     (default — แยกจาก docs/ ที่อาจมีเอกสารอื่น)
+   B) สร้างใหม่ใน docs/                    (ใช้ docs/ เป็น vault โดยตรง — สำหรับ project เล็ก)
    C) ใช้ vault ที่มีอยู่แล้วใน repo นี้    (ใส่ relative path)
    D) ใช้ external vault (path นอก repo)   (เช่น Obsidian sync folder)
 
 EOF
-  vault_choice=$(ask "เลือก (A/B/C/D)" "$([ "$vault_default" = "docs" ] && echo A || echo B)")
+  vault_choice=$(ask "เลือก (A/B/C/D)" "A")
 else
   vault_choice="A"
-  [[ "$MODE" == "brownfield" && -d "$TARGET/docs" ]] && vault_choice="B"
 fi
 
 VAULT_PATH=""
@@ -422,10 +422,10 @@ EXTERNAL_VAULT=""
 
 case "$vault_choice" in
   [Aa])
-    VAULT_PATH="docs"
+    VAULT_PATH="docs/obsidian-vault"
     ;;
   [Bb])
-    VAULT_PATH="docs/bda-vault"
+    VAULT_PATH="docs"
     ;;
   [Cc])
     existing_path=$(ask "Path ของ vault ที่มีอยู่ (relative to repo root)" "docs")

@@ -20,7 +20,7 @@ BDA Standard v0.7.0 alignment (matches `commands/fix-bug.md` + `workflows/obsidi
 
 ```
 /bda-fix <bug description>
-/bda-fix <bug> --update docs/85-FixLog/YYYY-MM-DD-HHMM-<slug>.md
+/bda-fix <bug> --update docs/obsidian-vault/85-FixLog/YYYY-MM-DD-HHMM-<slug>.md
 ```
 
 ว่าง → ถาม "บั๊กอะไร?"
@@ -44,7 +44,7 @@ Bug ไม่ชัด → ถาม 1-3 คำถาม **ใน message เด
 
 ## Phase 3 — สร้าง fix-log
 
-Path: `docs/85-FixLog/YYYY-MM-DD-HHMM-<slug>.md`
+Path: `docs/obsidian-vault/85-FixLog/YYYY-MM-DD-HHMM-<slug>.md`
 
 ```markdown
 ---
@@ -72,13 +72,13 @@ related_plan: <path or none>
 <technical cause — file path, function, line — from grep/read>
 
 ## Vault Context Read
-- docs/40-Functions/FN-<related>.md
-- docs/70-Reference/REF-AuthorizationMatrix.md (ถ้าเกี่ยว auth)
-- docs/85-FixLog/<previous-similar>.md (ถ้าเคยมี regression)
+- docs/obsidian-vault/40-Functions/FN-<related>.md
+- docs/obsidian-vault/70-Reference/REF-AuthorizationMatrix.md (ถ้าเกี่ยว auth)
+- docs/obsidian-vault/85-FixLog/<previous-similar>.md (ถ้าเคยมี regression)
 
 ## Before Evidence
 - Error log: <path or paste>
-- Screenshot: docs/90-TestPlan/evidence/<slug>/before.png (ถ้ามี)
+- Screenshot: docs/obsidian-vault/90-TestPlan/evidence/<slug>/before.png (ถ้ามี)
 - Console output: <paste>
 
 ## Fix Approach
@@ -106,7 +106,7 @@ related_plan: <path or none>
 
 หลังสร้าง fix-log → เสนอ:
 
-> Fix-log สร้างแล้ว: `docs/85-FixLog/2026-05-20-1530-search-not-returning-results.md`
+> Fix-log สร้างแล้ว: `docs/obsidian-vault/85-FixLog/2026-05-20-1530-search-not-returning-results.md`
 >
 > ตัวเลือก:
 > - **A)** สร้าง implement plan จาก fix-log นี้: `/bda-plan fix:<slug>` → จะ pre-fill plan จาก fix-log

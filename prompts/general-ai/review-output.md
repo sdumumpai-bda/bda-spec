@@ -34,7 +34,7 @@
 
 ## Check 4 — Vault-first
 
-- [ ] AI ได้อ่าน `docs/00-Index/IMPLEMENTATION-STATUS.md`?
+- [ ] AI ได้อ่าน `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md`?
 - [ ] AI ได้อ่าน relevant docs (PRD/Feature/Function) ก่อนถามคำถาม?
 - [ ] คำถามที่ vault ตอบอยู่แล้วถูกถามใหม่ไหม? (ถ้ามี = ผิด)
 

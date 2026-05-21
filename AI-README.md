@@ -103,7 +103,7 @@ Task: ...
 3. **No fake evidence** — ห้ามแต่ง commit hash, URL, test result, token count
 4. **Thai-first reporting** — รายงาน + log ภาษาไทย (เว้นแต่ project ตั้ง `language: en`)
 5. **Plan/Implement separation** — `/bda-plan` ไม่แตะโค้ด, `/bda-implement` เท่านั้นที่แก้โค้ด, `/bda-fix` แค่ diagnose
-6. **Design system compliance** — ถ้ามี `docs/70-Reference/DesignSystem/` → frontend/mobile ต้องใช้ token/component จากนั้น
+6. **Design system compliance** — ถ้ามี `docs/obsidian-vault/70-Reference/DesignSystem/` → frontend/mobile ต้องใช้ token/component จากนั้น
 
 ## Config
 
