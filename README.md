@@ -2,7 +2,7 @@
 
 **AI + Obsidian docs-driven development workflow** สำหรับทีมที่ใช้ AI ทำงาน — รวม spec-kit philosophy, BDA AI Dev Standard, และ Obsidian vault patterns
 
-> 21 slash commands · 9 specialized AI subagents · 5 AI shims (Claude · Codex · Gemini · GPT · GLM) · pinned BDA Standard v0.8.0 · 3-tier evidence storage with GDrive upload
+> 21 slash commands · 3 always-on + 6 on-demand AI subagents · 5 AI shims (Claude · Codex · Gemini · GPT · GLM) · pinned BDA Standard v0.8.0 · 3-tier evidence storage with GDrive upload
 
 ---
 
@@ -146,7 +146,7 @@ bash <(curl -fsSL .../install.sh)
 **Template lookup chain (สูง → ต่ำ):**
 1. `.bda-spec/local/templates/<name>.md` (personal)
 2. `templates/<name>.md` (project — แก้ + commit ได้)
-3. `standards/templates/<name>.md` (org canonical — read-only, sync override)
+3. `.bda-spec/templates/<name>.md` (org canonical — read-only, sync override)
 
 ดูตัวอย่างใน [`.bda-spec.local.yml.example`](./.bda-spec.local.yml.example)
 
@@ -170,7 +170,7 @@ bda-spec ทำงานกับ AI ทุกตัวที่อ่าน mar
 
 ## 🛡️ Standards alignment
 
-bda-spec ห่อ **BDA AI Dev Standard v0.8.0** (snapshot ที่ pinned ใน `standards/`)
+bda-spec ห่อ **BDA AI Dev Standard v0.8.0** (snapshot ที่ pinned ใน `.bda-spec/`)
 
 ทุก command output ต้องมี **5 หัวข้อบังคับ**:
 
@@ -189,8 +189,8 @@ bda-spec ห่อ **BDA AI Dev Standard v0.8.0** (snapshot ที่ pinned ใ
 อัพเดท standards: `/bda-sync` หรือ `bda-spec sync`
 
 ดู:
-- [`standards/STANDARD.md`](./standards/STANDARD.md) — 5-step pipeline
-- [`standards/policies/`](./standards/policies/) — 4 policies
+- [`.bda-spec/STANDARD.md`](./standards/STANDARD.md) — 5-step pipeline
+- [`.bda-spec/policies/`](./standards/policies/) — 4 policies
 - [`EVIDENCE-PATHS.md`](./EVIDENCE-PATHS.md) — 3-tier evidence storage
 - [`CHANGELOG.md`](./CHANGELOG.md) — version history + bda-spec extensions vs BDA standard
 
@@ -272,7 +272,6 @@ bash scripts/install.sh --source $(pwd) --target /tmp/test-bda --dry-run
 ├── CLAUDE.md                  ← Claude project entry
 ├── EVIDENCE-PATHS.md          ← 3-tier evidence strategy
 ├── CHANGELOG.md               ← version history
-├── VERSION                    ← bda-spec version
 ├── .bda-spec.yml              ← shared config (gitTracked)
 ├── .bda-spec.local.yml.example← personal config template
 ├── .gitignore
@@ -281,7 +280,7 @@ bash scripts/install.sh --source $(pwd) --target /tmp/test-bda --dry-run
 ├── usage/                     ← 21+1 user-facing usage docs (Quick start, FAQ, gotchas)
 ├── .claude/
 │   ├── commands/              ← Claude slash command shims
-│   ├── agents/                ← 9 specialized subagents
+│   ├── agents/                ← 9 subagents in catalog (install picks 3 always-on; rest enable via /bda-agent)
 │   └── settings.json
 ├── codex/                     ← Codex AGENTS.md routing
 ├── gemini/                    ← Gemini prompts
@@ -289,20 +288,22 @@ bash scripts/install.sh --source $(pwd) --target /tmp/test-bda --dry-run
 ├── glm/                       ← Zhipu GLM prompts
 ├── prompts/general-ai/        ← Generic AI prompts
 │
-├── standards/                 ← BDA Standard v0.7.0 snapshot (read-only)
-│   ├── VERSION
-│   ├── STANDARD.md
-│   ├── policies/              ← 4 policies
-│   ├── checklists/            ← 5 checklists
-│   └── templates/             ← canonical templates
-├── templates/                 ← project-customizable overrides (16 templates)
+├── .bda-spec/                         ← bda-spec machinery (v0.4+)
+│   ├── VERSION                        ← bda-spec version (was: root VERSION pre-v0.4)
+│   └── standards/                     ← BDA Standard v0.7.0 snapshot (read-only)
+│       ├── VERSION                    ← BDA standard version (DIFFERENT from bda-spec version)
+│       ├── STANDARD.md
+│       ├── policies/                  ← 4 policies
+│       ├── checklists/                ← 5 checklists
+│       └── templates/                 ← canonical templates
+├── templates/                 ← OPTIONAL — project-customizable overrides (create when customizing)
 │
 ├── scripts/                   ← bash helpers
-│   ├── install.sh             ← one-line bootstrap
-│   ├── upgrade.sh             ← bump bda-spec
-│   ├── bda-paths.sh           ← config resolver
-│   ├── upload-evidence.sh     ← GDrive uploader (rclone)
-│   └── test.sh                ← 233 smoke tests
+│   ├── bda-paths.sh           ← config resolver [installed to user project]
+│   ├── upgrade.sh             ← bump bda-spec [installed to user project]
+│   ├── upload-evidence.sh     ← GDrive uploader (rclone) [installed to user project]
+│   ├── install.sh             ← one-line bootstrap (bda-spec source-only; fetched via curl)
+│   └── test.sh                ← smoke tests for bda-spec source (NOT installed)
 ├── bin/
 │   └── bda-spec               ← CLI wrapper
 │

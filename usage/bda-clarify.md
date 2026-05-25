@@ -94,7 +94,7 @@ Your answer: [A/B/C/D หรือ ข้อความอื่น]
 ```
 1. /bda-new                       ← PRD/SRS draft
 2. /bda-clarify                   ← resolve 5 ambiguity
-3. /bda-analyze                   ← check ว่ายังมี orphan FR ไหม
+3. /bda-verify                   ← check ว่ายังมี orphan FR ไหม
 4. /bda-plan FEAT-X
 ```
 
@@ -117,7 +117,7 @@ Your answer: [A/B/C/D หรือ ข้อความอื่น]
 ## Related
 
 - ก่อน `/bda-clarify`: [/bda-new](./bda-new.md), [/bda-doc](./bda-doc.md)
-- หลัง `/bda-clarify`: [/bda-analyze](./bda-analyze.md) (check consistency), [/bda-plan](./bda-plan.md) `--revise`
+- หลัง `/bda-clarify`: [/bda-verify](./bda-verify.md) (check consistency), [/bda-plan](./bda-plan.md) `--revise`
 - ถ้า answer กระทบ data model: [/bda-doc](./bda-doc.md) data-model
 - ถ้า affect DS: [/bda-design](./bda-design.md) component
 

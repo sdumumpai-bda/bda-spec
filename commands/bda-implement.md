@@ -8,7 +8,7 @@ BDA Standard v0.8.0 alignment (matches `commands/build-feature.md` + `commands/f
 - Read Obsidian context manifest FIRST
 - Append feature/fix summary + changed files + verification + evidence to ACTIVE session note
 - After implementation: dispatch update-obsidian behavior — reconcile session/evidence/index notes
-- Use `standards/templates/obsidian-work-note.md` shape สำหรับ session note ที่สร้าง
+- Use `.bda-spec/templates/obsidian-work-note.md` shape สำหรับ session note ที่สร้าง
 -->
 
 
@@ -113,7 +113,7 @@ Instructions:
 
 ## Phase 7 — Output (5 หัวข้อบังคับ)
 
-1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/policies/no-fake-evidence.md`, `standards/policies/evidence-verification.md`, plan file
+1. **BDA Standard files used** — `.bda-spec/STANDARD.md`, `.bda-spec/policies/no-fake-evidence.md`, `.bda-spec/policies/evidence-verification.md`, plan file
 2. **Pipeline trace** — Understand (Phase 1 read plan) → Plan (plan file itself) → Execute (Phase 3 spawn subagent) → Verify (Phase 5 evidence)
 3. **Commands run** — ทุก bash, test, build command ที่รันจริง พร้อมผล
 4. **Verification / Evidence** — paths ของ evidence files + test results (pass/fail counts)

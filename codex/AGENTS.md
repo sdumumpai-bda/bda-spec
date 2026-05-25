@@ -4,7 +4,7 @@
 
 ## หลักการ
 
-bda-spec มี 13 commands ที่ source-of-truth อยู่ที่ `commands/`. เมื่อ user ระบุ verb (`bda-plan`, `bda-fix`, ฯลฯ), อ่านไฟล์ใน `commands/<verb>.md` แล้วทำตาม Phase ที่กำหนด
+bda-spec มี 21 commands ที่ source-of-truth อยู่ที่ `commands/`. เมื่อ user ระบุ verb (`bda-plan`, `bda-fix`, ฯลฯ), อ่านไฟล์ใน `commands/<verb>.md` แล้วทำตาม Phase ที่กำหนด
 
 ## Verb mapping
 
@@ -29,6 +29,7 @@ bda-spec มี 13 commands ที่ source-of-truth อยู่ที่ `com
 | `bda-verify` หรือ `verify` | `commands/bda-verify.md` |
 | `bda-handoff` หรือ `handoff` | `commands/bda-handoff.md` |
 | `bda-git` หรือ `git-sync` | `commands/bda-git.md` |
+| `bda-upload` หรือ `upload` | `commands/bda-upload.md` |
 | `bda-sync` หรือ `sync` | `commands/bda-sync.md` |
 
 ## Universal rules (จาก BDA AI Dev Standard)

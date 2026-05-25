@@ -93,7 +93,7 @@ grep -l -i "$DOMAIN_KEYWORDS" "$VAULT_PATH"/{10-PRD,20-Features,40-Functions,70-
 grep -l "subagent_target: $RELATED" "$VAULT_PATH"/80-ImplementPlan/*.md
 
 # Constitution rules ที่อาจ apply
-ls standards/policies/
+ls .bda-spec/policies/
 ```
 
 ใช้เป็น **input** ให้ agent prompt ที่ generate
@@ -231,7 +231,7 @@ backend.md       ✗ ขาด §5.1 Test creation gate
 
 ## Output (5 หัวข้อบังคับ)
 
-1. **BDA Standard files used** — `standards/STANDARD.md`, `.bda-spec.yml`
+1. **BDA Standard files used** — `.bda-spec/STANDARD.md`, `.bda-spec.yml`
 2. **Pipeline trace** — Understand (Phase 0) → Plan (Phase 1 batch ถาม) → Execute (Phase 2-5) → Verify (Phase 5 audit)
 3. **Commands run** — Read agents, Write agent file, yq update
 4. **Verification / Evidence** — agent file path, line count, sections present, enabled flag

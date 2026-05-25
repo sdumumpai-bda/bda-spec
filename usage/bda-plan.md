@@ -129,7 +129,7 @@ Body:
 
 - ก่อน `/bda-plan`: [/bda-new](./bda-new.md), [/bda-clarify](./bda-clarify.md), [/bda-fix](./bda-fix.md)
 - หลัง `/bda-plan` (approve แล้ว): [/bda-implement](./bda-implement.md)
-- Template: `templates/plan.md` (fallback `standards/templates/plan.md`)
+- Template: `templates/plan.md` (fallback `.bda-spec/templates/plan.md`)
 - Vault path: `docs/obsidian-vault/80-ImplementPlan/`
 
 ## FAQ

@@ -35,13 +35,22 @@ mode: standalone
 # (README, ARCHITECTURE.md, public API docs, etc.)
 vault_path: docs/obsidian-vault
 
+# bda-spec own version (v0.4+: was at root VERSION → .bda-spec/VERSION → now here)
+# Bumped automatically by scripts/upgrade.sh
+bda_spec:
+  version: "0.4.0"
+
 # BDA Standard version pinned for this project
 # Bump via /bda-sync — never edit manually unless syncing
+# IMPORTANT (v0.4+): source is bda-spec (curated layer), NOT upstream BDA standard.
+# Flow: upstream BDA standard → bda-spec curates+tests → user project syncs from bda-spec.
+# This guarantees standard version is always compatible with bda-spec commands.
 standard:
-  source: "https://github.com/BigDataAgency/bda-ai-dev-standard"
-  version: "0.7.0"                      # pinned version snapshot
-  snapshot_path: standards              # where snapshot is mirrored
+  source: "https://github.com/sdumumpai-bda/bda-spec"   # curated layer (was: BigDataAgency/bda-ai-dev-standard)
+  version: "0.8.0"                                       # pinned BDA standard version (= .bda-spec/VERSION)
+  snapshot_path: .bda-spec                               # v0.4+: was .bda-spec/standards/, flattened
   last_synced: "2026-05-21"
+  bda_spec_version: "0.4.0"                              # which bda-spec release this snapshot came from
 
 # Subagents enabled for this project
 # /bda-init asks which ones; toggle on/off here
@@ -77,10 +86,11 @@ executive_report:
   include_progress_percent: true        # auto-calc from PHASE files
 
 # Doc templates — paths checked in order; first match wins
-# Override standards/templates/* by placing same filename in templates/
+# Override .bda-spec/standards/templates/* by placing same filename in templates/
+# (root `templates/` ไม่ได้ติดมากับ installer ตั้งแต่ v0.4 — สร้างเองเมื่อจะ customize)
 template_lookup:
-  - templates                           # project-customized (highest priority)
-  - standards/templates                 # org-level snapshot
+  - templates                           # project-customized (highest priority, optional)
+  - .bda-spec/standards/templates       # org-level snapshot (always present)
 
 # Safety guardrails
 guardrails:

@@ -346,30 +346,114 @@ fi
 log "Installing bda-spec scaffolding..."
 
 # Always-installed items (core — regardless of AI selection)
+# v0.4+ layout (FLAT under .bda-spec/, no more standards/ subfolder):
+#   - .bda-spec/{STANDARD.md, UPDATE-POLICY.md, VERSION, policies/, checklists/, templates/, workflows/}
+#   - .bda-spec/VERSION = BDA standard version (NOT bda-spec own version)
+#   - bda-spec own version lives in .bda-spec.yml `bda_spec.version` key (no separate file)
+#   - root templates/ — OPTIONAL project overrides (lookup chain: root → .bda-spec/templates/)
 SAFE_ITEMS=(
   "commands"
-  "standards"
-  "templates"
-  "scripts"
+  ".bda-spec/STANDARD.md"
+  ".bda-spec/UPDATE-POLICY.md"
+  ".bda-spec/VERSION"
+  ".bda-spec/policies"
+  ".bda-spec/checklists"
+  ".bda-spec/templates"
+  ".bda-spec/workflows"
   ".bda-spec.yml"
   ".bda-spec.local.yml.example"
   ".gitignore"
-  "VERSION"
   "AI-README.md"
   "README.md"
 )
 
+# Scripts: install only runtime helpers — exclude bda-spec source-only scripts.
+# install.sh / test.sh ใช้กับ bda-spec source repo เอง — user project ไม่ใช้
+SCRIPTS_TO_INSTALL=(
+  "bda-paths.sh"          # config resolver (used by every command at runtime)
+  "upgrade.sh"            # bump bda-spec version
+  "upload-evidence.sh"    # GDrive uploader (used by /bda-evidence + /bda-upload)
+)
+
 for item in "${SAFE_ITEMS[@]}"; do
   if [[ -e "$TMP_DIR/$item" ]]; then
-    if [[ -e "$TARGET/$item" && "$MODE" == "brownfield" ]]; then
+    # Compute target path — preserve nested paths like ".bda-spec/standards"
+    target_path="$TARGET/$item"
+    parent_dir="$(dirname "$target_path")"
+    if [[ -e "$target_path" && "$MODE" == "brownfield" ]]; then
       warn "  skip existing: $item (ใช้ --yes เพื่อ overwrite)"
-      [[ $YES -eq 1 ]] && run "rm -rf '$TARGET/$item' && cp -r '$TMP_DIR/$item' '$TARGET/'"
+      [[ $YES -eq 1 ]] && run "rm -rf '$target_path' && mkdir -p '$parent_dir' && cp -r '$TMP_DIR/$item' '$target_path'"
     else
-      run "cp -r '$TMP_DIR/$item' '$TARGET/'"
+      run "mkdir -p '$parent_dir' && cp -r '$TMP_DIR/$item' '$target_path'"
       log "  installed: $item"
     fi
   fi
 done
+
+# Install scripts whitelist (not whole scripts/ folder)
+mkdir -p "$TARGET/scripts"
+for s in "${SCRIPTS_TO_INSTALL[@]}"; do
+  if [[ -f "$TMP_DIR/scripts/$s" ]]; then
+    if [[ -f "$TARGET/scripts/$s" && "$MODE" == "brownfield" && $YES -ne 1 ]]; then
+      warn "  skip existing: scripts/$s (use --yes to overwrite)"
+    else
+      run "cp '$TMP_DIR/scripts/$s' '$TARGET/scripts/$s'"
+      log "  installed: scripts/$s"
+    fi
+  fi
+done
+
+# v0.4 migration: remove install.sh + test.sh if they exist from older install (pre-v0.4)
+for old in install.sh test.sh; do
+  if [[ -f "$TARGET/scripts/$old" ]]; then
+    log "  migration (v0.4): removing scripts/$old (no longer installed — bda-spec source-only)"
+    [[ $DRY_RUN -eq 0 ]] && rm -f "$TARGET/scripts/$old"
+  fi
+done
+
+# ---------- v0.4 migrations (run AFTER copy, so new files exist for conflict detection) ----------
+# Goal: bring any prior layout to current FLAT v0.4: .bda-spec/{STANDARD.md,policies,…}
+# Sources of legacy state:
+#   pre-v0.4:           root standards/  +  root VERSION
+#   v0.4-intermediate:  .bda-spec/standards/  +  .bda-spec/VERSION (bda-spec own)
+#
+# Order matters: drop bda-spec-own VERSION BEFORE flattening (so .bda-spec/VERSION slot is free
+# for the BDA standard VERSION that gets copied in from template)
+#
+# Note: by this point, SAFE_ITEMS loop has already copied the new flat files in.
+
+# (1) Migrate pre-v0.4 root standards/ → .bda-spec/ (flat)
+LEGACY_ROOT_STD="$TARGET/standards"
+if [[ -d "$LEGACY_ROOT_STD" ]]; then
+  bak="$TARGET/standards.bak-$(date +%Y%m%d-%H%M%S)"
+  log "  migration (v0.4): moving legacy root standards/ → $bak (template already provided fresh copies in .bda-spec/)"
+  [[ $DRY_RUN -eq 0 ]] && mv "$LEGACY_ROOT_STD" "$bak"
+fi
+
+# (2) Migrate v0.4-intermediate .bda-spec/standards/ → flatten into .bda-spec/
+if [[ -d "$TARGET/.bda-spec/standards" ]]; then
+  bak="$TARGET/.bda-spec/standards.bak-$(date +%Y%m%d-%H%M%S)"
+  log "  migration (v0.4): moving .bda-spec/standards/ → $bak (now flat under .bda-spec/)"
+  [[ $DRY_RUN -eq 0 ]] && mv "$TARGET/.bda-spec/standards" "$bak"
+fi
+
+# (3) Migrate pre-v0.4 root VERSION → drop (bda-spec own version now in .bda-spec.yml)
+if [[ -f "$TARGET/VERSION" ]]; then
+  legacy_bda_spec_ver=$(cat "$TARGET/VERSION" 2>/dev/null | tr -d '[:space:]')
+  log "  migration (v0.4): removing root VERSION (bda-spec version $legacy_bda_spec_ver moved to .bda-spec.yml bda_spec.version)"
+  [[ $DRY_RUN -eq 0 ]] && rm -f "$TARGET/VERSION"
+  # Persist into .bda-spec.yml if legacy version was readable
+  if [[ -n "$legacy_bda_spec_ver" && -f "$TARGET/.bda-spec.yml" && $DRY_RUN -eq 0 ]]; then
+    if ! grep -q "^bda_spec:" "$TARGET/.bda-spec.yml"; then
+      printf '\nbda_spec:\n  version: "%s"\n' "$legacy_bda_spec_ver" >> "$TARGET/.bda-spec.yml"
+    fi
+  fi
+fi
+
+# Legacy root templates/: leave alone if user has customizations; only note its presence
+if [[ -d "$TARGET/templates" ]]; then
+  log "  note: root templates/ พบ — เก็บไว้เป็น override layer (v0.4 ไม่ติดตั้งให้แล้ว แต่ใช้ได้ถ้ามี)"
+fi
 
 # ---------- AI agent folders (only selected ones) ----------
 # Always-on subagents (vault/quality/security keepers — every project needs these).

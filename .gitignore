@@ -6,7 +6,11 @@
 # คัดลอกจาก .bda-spec.local.yml.example แล้วปรับ paths ของตัวเอง
 .bda-spec.local.yml
 .bda-spec/local/
+.bda-spec/cache/
 .bda-spec.cache/
+
+# IMPORTANT: .bda-spec/standards/ is COMMITTED (snapshot of BDA AI Dev Standard).
+# Only personal subdirs (local/, cache/) under .bda-spec/ are ignored.
 
 # Daily log destination ที่อยู่นอก repo (ถ้าคน sync ผ่าน symlink)
 docs/obsidian-vault/75-Checkins/*.local.md
@@ -24,8 +28,8 @@ docs/**/screenshots/unmasked/
 *.unmasked.jpg
 
 # Standards local cache (ผลของ /bda-sync ที่เป็น tmp)
-standards/.cache/
-standards/.tmp/
+.bda-spec/standards/.cache/
+.bda-spec/standards/.tmp/
 
 # Backup files จากการ migration หรือ sync (auto-generated)
 *.md.new
@@ -65,7 +69,5 @@ logs/
 # Test/build artifacts (ของ project — ปรับเพิ่มเองตาม stack)
 coverage/
 .nyc_output/
-
-.claude/settings.local.json
 
 .claude/settings.local.json

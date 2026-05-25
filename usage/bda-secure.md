@@ -125,7 +125,7 @@ Verdict: REVIEW NEEDED (2 yellow)
 - ก่อน `/bda-secure`: [/bda-implement](./bda-implement.md), [/bda-evidence](./bda-evidence.md)
 - หลัง `/bda-secure`: [/bda-git](./bda-git.md), [/bda-verify](./bda-verify.md)
 - Embedded ใน: [/bda-verify](./bda-verify.md) Phase 5
-- Policies: `standards/policies/no-fake-evidence.md`, `standards/policies/source-of-truth.md`
+- Policies: `.bda-spec/policies/no-fake-evidence.md`, `.bda-spec/policies/source-of-truth.md`
 
 ## FAQ
 

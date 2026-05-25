@@ -143,10 +143,32 @@ HANDOFF_DIR="$VAULT_ABS/95-Handoff"
 TODAY=$(date +%Y-%m-%d)
 TODAY_CHECKIN="$CHECKIN_DIR/${TODAY}.md"
 
-# Templates lookup chain
+# Templates lookup chain (v0.4+: standards snapshot moved into .bda-spec/)
+# Backward-compat: if legacy layout (root `standards/`) still exists, fall back to it
+# so projects installed before v0.4 keep working until they run migration
 TEMPLATES_LOCAL="$ROOT/.bda-spec/local/templates"
 TEMPLATES_PROJECT="$ROOT/templates"
-TEMPLATES_STANDARD="$ROOT/standards/templates"
+# Resolve TEMPLATES_STANDARD via fallback chain (newest layout first)
+if [ -d "$ROOT/.bda-spec/templates" ]; then
+  TEMPLATES_STANDARD="$ROOT/.bda-spec/templates"            # v0.4 current (flat)
+elif [ -d "$ROOT/.bda-spec/standards/templates" ]; then
+  TEMPLATES_STANDARD="$ROOT/.bda-spec/standards/templates"  # v0.4-intermediate
+elif [ -d "$ROOT/standards/templates" ]; then
+  TEMPLATES_STANDARD="$ROOT/standards/templates"            # pre-v0.4
+else
+  TEMPLATES_STANDARD="$ROOT/.bda-spec/templates"            # default for fresh install
+fi
+
+# BDA standard snapshot root (for STANDARD.md, policies/, checklists/, workflows/)
+if [ -f "$ROOT/.bda-spec/STANDARD.md" ]; then
+  STANDARD_ROOT="$ROOT/.bda-spec"                       # v0.4 current
+elif [ -f "$ROOT/.bda-spec/standards/STANDARD.md" ]; then
+  STANDARD_ROOT="$ROOT/.bda-spec/standards"             # v0.4-intermediate
+elif [ -f "$ROOT/standards/STANDARD.md" ]; then
+  STANDARD_ROOT="$ROOT/standards"                       # pre-v0.4
+else
+  STANDARD_ROOT="$ROOT/.bda-spec"
+fi
 
 # Subagents (enabled list)
 ENABLED_AGENTS=""

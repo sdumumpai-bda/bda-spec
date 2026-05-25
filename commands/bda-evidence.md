@@ -199,7 +199,7 @@ Report ที่ `docs/obsidian-vault/95-Handoff/EVIDENCE-AUDIT-<date>.md`
 
 ## Output (5 หัวข้อบังคับ)
 
-1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/policies/no-fake-evidence.md`, `standards/templates/evidence-manifest.md`
+1. **BDA Standard files used** — `.bda-spec/STANDARD.md`, `.bda-spec/policies/no-fake-evidence.md`, `.bda-spec/templates/evidence-manifest.md`
 2. **Pipeline trace** — Understand (Phase 0) → Plan (Phase 1 classify) → Execute (Phase 2-6 validate/mask/store/link) → Verify (manifest count == FS count)
 3. **Commands run** — `cp`, `sed` (mask), validation greps
 4. **Verification / Evidence** — manifest entries added, file paths, PII flag status
@@ -209,7 +209,7 @@ Report ที่ `docs/obsidian-vault/95-Handoff/EVIDENCE-AUDIT-<date>.md`
 
 - **ห้าม commit evidence ที่ `pii: raw` หรือ `masked: ✗` ลงสาธารณะ** — block
 - ห้าม mask อัตโนมัติบน screenshot โดยไม่ user review — image-based PII ต้อง manual confirm
-- ห้ามใส่ evidence ลง `standards/` หรือ `templates/` — ใส่เฉพาะ vault context folder
+- ห้ามใส่ evidence ลง `.bda-spec/` หรือ `templates/` — ใส่เฉพาะ vault context folder
 - ห้ามลบ evidence ใน manifest — แค่ flag เป็น `status: superseded` + เพิ่มใหม่
 - ห้ามแก้ source doc นอก `## Evidence` section
 - ห้ามแต่ง E### ที่ไม่มีไฟล์จริง — ห้าม fake evidence (`policies/no-fake-evidence.md`)

@@ -6,7 +6,7 @@
 
 ## เมื่อไหร่ใช้
 
-- เติม section ที่ขาดใน PRD/SRS (หลัง `/bda-new` import หรือ `/bda-analyze` flag underspec)
+- เติม section ที่ขาดใน PRD/SRS (หลัง `/bda-new` import หรือ `/bda-verify` flag underspec)
 - เขียน Feature spec ใหม่ (FEAT-*) หรือ Function spec (FN-*)
 - บันทึก architecture decision (ADR)
 - สร้าง Role/Flow/Phase ใหม่
@@ -56,7 +56,7 @@
 | `TestPlan` | `90-TestPlan/TP-<slug>.md` | `test-plan.md` |
 | `Reference` | `70-Reference/REF-<slug>.md` | `reference.md` |
 
-Template lookup: `.bda-spec/local/templates/<n>.md` > `templates/<n>.md` > `standards/templates/<n>.md`
+Template lookup: `.bda-spec/local/templates/<n>.md` > `templates/<n>.md` > `.bda-spec/templates/<n>.md`
 
 ## ขั้นตอนภายใน (Phase summary)
 
@@ -110,7 +110,7 @@ Template lookup: `.bda-spec/local/templates/<n>.md` > `templates/<n>.md` > `stan
 
 ## Related
 
-- ก่อน `/bda-doc`: [/bda-new](./bda-new.md) (สร้าง PRD/SRS skeleton), [/bda-analyze](./bda-analyze.md) (flag underspec)
+- ก่อน `/bda-doc`: [/bda-new](./bda-new.md) (สร้าง PRD/SRS skeleton), [/bda-verify](./bda-verify.md) (flag underspec)
 - หลัง `/bda-doc`: [/bda-plan](./bda-plan.md) (ใช้ doc เป็น context)
 - DS-related: [/bda-design](./bda-design.md)
 - Vault structure: ดู [`README.md`](../README.md) section "โครงสร้าง"
@@ -119,10 +119,10 @@ Template lookup: `.bda-spec/local/templates/<n>.md` > `templates/<n>.md` > `stan
 ## FAQ
 
 **Q: ถ้า template ไม่มีใน `templates/` ใช้อันไหน?**
-A: Fallback `standards/templates/<n>.md` (read-only) — ถ้าอยาก customize → copy ไป `templates/<n>.md` แล้วแก้
+A: Fallback `.bda-spec/templates/<n>.md` (read-only) — ถ้าอยาก customize → copy ไป `templates/<n>.md` แล้วแก้
 
 **Q: ADR เป็น immutable หรือเปล่า?**
 A: ใช่ — ADR ที่ accepted แล้วไม่แก้ ถ้าเปลี่ยน decision → สร้าง ADR ใหม่ที่ supersedes ของเดิม
 
-**Q: review mode ใช้แทน `/bda-analyze` ได้ไหม?**
+**Q: review mode ใช้แทน `/bda-verify` ได้ไหม?**
 A: คนละ scope — review ตรวจ doc เดียว vs template; analyze cross-artifact (coverage table) — ใช้คู่กัน

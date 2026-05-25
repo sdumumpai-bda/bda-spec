@@ -54,7 +54,7 @@
 2. **Phase 1** — ถามคำถามขั้นต่ำ batch เดียว (project name, mode, stack, vault location, language, brownfield import)
 3. **Phase 2** — สร้าง vault skeleton (12 folders ใน `<vault_path>/`)
 4. **Phase 3** — Brownfield adoption (stack scan + import README + suggest first checkin)
-5. **Phase 4** — Pin standards snapshot (`standards/VERSION`)
+5. **Phase 4** — Pin standards snapshot (`.bda-spec/VERSION`)
 6. **Phase 5** — Enable subagents ตาม stack
 7. **Phase 6** — เขียน `.bda-spec.yml` (shared) + `.bda-spec.local.yml` (personal)
 8. **Phase 7** — Verification + แสดง summary
@@ -64,7 +64,7 @@
 - `<vault_path>/` (12 folders ครบ — `00-Index/`, `10-PRD/`, …, `95-Handoff/`)
 - `.bda-spec.yml` (gitTracked — shared กับ team)
 - `.bda-spec.local.yml` (gitignored — personal paths)
-- `standards/VERSION` (pinned)
+- `.bda-spec/VERSION` (pinned)
 - `.claude/commands/`, `.claude/agents/` (จาก installer)
 - (brownfield) PRD draft จาก README ใน `docs/obsidian-vault/10-PRD/PRD-<slug>.md`
 
@@ -102,7 +102,7 @@
 ## Gotchas / ข้อควรระวัง
 
 - ⚠️ `--here` ≠ brownfield — installer/init จะ**ถาม** แม้รันใน cwd เดิม (อาจเป็น scaffolding ที่ยังไม่เริ่ม)
-- 🚫 ห้ามแตะ code เดิมใน brownfield — `/bda-init` เพิ่มเฉพาะ `docs/`, `.claude/`, `standards/`, `templates/`, `.bda-spec.yml`
+- 🚫 ห้ามแตะ code เดิมใน brownfield — `/bda-init` เพิ่มเฉพาะ `docs/`, `.claude/`, `.bda-spec/`, `templates/`, `.bda-spec.yml`
 - 🚫 ห้ามแต่ง dependencies/framework version ที่ไม่ได้เห็นจริงในไฟล์
 - 💡 ถ้ามี `CLAUDE.md` อยู่แล้ว → ถามว่า append หรือ rename เก่าเป็น `CLAUDE.legacy.md`
 - 💡 `.bda-spec.local.yml` gitignored แล้ว — เก็บ external vault path / daily-log mirror / evidence staging ที่นี่

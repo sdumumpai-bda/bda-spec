@@ -96,7 +96,7 @@ rclone lsd bda-gdrive:  # ทดสอบ
 | 3. Masked check | skip ถ้า `pii: masked` แต่ `masked: ✗` |
 | 4. File exists | skip ถ้า local file หาย |
 | 5. Size limit | skip ถ้า > 50MB (override ด้วย `--force`) |
-| 6. System file | skip ถ้าอยู่ใน `standards/`, `templates/`, `.bda-spec/` |
+| 6. System file | skip ถ้าอยู่ใน `.bda-spec/`, `templates/`, `.bda-spec/` |
 
 ## Output ที่ได้
 
@@ -139,7 +139,7 @@ Blocked items (need attention):
 
 - 🚫 **ห้ามอัปโหลด evidence ที่ `pii: raw` หรือ `safe_to_share: no`** — **เด็ดขาด ไม่มี `--force` ข้าม**
 - 🚫 ห้าม fake `gdrive_link` — ถ้า upload fail ใส่ `[FAILED: <reason>]`
-- 🚫 ห้าม upload `standards/`, `templates/`, `.bda-spec/`, `commands/` — ไม่ใช่ evidence
+- 🚫 ห้าม upload `.bda-spec/`, `templates/`, `.bda-spec/`, `commands/` — ไม่ใช่ evidence
 - 🚫 ห้ามตั้ง `link_visibility: anyone` โดยไม่ confirm — default: org
 - 🚫 ห้ามลบ local file หลัง upload เว้นแต่ explicit `cleanup_local_after_upload: true`
 - 🚫 ห้ามใส่ secret/credential ใน file ที่ upload — รัน `/bda-secure` ก่อน

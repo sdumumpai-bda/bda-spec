@@ -41,7 +41,7 @@ model: claude-sonnet-4-6
 
 ### 1.1 PRD draft
 
-`docs/obsidian-vault/10-PRD/PRD-<project-slug>.md` ตาม `templates/prd.md` (ถ้าไม่มีใน `templates/` ใช้ `standards/templates/prd.md`)
+`docs/obsidian-vault/10-PRD/PRD-<project-slug>.md` ตาม `templates/prd.md` (ถ้าไม่มีใน `templates/` ใช้ `.bda-spec/templates/prd.md`)
 
 Frontmatter:
 ```yaml
@@ -122,7 +122,7 @@ test -f "$PRD_PATH" || echo "ไฟล์ไม่พบ"
 
 ## Output ที่ต้องมี (5 หัวข้อบังคับ)
 
-1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/policies/no-fake-evidence.md`, `templates/prd.md`, `templates/srs.md`, `templates/tech-spec.md`
+1. **BDA Standard files used** — `.bda-spec/STANDARD.md`, `.bda-spec/policies/no-fake-evidence.md`, `templates/prd.md`, `templates/srs.md`, `templates/tech-spec.md`
 2. **Pipeline trace** — Understand (Phase 0 detect) → Plan (Phase 1 ถามคำถาม) → Execute (Phase 1.1-1.6 สร้างเอกสาร) → Verify (file existence check + frontmatter validation)
 3. **Commands run** — `mkdir -p docs/{10-PRD,...}`, `Write docs/...`, ฯลฯ
 4. **Verification / Evidence** — list ของไฟล์ที่สร้างจริง + จำนวน sections ใน PRD

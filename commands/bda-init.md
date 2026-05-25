@@ -6,7 +6,7 @@ model: claude-sonnet-4-6
 <!--
 BDA Standard v0.7.0 alignment (matches `commands/init.md`):
 - bda-init covers the install/bootstrap responsibility + BDA v0.7.0 init context-priming step
-- Phase 8 (added) → generate/update Obsidian context manifest using `standards/templates/obsidian-context.md`
+- Phase 8 (added) → generate/update Obsidian context manifest using `.bda-spec/templates/obsidian-context.md`
   Default location in bda-spec: `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` (with Agent Context section)
 - Phase 9 (added) → initialize session/evidence indexes:
   - `docs/obsidian-vault/75-Checkins/_index.md`
@@ -94,7 +94,7 @@ test -f .gitmodules && cat .gitmodules
 ความหมายของแต่ละ mode:
 
 - **greenfield** — ลบ scaffolding เดิมที่ไม่จำเป็นได้, copy sample vault, สร้าง vault skeleton
-- **brownfield** — **ห้ามแตะ** ของเดิม, เพิ่มเฉพาะ `commands/`, `.claude/`, `standards/`, `templates/`, vault skeleton (ใหม่หรือใน sub-folder)
+- **brownfield** — **ห้ามแตะ** ของเดิม, เพิ่มเฉพาะ `commands/`, `.claude/`, `.bda-spec/`, `templates/`, vault skeleton (ใหม่หรือใน sub-folder)
 - **adopt-vault** — brownfield + ใช้ vault path ที่ user ระบุ (`docs/` เดิม), ไม่สร้าง vault ใหม่
 
 ## Phase 1 — ถามข้อมูลขั้นต่ำ (1 message รวมทุกคำถาม)
@@ -229,17 +229,17 @@ find . -type d \( -name "components" -o -name "screens" -o -name "pages" \) 2>/d
 
 - ห้าม /bda-init แก้ไฟล์โค้ดที่มีอยู่
 - ห้ามย้าย/rename ไฟล์โค้ดเดิม
-- เพิ่มเฉพาะ: `docs/`, `.claude/`, `standards/`, `templates/`, `scripts/`, `.bda-spec.yml`, `CLAUDE.md`
+- เพิ่มเฉพาะ: `docs/`, `.claude/`, `.bda-spec/`, `templates/`, `scripts/`, `.bda-spec.yml`, `CLAUDE.md`
 - ถ้า `CLAUDE.md` มีอยู่แล้ว → ถามว่า append หรือ rename เก่าเป็น `CLAUDE.legacy.md`
 
 ## Phase 4 — Pin standards snapshot
 
 ```bash
 test -d standards || mkdir -p standards
-test -f standards/VERSION || echo "0.4.1" > standards/VERSION
+test -f .bda-spec/VERSION || echo "0.4.1" > .bda-spec/VERSION
 ```
 
-ถ้า template มี `standards/STANDARD.md` ฯลฯ อยู่แล้ว → ไม่ต้องทำอะไร (installer copy มาแล้ว)
+ถ้า template มี `.bda-spec/STANDARD.md` ฯลฯ อยู่แล้ว → ไม่ต้องทำอะไร (installer copy มาแล้ว)
 
 ถ้าจะ update → ใช้ `/bda-sync`
 
@@ -306,7 +306,7 @@ test -f .bda-spec.yml && echo OK
 test -f CLAUDE.md && echo OK
 ls .claude/commands | grep -c '^bda-'  # expect ≥ 13
 ls .claude/agents | wc -l           # expect ≥ 8 (3 always-on + 5 optional)
-test -f standards/VERSION && cat standards/VERSION
+test -f .bda-spec/VERSION && cat .bda-spec/VERSION
 ```
 
 แสดง summary:
@@ -330,7 +330,7 @@ Submodules: <list or none>
 
 ## Output (5 หัวข้อบังคับ)
 
-1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/policies/*`, template files
+1. **BDA Standard files used** — `.bda-spec/STANDARD.md`, `.bda-spec/policies/*`, template files
 2. **Pipeline trace** — Understand (Phase 0 detect) → Plan (Phase 1 ถาม) → Execute (Phase 2-6 สร้าง/แก้ไฟล์) → Verify (Phase 7)
 3. **Commands run** — list bash commands (detect, mkdir, cat, etc.)
 4. **Verification / Evidence** — output ของ Phase 7

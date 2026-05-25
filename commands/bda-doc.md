@@ -40,7 +40,7 @@ BDA Standard v0.7.0 alignment (matches `commands/write-document.md` + `commands/
 | `TestPlan` | `90-TestPlan/TP-<slug>.md` | `test-plan.md` |
 | `Reference` | `70-Reference/REF-<slug>.md` | `reference.md` |
 
-Template lookup: `templates/<name>.md` first, fallback `standards/templates/<name>.md`
+Template lookup: `templates/<name>.md` first, fallback `.bda-spec/templates/<name>.md`
 
 ## Phase 1 — Determine action
 
@@ -54,7 +54,7 @@ Template lookup: `templates/<name>.md` first, fallback `standards/templates/<nam
 ## Phase 2 — Read context
 
 อ่าน:
-1. Template ที่จะใช้ (`templates/<name>.md` หรือ `standards/templates/<name>.md`)
+1. Template ที่จะใช้ (`templates/<name>.md` หรือ `.bda-spec/templates/<name>.md`)
 2. Related docs ที่ link ไป — เช่น สร้าง Feature → อ่าน PRD ก่อน
 3. `00-Index/IMPLEMENTATION-STATUS.md`
 4. Docs ใน folder เดียวกันที่มี pattern คล้าย (เพื่อ keep consistency)
@@ -104,7 +104,7 @@ Template lookup: `templates/<name>.md` first, fallback `standards/templates/<nam
 
 ## Output (5 หัวข้อบังคับ)
 
-1. **BDA Standard files used** — `standards/STANDARD.md`, template ที่ใช้
+1. **BDA Standard files used** — `.bda-spec/STANDARD.md`, template ที่ใช้
 2. **Pipeline trace** — Understand (Phase 2) → Plan (Phase 1 mode + outline) → Execute (Phase 3) → Verify (Phase 4 link + frontmatter check)
 3. **Commands run** — Read template, Read related docs, Write/Edit target
 4. **Verification / Evidence** — file path, sections filled count, link integrity result

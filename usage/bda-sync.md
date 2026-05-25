@@ -1,13 +1,13 @@
 # /bda-sync
 
-> **Sync BDA Standard snapshot** — pull update ล่าสุดจาก org repo แล้วทับ `standards/`
+> **Sync BDA Standard snapshot** — pull update ล่าสุดจาก org repo แล้วทับ `.bda-spec/`
 
 [← กลับ usage/README](./README.md) · [Full spec: `commands/bda-sync.md`](../commands/bda-sync.md)
 
 ## เมื่อไหร่ใช้
 
 - มี policy ใหม่/template ใหม่ใน [`bda-ai-dev-standard`](https://github.com/BigDataAgency/bda-ai-dev-standard) อยาก pull ลง project
-- `standards/VERSION` เก่า อยาก bump
+- `.bda-spec/VERSION` เก่า อยาก bump
 - เริ่ม project ใหม่ + อยากมั่นใจว่าใช้ standard ล่าสุด
 
 ## Quick start
@@ -48,21 +48,21 @@ Update standards from 0.4.1 → 0.4.3?
 
 ## ขั้นตอนภายใน (Phase summary)
 
-1. **Phase 1** — Read current pinned (`standards/VERSION`)
+1. **Phase 1** — Read current pinned (`.bda-spec/VERSION`)
 2. **Phase 2** — Fetch latest version จาก source repo (raw VERSION + tree API)
 3. **Phase 3** — Diff (เทียบ blob sha)
 4. **Phase 4** — Confirm กับ user (ถ้าไม่ `--force`)
-5. **Phase 5** — Download + atomic swap **scope: `standards/` only** (สร้าง `standards.backup-<ts>` ก่อน)
+5. **Phase 5** — Download + atomic swap **scope: `.bda-spec/` only** (สร้าง `standards.backup-<ts>` ก่อน)
 6. **Phase 6** — Update `.bda-spec.yml` `standard.version` + `standard.last_synced`
 7. **Phase 7** — Impact check (template overrides ที่ user แก้ใน `templates/` ยัง compatible ไหม)
-8. **Phase 8** — Log ลง checkin + `standards/SYNC-HISTORY.md`
+8. **Phase 8** — Log ลง checkin + `.bda-spec/SYNC-HISTORY.md`
 
 ## Output ที่ได้
 
-- `standards/` ที่อัพเดต (ทับเฉพาะ folder นี้)
+- `.bda-spec/` ที่อัพเดต (ทับเฉพาะ folder นี้)
 - `standards.backup-<YYYYMMDD-HHMMSS>/` (rollback ได้)
 - `.bda-spec.yml` update 2 field: `standard.version`, `standard.last_synced`
-- `standards/SYNC-HISTORY.md` (append-only changelog)
+- `.bda-spec/SYNC-HISTORY.md` (append-only changelog)
 - Checkin entry: `HH:MM — [type/sync] /bda-sync 0.4.1 → 0.4.3 — files: ~5, +3, -0`
 
 ## Workflow ที่นิยม
@@ -82,9 +82,9 @@ Update standards from 0.4.1 → 0.4.3?
 
 ## Gotchas / ข้อควรระวัง
 
-- 🚫 **ห้ามแตะ folder อื่นเด็ดขาด** — sync แค่ `standards/` เท่านั้น ถ้าเจอ path นอก scope → abort + restore backup
-- 🚫 ห้ามแก้ `standards/` ด้วยมือ — แก้ผ่าน feedback loop ที่ `bda-ai-dev-standard` repo ก่อน (ทุกไฟล์มี banner "READ-ONLY · DO NOT EDIT")
-- 🚫 ห้ามใส่ template ของ project เข้า `standards/templates/` — ใส่ `templates/` แทน
+- 🚫 **ห้ามแตะ folder อื่นเด็ดขาด** — sync แค่ `.bda-spec/` เท่านั้น ถ้าเจอ path นอก scope → abort + restore backup
+- 🚫 ห้ามแก้ `.bda-spec/` ด้วยมือ — แก้ผ่าน feedback loop ที่ `bda-ai-dev-standard` repo ก่อน (ทุกไฟล์มี banner "READ-ONLY · DO NOT EDIT")
+- 🚫 ห้ามใส่ template ของ project เข้า `.bda-spec/templates/` — ใส่ `templates/` แทน
 - ⚠️ `.bda-spec.yml` `.bda-spec.local.yml` ไม่ถูกแตะ — sync แค่ bump `standard.version` ของไฟล์เดียว
 - 💡 เก็บ backup อย่างน้อย 3 อันล่าสุด — `rm -rf standards.backup-*` ทีหลังถ้าเก่าเกิน
 - 💡 ถ้า public repo + standard เป็น private → ต้อง `GITHUB_TOKEN` env var
@@ -99,7 +99,7 @@ Update standards from 0.4.1 → 0.4.3?
 ## FAQ
 
 **Q: ถ้า sync ทับ template ของผมล่ะ?**
-A: ไม่ทับ — sync แตะแค่ `standards/templates/` ของ project lookup chain: `.bda-spec/local/templates/` > `templates/` > `standards/templates/` — สองตัวแรกไม่ถูก sync
+A: ไม่ทับ — sync แตะแค่ `.bda-spec/templates/` ของ project lookup chain: `.bda-spec/local/templates/` > `templates/` > `.bda-spec/templates/` — สองตัวแรกไม่ถูก sync
 
 **Q: rollback ยังไง?**
 A: `rm -rf standards && mv standards.backup-<ts> standards && yq -i '.standard.version = "<old>"' .bda-spec.yml`

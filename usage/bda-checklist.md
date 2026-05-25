@@ -9,7 +9,7 @@
 - ก่อน implement → ตรวจว่า spec ครบไหม (UI states, error messages, edge cases)
 - ก่อน release → security checklist, accessibility, performance
 - รับ PRD จากลูกค้า → checklist ux/api ดู gaps
-- หลัง `/bda-analyze` เจอ underspec → checklist แบบ structured
+- หลัง `/bda-verify` เจอ underspec → checklist แบบ structured
 
 > **อิงจาก spec-kit `/checklist`**
 
@@ -116,7 +116,7 @@
 
 - ก่อน `/bda-checklist`: [/bda-new](./bda-new.md), [/bda-clarify](./bda-clarify.md)
 - หลัง `/bda-checklist`: [/bda-verify](./bda-verify.md) (verify will block ถ้า fail)
-- Pair กับ: [/bda-analyze](./bda-analyze.md)
+- Pair กับ: [/bda-verify](./bda-verify.md)
 - Vault path: `docs/obsidian-vault/95-Handoff/checklists/`
 
 ## FAQ

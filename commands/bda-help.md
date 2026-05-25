@@ -216,7 +216,7 @@ Trigger:
 | /bda-secure     | security pre-flight                   | secure report           |
 | /bda-verify     | verify + handoff report               | HOR-*.md in 95-Handoff  |
 | /bda-git        | submodule-aware commit/push           | git history             |
-| /bda-sync       | pull standards ใหม่จาก org repo        | standards/ updated      |
+| /bda-sync       | pull standards ใหม่จาก org repo        | .bda-spec/ updated      |
 | /bda-help       | this help                             |                          |
 ```
 
@@ -244,8 +244,8 @@ Subagents ที่กล่าวถึง:
   • security        — masking + safe-to-share check
 
 Standards refs:
-  • standards/policies/evidence-verification.md
-  • standards/policies/no-fake-evidence.md
+  • .bda-spec/policies/evidence-verification.md
+  • .bda-spec/policies/no-fake-evidence.md
 ```
 
 ## Output (5 หัวข้อบังคับ — exception: read-only command)

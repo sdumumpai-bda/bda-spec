@@ -230,7 +230,7 @@ reverse_engineered_from:
 
 ## Output (5 หัวข้อบังคับ)
 
-1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/policies/source-of-truth.md`
+1. **BDA Standard files used** — `.bda-spec/STANDARD.md`, `.bda-spec/policies/source-of-truth.md`
 2. **Pipeline trace** — Understand (Phase 0-4 scan) → Plan (Phase 5 review) → Execute (Phase 6 write) → Verify (file count check)
 3. **Commands run** — `find`, `grep`, `cat` commands ที่รันจริง พร้อมผลสรุป
 4. **Verification / Evidence** — list ไฟล์ที่สร้าง + source files ที่ใช้ generate แต่ละไฟล์

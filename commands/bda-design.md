@@ -52,7 +52,7 @@ docs/obsidian-vault/70-Reference/DesignSystem/
 - มี sidebar nav ไป section ต่างๆ (Colors, Typography, Spacing, Components, Patterns, A11y)
 - ใช้ source-of-truth จาก DS-*.md — ห้าม diverge
 
-ใช้ template จาก `templates/preview.html` (หรือ `standards/templates/preview.html`)
+ใช้ template จาก `templates/preview.html` (หรือ `.bda-spec/templates/preview.html`)
 
 ### Bootstrap minimal — ถาม batch 5 questions:
 
@@ -182,7 +182,7 @@ Workflow:
 
 ## Output (5 หัวข้อบังคับ)
 
-1. **BDA Standard files used** — `standards/STANDARD.md`, `templates/design-system.md`
+1. **BDA Standard files used** — `.bda-spec/STANDARD.md`, `templates/design-system.md`
 2. **Pipeline trace** — Understand (Phase 0) → Plan (Phase 1 ถาม) → Execute (Phase 1/2 สร้าง) → Verify (Phase 3 force-use rule + Phase 4 link)
 3. **Commands run** — Read existing DS, Write new files, git diff scan ถ้า audit
 4. **Verification / Evidence** — file paths created/edited, components added count

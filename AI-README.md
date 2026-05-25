@@ -145,15 +145,19 @@ AI ตัวที่ไม่ support sub-agents → main AI ทำเองท
 │   └── prompts/           ← Gemini prompts
 ├── prompts/
 │   └── general-ai/        ← generic prompts
-├── standards/             ← BDA standard snapshot (pinned)
-│   ├── VERSION
-│   ├── STANDARD.md
-│   ├── policies/
-│   ├── checklists/
-│   └── templates/
-├── templates/             ← project-customizable overrides
-├── scripts/               ← bootstrap + helpers
-│   └── install.sh
+├── .bda-spec/                       ← bda-spec machinery (v0.4+)
+│   ├── VERSION                      ← bda-spec version (was: root VERSION pre-v0.4)
+│   └── standards/                   ← BDA standard snapshot (pinned, read-only)
+│       ├── VERSION                  ← BDA standard version (separate)
+│       ├── STANDARD.md
+│       ├── policies/
+│       ├── checklists/
+│       └── templates/               ← canonical templates (lookup fallback)
+├── templates/             ← OPTIONAL project-customizable overrides (create when customizing)
+├── scripts/               ← runtime helpers (v0.4+ whitelist)
+│   ├── bda-paths.sh
+│   ├── upgrade.sh
+│   └── upload-evidence.sh
 └── docs/                  ← Obsidian vault
     ├── .obsidian/
     ├── 00-Index/
@@ -164,10 +168,12 @@ AI ตัวที่ไม่ support sub-agents → main AI ทำเองท
 
 ## Update standards across AIs
 
-Run `/bda-sync` (Claude Code) หรือ:
-```bash
-# Manual: ดึง standards/* จาก https://github.com/BigDataAgency/bda-ai-dev-standard
-bash scripts/sync-standards.sh
+Run `/bda-sync` (Claude Code) — v0.4+ ดึง snapshot **จาก bda-spec repo** (curated middle layer), ไม่ใช่จาก upstream BDA standard ตรงๆ:
+
+```
+upstream BDA standard → bda-spec curates+tests → user project syncs from bda-spec
 ```
 
-ทุก AI shim จะใช้ standard ใหม่อัตโนมัติ — เพราะ commands/<verb>.md อ้าง `standards/` ที่ relative path
+นั่นการันตีว่า standard version ที่ pin = compatible กับ commands ของ bda-spec เสมอ
+
+ทุก AI shim จะใช้ standard ใหม่อัตโนมัติ — เพราะ commands/<verb>.md อ้าง `.bda-spec/` ที่ relative path

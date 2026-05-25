@@ -7,7 +7,7 @@ model: claude-sonnet-4-6
 BDA Standard v0.7.0 alignment (matches `commands/fix-bug.md` + `workflows/obsidian.md`):
 - Read Obsidian context manifest FIRST
 - Append root cause + fix summary + regression check + evidence to active session note
-- Reference `standards/templates/obsidian-work-note.md` ใน "BDA Standard files used"
+- Reference `.bda-spec/templates/obsidian-work-note.md` ใน "BDA Standard files used"
 -->
 
 
@@ -130,7 +130,7 @@ related_plan: <path or none>
 
 ## Output (5 หัวข้อบังคับ)
 
-1. **BDA Standard files used** — `standards/STANDARD.md`, fix-log template
+1. **BDA Standard files used** — `.bda-spec/STANDARD.md`, fix-log template
 2. **Pipeline trace** — Understand (Phase 2 diagnose) → Plan (Phase 3 fix-log = plan output) → Execute (none — diagnose only) → Verify (root cause confirmation)
 3. **Commands run** — grep, Read of source files, `git log -S <symbol>`, etc.
 4. **Verification / Evidence** — paths ของ source files ที่ confirm root cause + before evidence

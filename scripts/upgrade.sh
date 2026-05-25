@@ -58,7 +58,21 @@ if [ "$ROLLBACK" -eq 1 ]; then
 fi
 
 # ── pre-flight ──
-current_version=$(cat VERSION 2>/dev/null || echo "0.0.0")
+# bda-spec own version lives in .bda-spec.yml (v0.4+); fallback chain for legacy installs
+get_bda_spec_ver() {
+  local f="$1"
+  if [ -f "$f/.bda-spec.yml" ]; then
+    # Simple grep: bda_spec.version key (v0.4+)
+    local v
+    v=$(awk '/^bda_spec:/{in_b=1;next} /^[a-zA-Z_]/{in_b=0} in_b && /^  version:/{gsub(/^[^"]*"|"[^"]*$/,""); print; exit}' "$f/.bda-spec.yml" 2>/dev/null)
+    [ -n "$v" ] && echo "$v" && return
+  fi
+  # Legacy fallbacks
+  [ -f "$f/.bda-spec/VERSION" ] && cat "$f/.bda-spec/VERSION" 2>/dev/null && return  # v0.4-intermediate
+  [ -f "$f/VERSION" ] && cat "$f/VERSION" 2>/dev/null && return                       # pre-v0.4
+  echo "0.0.0"
+}
+current_version=$(get_bda_spec_ver ".")
 log "Current bda-spec version: $current_version"
 log "Source:  $SOURCE"
 log "Target:  $VERSION"
@@ -78,14 +92,14 @@ else
   err "Invalid source: $SOURCE"; exit 1
 fi
 
-new_version=$(cat "$STAGE/VERSION" 2>/dev/null || echo "0.0.0")
+new_version=$(get_bda_spec_ver "$STAGE")
 log "New version: $new_version"
 
 # ── diff ──
 log "Computing diff..."
 DIFF_REPORT=$(mktemp)
 {
-  for item in commands .claude/commands .claude/agents standards scripts bin codex gemini prompts; do
+  for item in commands .claude/commands .claude/agents .bda-spec/STANDARD.md .bda-spec/UPDATE-POLICY.md .bda-spec/VERSION .bda-spec/policies .bda-spec/checklists .bda-spec/templates .bda-spec/workflows scripts bin codex gemini prompts; do
     if [ -d "$STAGE/$item" ]; then
       if [ -d "./$item" ]; then
         diff -rq "./$item" "$STAGE/$item" 2>/dev/null || true
@@ -114,18 +128,23 @@ SAFE_PATHS=(
 )
 log "Safe paths (never touched): ${SAFE_PATHS[*]}"
 
-# Paths that GET replaced wholesale:
+# Paths that GET replaced wholesale (v0.4 layout — flat under .bda-spec/):
 REPLACE_PATHS=(
   commands
   .claude/commands
   .claude/agents
-  standards
+  .bda-spec/STANDARD.md         # was: standards/STANDARD.md (pre-v0.4) → .bda-spec/standards/STANDARD.md (v0.4-intermediate)
+  .bda-spec/UPDATE-POLICY.md
+  .bda-spec/VERSION             # BDA standard version (was: standards/VERSION pre-v0.4)
+  .bda-spec/policies
+  .bda-spec/checklists
+  .bda-spec/templates
+  .bda-spec/workflows
   scripts
   bin
   codex
   gemini
   prompts
-  VERSION
 )
 
 # ── dry-run ──
@@ -152,6 +171,9 @@ ok "Backup: $BACKUP_DIR"
 log "Applying upgrade..."
 for p in "${REPLACE_PATHS[@]}"; do
   if [ -e "$STAGE/$p" ]; then
+    # Ensure parent dir exists (needed for nested paths like .bda-spec/standards)
+    parent="$(dirname "./$p")"
+    [ -d "$parent" ] || mkdir -p "$parent"
     if [ -d "$STAGE/$p" ]; then
       rm -rf "./$p"
       cp -R "$STAGE/$p" "./$p"
@@ -161,6 +183,37 @@ for p in "${REPLACE_PATHS[@]}"; do
     ok "Updated: $p"
   fi
 done
+
+# ── v0.4 migration cleanup ──
+# Layout history:
+#   pre-v0.4:           root standards/ + root VERSION
+#   v0.4-intermediate:  .bda-spec/standards/ + .bda-spec/VERSION (bda-spec own)
+#   v0.4 (current):     flat .bda-spec/{STANDARD.md,policies,...} + .bda-spec/VERSION (= BDA standard ver) + .bda-spec.yml bda_spec.version (bda-spec own)
+
+# Move legacy root standards/ aside (template provided fresh in .bda-spec/)
+if [ -d "standards" ]; then
+  bak="standards.bak-$(date +%Y%m%d-%H%M%S)"
+  warn "Legacy root standards/ found — moving to $bak"
+  mv standards "$bak"
+fi
+
+# Move legacy .bda-spec/standards/ aside (template provided flat in .bda-spec/)
+if [ -d ".bda-spec/standards" ]; then
+  bak=".bda-spec/standards.bak-$(date +%Y%m%d-%H%M%S)"
+  warn "Legacy .bda-spec/standards/ found — moving to $bak (now flat under .bda-spec/)"
+  mv .bda-spec/standards "$bak"
+fi
+
+# Drop legacy root VERSION (bda-spec own — now in .bda-spec.yml bda_spec.version)
+if [ -f "VERSION" ]; then
+  legacy_ver=$(cat VERSION 2>/dev/null | tr -d '[:space:]')
+  warn "Legacy root VERSION ($legacy_ver) found — removing (bda-spec own version now in .bda-spec.yml)"
+  rm -f VERSION
+  # Persist into .bda-spec.yml if not already there
+  if [ -n "$legacy_ver" ] && [ -f .bda-spec.yml ] && ! grep -q "^bda_spec:" .bda-spec.yml; then
+    printf '\nbda_spec:\n  version: "%s"\n' "$legacy_ver" >> .bda-spec.yml
+  fi
+fi
 
 # Update standard.last_synced ใน .bda-spec.yml ถ้ามี
 if command -v yq >/dev/null 2>&1 && [ -f .bda-spec.yml ]; then

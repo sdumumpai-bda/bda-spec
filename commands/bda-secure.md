@@ -146,7 +146,7 @@ Verdict: REVIEW NEEDED (2 yellow)
 
 ## Output (5 หัวข้อบังคับ)
 
-1. **BDA Standard files used** — `standards/policies/no-fake-evidence.md`, `standards/policies/source-of-truth.md`
+1. **BDA Standard files used** — `.bda-spec/policies/no-fake-evidence.md`, `.bda-spec/policies/source-of-truth.md`
 2. **Pipeline trace** — Understand (read .git/config + .bda-spec.yml) → Plan (Phase 1-6 scope) → Execute (scans) → Verify (re-check after fix)
 3. **Commands run** — whole list ของ grep/find/audit commands
 4. **Verification / Evidence** — scan output + counts ของ findings

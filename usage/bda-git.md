@@ -134,7 +134,7 @@ figma  [read-only]  skipped
 - ก่อน `/bda-git`: [/bda-secure](./bda-secure.md) (บังคับ), [/bda-verify](./bda-verify.md) (recommended)
 - หลัง `/bda-git`: [/bda-checkin](./bda-checkin.md) (log activity), reviewer review
 - Config: `.bda-spec.yml` `submodules:` (path + branch + read_only)
-- Standard: `standards/policies/source-of-truth.md`
+- Standard: `.bda-spec/policies/source-of-truth.md`
 
 ## FAQ
 

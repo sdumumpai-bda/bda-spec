@@ -7,7 +7,7 @@ model: claude-sonnet-4-6
 BDA Standard v0.8.0 alignment (matches `commands/plan-work.md` + `workflows/obsidian.md`):
 - Read Obsidian context manifest (00-Agent-Context.md → bda-spec: IMPLEMENTATION-STATUS.md) FIRST
 - Include target Obsidian session/evidence note path in the plan when relevant
-- Reference `standards/templates/obsidian-context.md` ใน "BDA Standard files used"
+- Reference `.bda-spec/templates/obsidian-context.md` ใน "BDA Standard files used"
 -->
 
 
@@ -185,7 +185,7 @@ risk_level: <low | medium | high>
 
 ## Output (5 หัวข้อบังคับ)
 
-1. **BDA Standard files used** — `standards/STANDARD.md`, plan template
+1. **BDA Standard files used** — `.bda-spec/STANDARD.md`, plan template
 2. **Pipeline trace** — Understand (Phase 1 read vault) → Plan (Phase 2-3 ถาม + เขียน) → Execute (Phase 3 write plan file only) → Verify (file exists check)
 3. **Commands run** — Read of vault docs, Write of plan file
 4. **Verification / Evidence** — plan file path + list of vault docs read

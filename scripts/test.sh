@@ -63,7 +63,7 @@ run() {
 # Test 1: Core files exist
 # ════════════════════════════════════════════════════════════════════════════
 printf "${c_bold}Section 1 — Core files${c_reset}\n"
-run "VERSION exists"               '[ -f VERSION ]'
+run "VERSION exists"               '[ -f .bda-spec/VERSION ]'
 run ".bda-spec.yml exists"         '[ -f .bda-spec.yml ]'
 run ".bda-spec.local.yml.example"  '[ -f .bda-spec.local.yml.example ]'
 run ".gitignore exists"            '[ -f .gitignore ]'
@@ -75,9 +75,12 @@ run "README.md exists"             '[ -f README.md ]'
 # Test 2: Folder structure
 # ════════════════════════════════════════════════════════════════════════════
 printf "\n${c_bold}Section 2 — Folder structure${c_reset}\n"
-for d in commands .claude/commands .claude/agents standards/policies standards/checklists standards/templates templates scripts bin codex/agents docs/obsidian-vault/00-Index docs/obsidian-vault/10-PRD docs/obsidian-vault/20-Features docs/obsidian-vault/30-Roles docs/obsidian-vault/40-Functions docs/obsidian-vault/50-Phases docs/obsidian-vault/60-Flows docs/obsidian-vault/70-Reference docs/obsidian-vault/75-Checkins docs/obsidian-vault/80-ImplementPlan docs/obsidian-vault/85-FixLog docs/obsidian-vault/90-TestPlan docs/obsidian-vault/95-Handoff; do
+for d in commands .claude/commands .claude/agents .bda-spec/policies .bda-spec/checklists .bda-spec/templates scripts bin codex/agents docs/obsidian-vault/00-Index docs/obsidian-vault/10-PRD docs/obsidian-vault/20-Features docs/obsidian-vault/30-Roles docs/obsidian-vault/40-Functions docs/obsidian-vault/50-Phases docs/obsidian-vault/60-Flows docs/obsidian-vault/70-Reference docs/obsidian-vault/75-Checkins docs/obsidian-vault/80-ImplementPlan docs/obsidian-vault/85-FixLog docs/obsidian-vault/90-TestPlan docs/obsidian-vault/95-Handoff; do
   run "dir $d"                     "[ -d $d ]"
 done
+# v0.4: root `templates/` is OPTIONAL — only created when project customizes templates
+# Sanity check just verifies it's a directory IF it exists (don't fail if absent)
+[ -e templates ] && [ ! -d templates ] && echo "FAIL: templates exists but is not a directory"
 
 # ════════════════════════════════════════════════════════════════════════════
 # Test 3: Commands — source + shim integrity
@@ -117,13 +120,13 @@ done
 # Test 6: Standards
 # ════════════════════════════════════════════════════════════════════════════
 printf "\n${c_bold}Section 6 — Standards${c_reset}\n"
-run "STANDARD.md banner"           "head -5 standards/STANDARD.md | grep -q 'READ-ONLY'"
-run "VERSION file"                 "[ -s standards/VERSION ]"
-for poli in standards/policies/*.md; do
+run "STANDARD.md banner"           "head -5 .bda-spec/STANDARD.md | grep -q 'READ-ONLY'"
+run "VERSION file"                 "[ -s .bda-spec/VERSION ]"
+for poli in .bda-spec/policies/*.md; do
   pn=$(basename "$poli" .md)
   run "banner: policies/$pn"       "head -5 $poli | grep -q 'READ-ONLY'"
 done
-for tpl in standards/templates/*.md; do
+for tpl in .bda-spec/templates/*.md; do
   tn=$(basename "$tpl" .md)
   run "banner: templates/$tn"      "head -5 $tpl | grep -q 'READ-ONLY'"
 done
@@ -149,7 +152,7 @@ run "Claude: CLAUDE.md"            "[ -f CLAUDE.md ]"
 run "Codex: AGENTS.md"             "[ -f codex/AGENTS.md ]"
 run "Codex: maps bda-help"         "grep -q 'bda-help' codex/AGENTS.md"
 run "Codex: maps bda-clarify"      "grep -q 'bda-clarify' codex/AGENTS.md"
-run "Codex: maps bda-analyze"      "grep -q 'bda-analyze' codex/AGENTS.md"
+run "Codex: maps bda-reverse-engineer" "grep -q 'bda-reverse-engineer' codex/AGENTS.md"
 # Google Gemini
 run "Google: gemini/prompts/"      "[ -d gemini/prompts ]"
 # GPT
@@ -197,7 +200,7 @@ run "DS preview.html"              '[ -f docs/obsidian-vault/70-Reference/Design
 printf "\n${c_bold}Section 12 — Template lookup chain${c_reset}\n"
 for tpl in prd srs tech-spec adr feature function role flow phase plan fix-log checkin handoff evidence-manifest; do
   # at least one of: project / standard (local is optional)
-  run "template available: $tpl"    "[ -f templates/${tpl}.md ] || [ -f standards/templates/${tpl}.md ]"
+  run "template available: $tpl"    "[ -f templates/${tpl}.md ] || [ -f .bda-spec/templates/${tpl}.md ]"
 done
 
 # ════════════════════════════════════════════════════════════════════════════

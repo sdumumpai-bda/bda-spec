@@ -113,7 +113,7 @@ Filename: `<SCENARIO-ID>-<STEP>-<state>-<HHMMSS>.<ext>`
 
 - 🚫 **ห้าม commit evidence ที่ `pii: raw` หรือ `masked: ✗` ลงสาธารณะ** — block
 - 🚫 ห้าม mask **อัตโนมัติบน screenshot** — image-based PII (face, signature, ID card) AI mask ไม่ครอบคลุม → user ต้องทำเอง
-- 🚫 ห้ามใส่ evidence ลง `standards/` หรือ `templates/` — vault context folder เท่านั้น
+- 🚫 ห้ามใส่ evidence ลง `.bda-spec/` หรือ `templates/` — vault context folder เท่านั้น
 - 🚫 ห้ามลบ evidence ใน manifest — flag เป็น `status: superseded` แทน
 - 🚫 ห้ามแก้ source doc นอก `## Evidence` section
 - 🚫 ห้ามแต่ง E### ที่ไม่มีไฟล์จริง (no-fake-evidence)
@@ -125,7 +125,7 @@ Filename: `<SCENARIO-ID>-<STEP>-<state>-<HHMMSS>.<ext>`
 - ก่อน `/bda-evidence`: [/bda-test](./bda-test.md) (สร้าง raw evidence ใน Tier 1), [/bda-implement](./bda-implement.md) (subagent capture)
 - หลัง `/bda-evidence`: [/bda-upload](./bda-upload.md) (share GDrive), [/bda-verify](./bda-verify.md) (audit manifest)
 - Strategy: [`EVIDENCE-PATHS.md`](../EVIDENCE-PATHS.md) — 3 tiers (raw → curated → uploaded)
-- Template: `standards/templates/evidence-manifest.md`
+- Template: `.bda-spec/templates/evidence-manifest.md`
 
 ## FAQ
 

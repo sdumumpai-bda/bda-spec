@@ -136,7 +136,7 @@ bda-spec upgrade --rollback
 ```
 
 `upgrade` **ห้ามแตะ**: `templates/`, `docs/`, `.bda-spec.yml`, `.bda-spec.local.yml`, `.bda-spec/local/`, `CLAUDE.md`, `AI-README.md`, `README.md`
-**แทนที่**: `commands/`, `.claude/commands/`, `.claude/agents/`, `standards/`, `scripts/`, `bin/`, `codex/`, `gemini/`, `gpt/`, `glm/`, `prompts/`, `VERSION`
+**แทนที่** (v0.4+): `commands/`, `.claude/commands/`, `.claude/agents/`, `.bda-spec/`, `.bda-spec/VERSION`, `scripts/`, `bin/`, `codex/`, `gemini/`, `gpt/`, `glm/`, `prompts/`
 
 ---
 
@@ -229,7 +229,7 @@ bda-spec ใช้ **Semantic Versioning** (`MAJOR.MINOR.PATCH`):
 - **MINOR** — new command, new template, new AI shim, new helper script
 - **PATCH** — clarifications, bug fix, doc update (ไม่ breaking)
 
-`standards/VERSION` (BDA standard ที่ pinned) **ต่างจาก** `VERSION` (bda-spec เอง) — ดูใน CHANGELOG.md ทั้งสองตัว
+`.bda-spec/VERSION` (BDA standard ที่ pinned) **ต่างจาก** `VERSION` (bda-spec เอง) — ดูใน CHANGELOG.md ทั้งสองตัว
 
 ---
 

@@ -115,9 +115,9 @@ for item in pending; do
     skip "exceeds 50 MB — link via external store instead"; continue
   }
 
-  # Gate 6: not in standards/ or templates/
+  # Gate 6: not in .bda-spec/ or templates/
   case "$local_path" in
-    standards/*|templates/*|.bda-spec/*) skip "system file"; continue ;;
+    .bda-spec/*|templates/*|.bda-spec/*) skip "system file"; continue ;;
   esac
 
   ok+=("$item")
@@ -277,7 +277,7 @@ Storage:
 
 ## Output (5 หัวข้อบังคับ)
 
-1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/policies/no-fake-evidence.md`, `standards/templates/evidence-manifest.md`
+1. **BDA Standard files used** — `.bda-spec/STANDARD.md`, `.bda-spec/policies/no-fake-evidence.md`, `.bda-spec/templates/evidence-manifest.md`
 2. **Pipeline trace** — Understand (Phase 0/1 scan) → Plan (Phase 3 structure) → Execute (Phase 4 upload) → Verify (Phase 8 status / file exists in GDrive)
 3. **Commands run** — `rclone copy`, `rclone link`, manifest updates
 4. **Verification / Evidence** — items uploaded count, total size, gdrive folder, sample link (cite จริงไม่ fake)
@@ -287,7 +287,7 @@ Storage:
 
 - **ห้ามอัปโหลด evidence ที่ `pii: raw` หรือ `safe_to_share: no`** — เด็ดขาด ไม่มี --force ข้าม
 - ห้าม fake gdrive_link — ถ้า upload fail ให้ใส่ `[FAILED: <reason>]` ใน manifest
-- ห้าม upload `standards/`, `templates/`, `.bda-spec/`, `commands/` — ไม่ใช่ evidence
+- ห้าม upload `.bda-spec/`, `templates/`, `.bda-spec/`, `commands/` — ไม่ใช่ evidence
 - ห้ามตั้งค่า `link_visibility: anyone` โดยไม่ confirm กับ user (default: org)
 - ห้ามลบ local file หลัง upload ถ้า config ไม่ explicit set `cleanup_local_after_upload: true`
 - ห้ามใส่ secret/credential ใน file ที่ upload — `/bda-secure` ควรรันก่อน
