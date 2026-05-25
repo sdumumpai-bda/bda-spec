@@ -45,7 +45,7 @@ model: claude-sonnet-4-6
 - [ ] Route source trace ระบุ
 - [ ] Status taxonomy ถูก (PASS/FAIL/BLOCKED_*/NOT_RUN_RISK)
 
-## Phase 4 — Vault consistency
+## Phase 4 — Vault consistency + Spec audit
 
 ```bash
 # ตรวจ link ทุก [[...]] ใน docs ของ scope
@@ -53,7 +53,12 @@ model: claude-sonnet-4-6
 # ตรวจ docs ใหม่ที่ควรเพิ่ม (function spec ของ feature ใหม่)
 ```
 
-ถ้าเจอ inconsistency → list ให้ user → เสนอ /bda-doc แก้
+ถ้าเจอ inconsistency → list ให้ user → เสนอ `/bda-doc` แก้
+
+**Spec audit (ถ้า scope มี FR):**
+- FR ทุกข้อที่ implement ใน scope นี้มี task ID มัดอยู่ไหม?
+- คำศัพท์ consistent กับ PRD ไหม? (เช่น "member" vs "patron")
+- เจอ orphan FR → flag warn; ไม่ block แต่ระบุใน output
 
 ## Phase 5 — Security pre-flight
 

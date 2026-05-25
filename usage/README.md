@@ -1,6 +1,6 @@
 # bda-spec Commands — Usage Guide
 
-คู่มือใช้งาน 20 คำสั่งของ bda-spec แบบจริงจัง — 1 ไฟล์ต่อ command พร้อมตัวอย่าง, workflow, gotchas
+คู่มือใช้งาน 21 คำสั่งของ bda-spec แบบจริงจัง — 1 ไฟล์ต่อ command พร้อมตัวอย่าง, workflow, gotchas
 
 > ใช้คู่กับ [`commands/bda-*.md`](../commands/) (source-of-truth พร้อม Phase รายละเอียดเต็ม)
 > ถ้าไม่รู้จะเริ่มจากไหน → อ่าน [/bda-help](./bda-help.md) ก่อน
@@ -25,7 +25,6 @@
 | [/bda-new](./bda-new.md) | brainstorm จาก idea หรือ import PRD ที่มีอยู่ |
 | [/bda-clarify](./bda-clarify.md) | scan ambiguity 9 หมวด ถามทีละข้อพร้อม recommended answer |
 | [/bda-plan](./bda-plan.md) | research vault แล้วสร้าง plan file (ไม่แตะโค้ด) |
-| [/bda-analyze](./bda-analyze.md) | cross-artifact consistency + Coverage Summary Table (read-only) |
 | [/bda-checklist](./bda-checklist.md) | "unit tests for English" per domain (ux/api/security/...) |
 | [/bda-implement](./bda-implement.md) | execute plan ที่ approve แล้วผ่าน subagent |
 | [/bda-fix](./bda-fix.md) | diagnose bug + สร้าง fix-log (ไม่แก้โค้ด) |
@@ -46,7 +45,8 @@
 |---|---|
 | [/bda-checkin](./bda-checkin.md) | daily check-in (morning/midday/note/end) — 1 ไฟล์/วัน |
 | [/bda-secure](./bda-secure.md) | security pre-flight (secret/PII/screenshot/dep scan) |
-| [/bda-verify](./bda-verify.md) | verify ครบ + สร้าง handoff report สำหรับ executive |
+| [/bda-verify](./bda-verify.md) | verify ครบ (tests/evidence/vault/security/DS) |
+| [/bda-handoff](./bda-handoff.md) | สร้าง Handoff Report ส่งต่อ reviewer/exec/QA |
 | [/bda-git](./bda-git.md) | submodule-aware commit/push/branch/merge |
 
 ---
@@ -57,17 +57,18 @@
 
 ```
 1. bash <(curl ... install.sh)              ← bootstrap จาก installer
-2. /bda-init                                 ← interactive config (vault location, subagents)
-3. /bda-new                                  ← brainstorm → PRD + SRS + Tech-spec
-4. /bda-design init                          ← (optional) bootstrap design system
-5. /bda-plan FEAT-X                          ← research vault + plan file
+2. /bda-init                                ← interactive config (vault location, subagents)
+3. /bda-new                                 ← brainstorm → PRD + SRS + Tech-spec
+4. /bda-design init                         ← (optional) bootstrap design system
+5. /bda-plan FEAT-X                         ← research vault + plan file
 6. [user review plan, set status: approved ใน frontmatter]
-7. /bda-implement docs/obsidian-vault/80-ImplementPlan/...  ← execute ผ่าน subagent + capture evidence
-8. /bda-test                                 ← smoke test ส่วนที่แก้
-9. /bda-secure                               ← pre-flight scan
-10. /bda-verify                              ← handoff report
-11. /bda-git --plan <path>                   ← commit + push
-12. /bda-checkin end                         ← executive log
+7. /bda-implement docs/...                  ← execute ผ่าน subagent + capture evidence
+8. /bda-test                                ← smoke test ส่วนที่แก้
+9. /bda-secure                              ← pre-flight scan
+10. /bda-verify                             ← ตรวจครบ (tests/evidence/vault/security/DS)
+11. /bda-handoff                            ← สร้าง HOR-*.md ส่ง reviewer
+12. /bda-git --plan <path>                  ← commit + push
+13. /bda-checkin end                        ← executive log
 ```
 
 ### แก้บั๊ก (พร้อม evidence)
@@ -99,10 +100,11 @@
 ```
 1. cd existing-project
 2. bash <(curl ... install.sh)               ← installer auto-detect indicators
-3. /bda-init                                  ← ถามว่า greenfield/brownfield/adopt-vault
-4. (ถ้ามี README) ตรวจ PRD draft ที่ generate มา
-5. /bda-doc PRD-<slug>                        ← เติม section ที่ขาด
-6. /bda-plan <first task>                     ← เริ่ม workflow ปกติ
+3. /bda-init --brownfield                    ← config + vault skeleton
+4. /bda-reverse-engineer                     ← scan โค้ด → draft FEAT/FN/REF docs
+5. [ตรวจ draft docs + เติม business rules]
+6. /bda-clarify FEAT-<slug>                  ← scan ambiguity ใน draft
+7. /bda-plan <first task>                    ← เริ่ม workflow ปกติ
 ```
 
 ---
@@ -114,6 +116,7 @@
 3. **No fake evidence** — ห้ามแต่ง commit hash, URL, test result, token count
 4. **Plan/Implement separation** — `/bda-plan` และ `/bda-fix` ไม่แตะโค้ด, `/bda-implement` เท่านั้นแก้โค้ด
 5. **Thai-first** reports (เว้นแต่ `.bda-spec.yml` `language: en`)
+6. **Coding discipline** — ระบุ success criteria ก่อนลงมือ; minimum correct change; ทุก changed line trace กลับ request/criteria ได้; ห้าม speculative abstraction/refactor นอก scope
 
 ---
 

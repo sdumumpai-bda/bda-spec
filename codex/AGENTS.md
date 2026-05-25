@@ -12,8 +12,8 @@ bda-spec มี 13 commands ที่ source-of-truth อยู่ที่ `com
 |---|---|
 | `bda-help` หรือ `help`, `?` | `commands/bda-help.md` |
 | `bda-init` หรือ `init` | `commands/bda-init.md` |
+| `bda-reverse-engineer` หรือ `reverse-engineer` | `commands/bda-reverse-engineer.md` |
 | `bda-clarify` หรือ `clarify` | `commands/bda-clarify.md` |
-| `bda-analyze` หรือ `analyze` | `commands/bda-analyze.md` |
 | `bda-checklist` หรือ `checklist` | `commands/bda-checklist.md` |
 | `bda-evidence` หรือ `evidence` | `commands/bda-evidence.md` |
 | `bda-agent` หรือ `agent` | `commands/bda-agent.md` |

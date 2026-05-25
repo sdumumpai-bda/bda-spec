@@ -47,7 +47,7 @@ related_docs: [...]
 
 ## ขั้นตอนภายใน (Phase summary)
 
-1. **Phase 1** — อ่าน vault context (บังคับ): `IMPLEMENTATION-STATUS`, PRD/SRS, FEAT, FN, ROLE, REF-Auth, REF-API, REF-TechStack, DS-Tokens/Components
+1. **Phase 1** — อ่าน vault context (บังคับ): `IMPLEMENTATION-STATUS`, PRD/SRS, FEAT, FN, ROLE, REF-Auth, REF-API, REF-TechStack, DS-Tokens/Components + **FR coverage check** (warn orphan/underspecified FR)
 2. **Phase 2** — Clarifying questions **1 batch** (ถามที่ vault ไม่ตอบเท่านั้น)
 3. **Phase 3** — เขียน plan file ตาม template (Vault Context Read, Task, Goals, Non-goals, Affected Files, Steps, DS Compliance, Test Plan, Risks, Approvals)
 4. **Phase 4** — Doc gap detection (จด ใน `Doc Gaps Found` — implement จะ fix ก่อน)
@@ -82,7 +82,8 @@ Body:
   ## Design System Compliance ← ถ้า frontend/mobile
   ## Design Additions          ← component ใหม่ที่ต้อง /bda-design ก่อน
   ## Test Plan
-  ## Verification             ← acceptance criteria
+  ## Success Criteria         ← observable outcomes ที่ตรวจได้จริง
+  ## Verification             ← map กลับไปยัง success criteria แต่ละข้อ
   ## Risks
   ## Approvals
 ```
@@ -128,7 +129,6 @@ Body:
 
 - ก่อน `/bda-plan`: [/bda-new](./bda-new.md), [/bda-clarify](./bda-clarify.md), [/bda-fix](./bda-fix.md)
 - หลัง `/bda-plan` (approve แล้ว): [/bda-implement](./bda-implement.md)
-- Analyze: [/bda-analyze](./bda-analyze.md) — coverage check (FR → task ID mapping)
 - Template: `templates/plan.md` (fallback `standards/templates/plan.md`)
 - Vault path: `docs/obsidian-vault/80-ImplementPlan/`
 

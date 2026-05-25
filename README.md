@@ -2,7 +2,7 @@
 
 **AI + Obsidian docs-driven development workflow** สำหรับทีมที่ใช้ AI ทำงาน — รวม spec-kit philosophy, BDA AI Dev Standard, และ Obsidian vault patterns
 
-> 20 slash commands · 9 specialized AI subagents · 5 AI shims (Claude · Codex · Gemini · GPT · GLM) · pinned BDA Standard v0.7.0 · 3-tier evidence storage with GDrive upload
+> 21 slash commands · 9 specialized AI subagents · 5 AI shims (Claude · Codex · Gemini · GPT · GLM) · pinned BDA Standard v0.8.0 · 3-tier evidence storage with GDrive upload
 
 ---
 
@@ -20,10 +20,15 @@ cd existing-project
 bash <(curl -fsSL https://raw.githubusercontent.com/sdumumpai-bda/bda-spec/main/scripts/install.sh)
 ```
 
-ตอน install จะถาม **2 คำถาม:**
+ตอน install จะถาม **3 คำถาม:**
 
 1. **โหมดไหน?** ถ้าตรวจเจอ indicators (package.json, src/, .git+commits, docs/) → ถาม greenfield / brownfield / adopt-vault
-2. **AI agent?** เลือกได้หลายตัว: claude / codex / google / gpt / glm / all (default: claude)
+2. **Vault อยู่ที่ไหน?**
+   - A) `docs/obsidian-vault/` (default — แยกจาก docs/ เผื่อมีเอกสารอื่น)
+   - B) `docs/` (project เล็ก)
+   - C) ระบุ path เอง
+   - D) external vault (path นอก repo)
+3. **AI agent?** เลือกได้หลายตัว: claude / codex / google / gpt / glm / all (default: claude)
 
 ### 2. รัน command แรก
 
@@ -48,14 +53,14 @@ bda-spec test       # 233 smoke tests
 
 ---
 
-## 🎯 20 Commands
+## 🎯 21 Commands
 
 | กลุ่ม | Commands |
 |---|---|
-| **ช่วยเหลือ + ตั้งค่า** | `/bda-help` `/bda-init` `/bda-sync` `/bda-agent` |
-| **Spec-driven cycle** | `/bda-new` `/bda-clarify` `/bda-plan` `/bda-analyze` `/bda-checklist` `/bda-implement` `/bda-fix` |
+| **ช่วยเหลือ + ตั้งค่า** | `/bda-help` `/bda-init` `/bda-reverse-engineer` `/bda-sync` `/bda-agent` |
+| **Spec-driven cycle** | `/bda-new` `/bda-clarify` `/bda-plan` `/bda-checklist` `/bda-implement` `/bda-fix` |
 | **เอกสาร + ทดสอบ + ออกแบบ + หลักฐาน** | `/bda-doc` `/bda-test` `/bda-design` `/bda-evidence` `/bda-upload` |
-| **ประจำวัน + ส่งมอบ** | `/bda-checkin` `/bda-secure` `/bda-verify` `/bda-git` |
+| **ประจำวัน + ส่งมอบ** | `/bda-checkin` `/bda-secure` `/bda-verify` `/bda-handoff` `/bda-git` |
 
 **Usage guide ละเอียด:** [`usage/README.md`](./usage/README.md) — 1 ไฟล์ต่อ command
 
@@ -80,7 +85,8 @@ cd my-app
 /bda-implement docs/obsidian-vault/80-ImplementPlan/... ← ลงมือผ่าน subagent
 /bda-test                                ← smoke test
 /bda-evidence --upload                   ← เก็บ + upload หลักฐาน
-/bda-verify                              ← handoff report
+/bda-verify                              ← ตรวจครบ (tests/evidence/vault/security/DS)
+/bda-handoff                             ← สร้าง HOR-*.md ส่ง reviewer
 /bda-git --plan <path>                   ← commit + push
 ```
 
@@ -120,9 +126,10 @@ bash <(curl -fsSL .../install.sh)
 ```
 
 ```
-/bda-init                                ← scan stack + ตั้ง subagents
-/bda-doc PRD-<slug>                      ← reverse-engineer PRD จาก README
-/bda-agent regenerate <name>             ← specialize agents ตาม project context
+/bda-init --brownfield                   ← config + vault skeleton
+/bda-reverse-engineer                    ← scan โค้ด → draft FEAT/FN/REF docs
+/bda-clarify FEAT-<slug>                 ← scan ambiguity ใน draft
+/bda-plan <first task>                   ← เริ่ม workflow ปกติ
 ```
 
 ---
@@ -163,7 +170,7 @@ bda-spec ทำงานกับ AI ทุกตัวที่อ่าน mar
 
 ## 🛡️ Standards alignment
 
-bda-spec ห่อ **BDA AI Dev Standard v0.7.0** (snapshot ที่ pinned ใน `standards/`)
+bda-spec ห่อ **BDA AI Dev Standard v0.8.0** (snapshot ที่ pinned ใน `standards/`)
 
 ทุก command output ต้องมี **5 หัวข้อบังคับ**:
 
@@ -177,7 +184,7 @@ bda-spec ห่อ **BDA AI Dev Standard v0.7.0** (snapshot ที่ pinned ใ
 - ห้าม fake evidence
 - ห้ามแต่ง commit hash, URL, token count
 - Plan/Implement แยกกัน — `/bda-plan` ไม่แตะโค้ด
-- Vault-first — อ่าน docs/ ก่อนถามคำถาม
+- Vault-first — อ่าน `<vault_path>/` (default `docs/obsidian-vault/`) ก่อนถามคำถาม
 
 อัพเดท standards: `/bda-sync` หรือ `bda-spec sync`
 
@@ -270,8 +277,8 @@ bash scripts/install.sh --source $(pwd) --target /tmp/test-bda --dry-run
 ├── .bda-spec.local.yml.example← personal config template
 ├── .gitignore
 │
-├── commands/                  ← 20 source-of-truth commands (Phase descriptions)
-├── usage/                     ← 20+1 user-facing usage docs (Quick start, FAQ, gotchas)
+├── commands/                  ← 21 source-of-truth commands (Phase descriptions)
+├── usage/                     ← 21+1 user-facing usage docs (Quick start, FAQ, gotchas)
 ├── .claude/
 │   ├── commands/              ← Claude slash command shims
 │   ├── agents/                ← 9 specialized subagents
@@ -299,22 +306,27 @@ bash scripts/install.sh --source $(pwd) --target /tmp/test-bda --dry-run
 ├── bin/
 │   └── bda-spec               ← CLI wrapper
 │
-└── docs/                      ← sample Library Book Tracker Obsidian vault
-    ├── 00-Index/              ← MOCs + IMPLEMENTATION-STATUS
-    ├── 10-PRD/ 20-Features/ 30-Roles/ 40-Functions/
-    ├── 50-Phases/ 60-Flows/
-    ├── 70-Reference/          ← TechStack, Auth, API, DesignSystem
-    ├── 75-Checkins/           ← daily logs (1/day)
-    ├── 80-ImplementPlan/ 85-FixLog/
-    ├── 90-TestPlan/ 95-Handoff/
+└── docs/                      ← top-level docs folder
+    └── obsidian-vault/        ← Obsidian vault (default vault_path)
+        ├── 00-Index/          ← MOCs + IMPLEMENTATION-STATUS
+        ├── 10-PRD/ 20-Features/ 30-Roles/ 40-Functions/
+        ├── 50-Phases/ 60-Flows/
+        ├── 70-Reference/      ← TechStack, Auth, API, DesignSystem
+        ├── 75-Checkins/       ← daily logs (1/day)
+        ├── 80-ImplementPlan/ 85-FixLog/
+        ├── 90-TestPlan/ 95-Handoff/
 ```
+
+> Default vault path = **`docs/obsidian-vault/`** — แยกออกจาก `docs/` เพื่อให้ใช้ `docs/` เก็บเอกสารอื่นได้
+> (README, ARCHITECTURE.md, public API docs, build docs, contribution guides, ฯลฯ)
+> เปลี่ยน path ตอน install ได้ (4 options A/B/C/D)
 
 ---
 
 ## 🔗 Acknowledgements
 
 - [spec-kit](https://github.com/github/spec-kit) — Plan-driven AI development philosophy
-- [BDA AI Dev Standard](https://github.com/BigDataAgency/bda-ai-dev-standard) — 5-step pipeline + mandatory output
+- [BDA AI Dev Standard v0.8.0](https://github.com/BigDataAgency/bda-ai-dev-standard) — 5-step pipeline + mandatory output
 - [thai-cleft-main](https://github.com/BigDataAgency/thai-cleft-main) — Vault-first patterns + daily-log v5 schema
 
 ## License

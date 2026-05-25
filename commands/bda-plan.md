@@ -35,7 +35,11 @@ BDA Standard v0.8.0 alignment (matches `commands/plan-work.md` + `workflows/obsi
 ## Phase 1 — อ่าน vault context (บังคับ)
 
 1. อ่าน `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md`
-2. อ่านเอกสารที่เกี่ยวกับ task:
+2. **FR coverage check** — grep `FR-[0-9]+` จาก PRD/SRS ที่เกี่ยวข้อง แล้วตรวจว่า FR ไหน:
+   - **orphan** — ไม่มี plan step หรือ task ID มัดอยู่ → warn user ใน output
+   - **underspecified** — ไม่มี acceptance criteria → เสนอ `/bda-clarify` ก่อน plan
+   - ไม่ต้อง block — แค่แสดงให้ user รู้ก่อนเริ่มเขียน plan
+3. อ่านเอกสารที่เกี่ยวกับ task:
    - Feature/PRD → `docs/obsidian-vault/10-PRD/PRD-*.md` + `docs/obsidian-vault/20-Features/FEAT-*.md`
    - Role/menu → `docs/obsidian-vault/30-Roles/`
    - Function/API → `docs/obsidian-vault/40-Functions/`

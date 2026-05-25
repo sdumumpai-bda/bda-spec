@@ -103,9 +103,12 @@ plan: subagent_target: all
 - 🚫 **ห้ามแก้ scope** จาก plan โดยไม่ revise plan ก่อน — ใช้ `/bda-plan --revise`
 - 🚫 **ห้าม fake test/build evidence** — ถ้า fail บอก blocker แทน
 - 🚫 ห้ามแก้ shared/production env โดยไม่ confirm
-- ⚠️ Design system gate: ถ้าต้อง component ใหม่ → STOP → ต้องรัน `/bda-design component <name>` ก่อนกลับมา implement
+- 🚫 **ห้ามเพิ่ม abstraction/config/feature** ที่ plan ไม่ได้ระบุ (minimum correct change)
+- 🚫 **ห้าม refactor ไฟล์นอก scope** ของ plan
+- ⚠️ Design system gate: ถ้าต้อง component ใหม่ → STOP → ต้องรัน `/bda-design component <name>` ก่อน
 - ⚠️ Test creation **mandatory** ถ้า production code change — ดู `.claude/agents/{backend,frontend,mobile}.md` §5.1
-- 💡 ถ้า test fail ระหว่าง implement: ลำดับวินิจฉัย = ดูว่า test ผิดหรือ code ผิด — schema/mock outdated → แก้ test, regression/wrong logic → แก้ code (ห้ามลด assertion)
+- 💡 ทุก changed line ต้อง trace กลับไปยัง step ใน plan หรือ success criteria ได้
+- 💡 ถ้า test fail: schema/mock outdated → แก้ test; regression/wrong logic → แก้ code (ห้ามลด assertion)
 
 ## Related
 

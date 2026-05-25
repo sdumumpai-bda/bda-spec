@@ -10,6 +10,41 @@ Semantic Versioning · `MAJOR.MINOR.PATCH`
 
 ---
 
+## [Unreleased] — new /bda-reverse-engineer command
+
+### New command: `/bda-reverse-engineer`
+
+อ่านโค้ดที่มีอยู่แล้วสร้าง Obsidian vault docs เป็น draft — สำหรับ brownfield project ที่ไม่มี spec
+
+- `commands/bda-reverse-engineer.md` — 7 phases: detect → tech stack → API scan → domain models → feature clusters → review checkpoint → write docs
+- `.claude/commands/bda-reverse-engineer.md` — slash shim
+- `codex/AGENTS.md`, `AI-README.md` — เพิ่ม routing
+
+**Key design decisions:**
+- Read-only บนโค้ด ไม่แตะ source files
+- Phase 5 review checkpoint บังคับ — user ต้อง confirm ก่อนเขียนจริง
+- ทุก doc ที่สร้างมี `status: draft` + `source: reverse-engineered`
+- ห้ามเดา business rules ที่ไม่เห็นในโค้ด
+
+**Output:** `REF-TechStack.md`, `REF-APIIntegration.md`, `FN-*.md` (domain models), `FEAT-*.md` (feature clusters)
+
+---
+
+## [Unreleased] — remove /bda-analyze + distribute to /bda-plan & /bda-verify
+
+### Removed: `/bda-analyze`
+
+ลบออก — functionality กระจายเข้า command ที่ใช้งานตามธรรมชาติแทน:
+
+- `commands/bda-plan.md` Phase 1: FR coverage check — orphan + underspecified FR warn ก่อนเขียน plan
+- `commands/bda-verify.md` Phase 4: spec audit — FR task mapping + terminology consistency ก่อน handoff
+- `/bda-clarify` ทำ ambiguity scan อยู่แล้ว
+
+ลบ: `commands/bda-analyze.md`, `.claude/commands/bda-analyze.md`
+อัปเดต: `codex/AGENTS.md` (verb mapping), `AI-README.md` (command list)
+
+---
+
 ## [Unreleased] — split /bda-verify + new /bda-handoff command
 
 ### New command: `/bda-handoff`
