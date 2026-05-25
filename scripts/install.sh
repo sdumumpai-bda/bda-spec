@@ -311,9 +311,9 @@ trap "rm -rf $TMP_DIR" EXIT
 log "Fetching bda-spec template..."
 
 if [[ -d "$SOURCE_URL" ]]; then
-  # Local source
-  run "cp -r '$SOURCE_URL/'* '$TMP_DIR/' 2>/dev/null || true"
-  run "cp -r '$SOURCE_URL/.claude' '$TMP_DIR/' 2>/dev/null || true"
+  # Local source — use `/.` to include hidden files (.bda-spec.yml, .gitignore, .claude, ...)
+  # WITHOUT this, glob `/*` skips dotfiles and installer silently produces an incomplete project
+  run "cp -r '$SOURCE_URL/.' '$TMP_DIR/' 2>/dev/null || true"
 elif [[ "$SOURCE_URL" =~ ^https?:// ]]; then
   if command -v git > /dev/null; then
     # Don't suppress stderr — user needs to see clone failures (auth, missing repo, network)
@@ -592,10 +592,22 @@ if ! grep -q '\.bda-spec\.local\.yml' "$TARGET/.gitignore" 2>/dev/null; then
 EOF
 fi
 
-# ---------- copy .bda-spec.local.yml.example if not exists ----------
+# ---------- copy .bda-spec.local.yml.example (always) + .bda-spec.local.yml (if missing) ----------
+# `.example` = checked-in reference template (always present after install)
+# `.local.yml` = personal/per-machine config (gitignored) — bda-paths.sh อ่านเป็น override layer
+# Both files coexist by design — separation:
+#   .bda-spec.yml       → project-wide config (vault_path, subagents baseline, standard version)
+#   .bda-spec.local.yml → machine-specific (external_vault, mirror paths, user.*, ai_usage, debug)
 if [[ ! -f "$TARGET/.bda-spec.local.yml.example" && -f "$TMP_DIR/.bda-spec.local.yml.example" ]]; then
   run "cp '$TMP_DIR/.bda-spec.local.yml.example' '$TARGET/'"
-  log "  installed: .bda-spec.local.yml.example (template — copy เป็น .bda-spec.local.yml แล้วปรับ paths)"
+  log "  installed: .bda-spec.local.yml.example (reference template)"
+fi
+
+# Materialize .bda-spec.local.yml from the example so user has a ready-to-edit file
+# (skip if user already created one — never overwrite personal config)
+if [[ ! -f "$TARGET/.bda-spec.local.yml" && -f "$TMP_DIR/.bda-spec.local.yml.example" && $DRY_RUN -eq 0 ]]; then
+  run "cp '$TMP_DIR/.bda-spec.local.yml.example' '$TARGET/.bda-spec.local.yml'"
+  log "  installed: .bda-spec.local.yml (personal/per-machine — gitignored, edit เพื่อ override paths)"
 fi
 
 # ---------- finalize ----------
@@ -654,9 +666,15 @@ if [[ "$MODE" == "brownfield" ]]; then
 fi
 
 log ""
-log "Docs:          $TARGET/CLAUDE.md"
-log "Config:        $TARGET/.bda-spec.yml          (shared, gitTracked)"
-log "Personal:      $TARGET/.bda-spec.local.yml    (gitignored — แก้ paths ของตัวเอง)"
-log "Vault:         $TARGET/$VAULT_PATH/"
-[[ -n "$EXTERNAL_VAULT" ]] && log "External vault: $EXTERNAL_VAULT (recorded in .bda-spec.local.yml)"
-log "Design preview: $TARGET/$VAULT_PATH/70-Reference/DesignSystem/preview.html (เปิดด้วย browser)"
+log "Config files (อ่านโดย scripts/bda-paths.sh — precedence: local > shared > default):"
+log "  Shared:   $TARGET/.bda-spec.yml            (git-tracked, ทีมเดียวกัน)"
+log "            └─ project, vault_path, standard, subagents baseline, guardrails"
+log "  Personal: $TARGET/.bda-spec.local.yml      (gitignored, ของเครื่องคุณเอง)"
+log "            └─ paths.external_vault, daily_log_mirror, user.*, ai_usage, debug"
+log "  Template: $TARGET/.bda-spec.local.yml.example  (reference สำหรับ key ทั้งหมดที่ override ได้)"
+log ""
+log "Other:"
+log "  Docs:           $TARGET/CLAUDE.md"
+log "  Vault:          $TARGET/$VAULT_PATH/"
+[[ -n "$EXTERNAL_VAULT" ]] && log "  External vault: $EXTERNAL_VAULT (recorded in .bda-spec.local.yml)"
+log "  Design preview: $TARGET/$VAULT_PATH/70-Reference/DesignSystem/preview.html (เปิดด้วย browser)"

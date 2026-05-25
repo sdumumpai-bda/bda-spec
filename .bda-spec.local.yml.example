@@ -1,14 +1,23 @@
-# ─────────────────────────────────────────────────────────────
-# bda-spec personal config (local-only, gitignored)
-# ─────────────────────────────────────────────────────────────
-# คัดลอกไฟล์นี้เป็น `.bda-spec.local.yml` (ลบ `.example`)
-# แล้วปรับ paths ตามเครื่องของคุณ
+# ─────────────────────────────────────────────────────────────────────────────
+# bda-spec — PERSONAL / per-machine config (gitignored)
+# ─────────────────────────────────────────────────────────────────────────────
+# This file (`.bda-spec.local.yml.example`) คือ reference template ที่ commit
+# `.bda-spec.local.yml` เวอร์ชัน editable ถูก installer สร้างให้คุณอัตโนมัติแล้ว
+# (ถ้าเริ่มต้นใหม่ในเครื่องอื่น: `cp .bda-spec.local.yml.example .bda-spec.local.yml`)
 #
-# Override ตัวที่อยู่ใน `.bda-spec.yml` ได้ — ทุก key ใน file นี้
-# ทับ default ของ shared config
+# Scope: ค่าที่เฉพาะเครื่อง/บุคคล — ห้ามใส่ใน `.bda-spec.yml` (shared)
+#   - paths เฉพาะเครื่อง (external_vault, mirror, evidence_staging, secrets)
+#   - personal preferences (user.name/email, default_confidence, default TZ)
+#   - billing rates (ai_usage.cost_per_1m_*)
+#   - per-machine overrides (subagents_override เช่น disable figma เพราะไม่มี license)
+#   - rclone/upload config (provider, remote name)
+#   - local debug flags
 #
-# ห้าม commit ไฟล์นี้ — `.gitignore` block ไว้แล้ว
-# ─────────────────────────────────────────────────────────────
+# Override precedence (scripts/bda-paths.sh):
+#   .bda-spec.local.yml  >  .bda-spec.yml  >  hardcoded defaults
+#
+# ห้าม commit `.bda-spec.local.yml` — `.gitignore` block ไว้แล้ว
+# ─────────────────────────────────────────────────────────────────────────────
 
 # Paths — เฉพาะเครื่องของคุณ
 paths:
