@@ -183,7 +183,7 @@ Workflow:
 ## Output (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `standards/STANDARD.md`, `templates/design-system.md`
-2. **Pipeline trace** — Understand (Phase 0) → Plan (Phase 1 ถาม) → Execute (Phase 1/2 สร้าง) → Verify (Phase 3 force-use rule + Phase 4 link) → Handoff (Phase 5 checkin)
+2. **Pipeline trace** — Understand (Phase 0) → Plan (Phase 1 ถาม) → Execute (Phase 1/2 สร้าง) → Verify (Phase 3 force-use rule + Phase 4 link)
 3. **Commands run** — Read existing DS, Write new files, git diff scan ถ้า audit
 4. **Verification / Evidence** — file paths created/edited, components added count
 5. **Limitations / Risks / Next steps** — "DS เพิ่งสร้าง — frontend/mobile ที่ implement ไปแล้วต้อง audit", "ปรับตาม brand guideline ตัวจริง"

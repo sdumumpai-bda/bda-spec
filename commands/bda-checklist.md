@@ -146,7 +146,7 @@ status: in-review                # in-review | passed | blocked
 ## Output (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/checklists/` (process), `templates/checklist.md` (new format)
-2. **Pipeline trace** — Understand (Phase 0/1) → Plan (Phase 2 generate) → Execute (Phase 3 write) → Verify (Phase 4 review) → Handoff (link to plan/feature)
+2. **Pipeline trace** — Understand (Phase 0/1) → Plan (Phase 2 generate) → Execute (Phase 3 write) → Verify (Phase 4 review)
 3. **Commands run** — Read scope, Write checklist file
 4. **Verification / Evidence** — checklist path + items count + scope
 5. **Limitations / Risks / Next steps** — items pending = unresolved spec quality risk

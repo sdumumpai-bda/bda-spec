@@ -97,7 +97,7 @@ Task: ...
 1. **Vault-first** — อ่าน `docs/` (00-Index, PRD, Features, Reference) ก่อนถามคำถาม
 2. **5 mandatory output sections** ทุก response ของ command:
    - BDA Standard files used
-   - Pipeline trace (Understand → Plan → Execute → Verify → Handoff)
+   - Pipeline trace (Understand → Plan → Execute → Verify)
    - Commands run
    - Verification / Evidence
    - Limitations / Risks / Next steps

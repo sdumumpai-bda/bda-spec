@@ -200,7 +200,7 @@ Report ที่ `docs/obsidian-vault/95-Handoff/EVIDENCE-AUDIT-<date>.md`
 ## Output (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/policies/no-fake-evidence.md`, `standards/templates/evidence-manifest.md`
-2. **Pipeline trace** — Understand (Phase 0) → Plan (Phase 1 classify) → Execute (Phase 2-6 validate/mask/store/link) → Verify (manifest count == FS count) → Handoff (Phase 7 status update)
+2. **Pipeline trace** — Understand (Phase 0) → Plan (Phase 1 classify) → Execute (Phase 2-6 validate/mask/store/link) → Verify (manifest count == FS count)
 3. **Commands run** — `cp`, `sed` (mask), validation greps
 4. **Verification / Evidence** — manifest entries added, file paths, PII flag status
 5. **Limitations / Risks / Next steps** — unmasked items waiting, unsafe-to-share count, large files > 10MB

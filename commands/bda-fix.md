@@ -131,7 +131,7 @@ related_plan: <path or none>
 ## Output (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `standards/STANDARD.md`, fix-log template
-2. **Pipeline trace** — Understand (Phase 2 diagnose) → Plan (Phase 3 fix-log = plan output) → Execute (none — diagnose only) → Verify (root cause confirmation) → Handoff (Phase 4 next-step menu)
+2. **Pipeline trace** — Understand (Phase 2 diagnose) → Plan (Phase 3 fix-log = plan output) → Execute (none — diagnose only) → Verify (root cause confirmation)
 3. **Commands run** — grep, Read of source files, `git log -S <symbol>`, etc.
 4. **Verification / Evidence** — paths ของ source files ที่ confirm root cause + before evidence
 5. **Limitations / Risks / Next steps** — "Fix ยังไม่ทำ — รัน /bda-implement หลัง approve", risk section จาก fix-log

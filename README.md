@@ -175,7 +175,7 @@ bda-spec ห่อ **BDA AI Dev Standard v0.8.0** (snapshot ที่ pinned ใ
 ทุก command output ต้องมี **5 หัวข้อบังคับ**:
 
 1. BDA Standard files used
-2. Pipeline trace (Understand → Plan → Execute → Verify → Handoff)
+2. Pipeline trace (Understand → Plan → Execute → Verify)
 3. Commands run
 4. Verification / Evidence
 5. Limitations / Risks / Next steps

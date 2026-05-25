@@ -331,7 +331,7 @@ Submodules: <list or none>
 ## Output (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/policies/*`, template files
-2. **Pipeline trace** — Understand (Phase 0 detect) → Plan (Phase 1 ถาม) → Execute (Phase 2-6 สร้าง/แก้ไฟล์) → Verify (Phase 7) → Handoff (summary)
+2. **Pipeline trace** — Understand (Phase 0 detect) → Plan (Phase 1 ถาม) → Execute (Phase 2-6 สร้าง/แก้ไฟล์) → Verify (Phase 7)
 3. **Commands run** — list bash commands (detect, mkdir, cat, etc.)
 4. **Verification / Evidence** — output ของ Phase 7
 5. **Limitations / Risks / Next steps** — เช่น "Brownfield import: PRD draft จาก README ต้องตรวจกับ stakeholder", "Standards 0.4.1 อาจมี update — รัน /bda-sync"

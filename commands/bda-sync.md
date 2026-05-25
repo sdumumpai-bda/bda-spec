@@ -169,7 +169,7 @@ standard:
 ## Output (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `.bda-spec.yml`, `standards/VERSION`
-2. **Pipeline trace** — Understand (Phase 1-3) → Plan (Phase 4 confirm) → Execute (Phase 5-6) → Verify (test -f checks) → Handoff (Phase 8)
+2. **Pipeline trace** — Understand (Phase 1-3) → Plan (Phase 4 confirm) → Execute (Phase 5-6) → Verify (test -f checks)
 3. **Commands run** — curl commands, file moves
 4. **Verification / Evidence** — new VERSION content, diff summary
 5. **Limitations / Risks / Next steps** — template overrides ใน `templates/` ที่อาจ outdated, breaking changes ที่ต้อง update commands

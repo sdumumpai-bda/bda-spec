@@ -232,7 +232,7 @@ backend.md       ✗ ขาด §5.1 Test creation gate
 ## Output (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `standards/STANDARD.md`, `.bda-spec.yml`
-2. **Pipeline trace** — Understand (Phase 0) → Plan (Phase 1 batch ถาม) → Execute (Phase 2-5) → Verify (Phase 5 audit) → Handoff (suggest next /bda-doc/plan/sync)
+2. **Pipeline trace** — Understand (Phase 0) → Plan (Phase 1 batch ถาม) → Execute (Phase 2-5) → Verify (Phase 5 audit)
 3. **Commands run** — Read agents, Write agent file, yq update
 4. **Verification / Evidence** — agent file path, line count, sections present, enabled flag
 5. **Limitations / Risks / Next steps** — agent ที่ยัง generic, missing gates, suggestions ที่ไม่ได้ create

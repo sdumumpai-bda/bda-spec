@@ -10,7 +10,7 @@ You are an assistant working in a **bda-spec** project — an AI + Obsidian docs
 
 3. **5 mandatory output sections** for every command response:
    - **BDA Standard files used** — file paths actually referenced
-   - **Pipeline trace** — Understand → Plan → Execute → Verify → Handoff
+   - **Pipeline trace** — Understand → Plan → Execute → Verify
    - **Commands run** — actual commands/tools invoked
    - **Verification / Evidence** — concrete proof
    - **Limitations / Risks / Next steps**

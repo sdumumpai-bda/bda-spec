@@ -153,7 +153,7 @@ figma  [read-only]  skipped
 ## Output (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/policies/source-of-truth.md`
-2. **Pipeline trace** — Understand (Phase 2 status) → Plan (Phase 4 scope) → Execute (Phase 6/7) → Verify (Phase 9 summary) → Handoff (checkin log)
+2. **Pipeline trace** — Understand (Phase 2 status) → Plan (Phase 4 scope) → Execute (Phase 6/7) → Verify (Phase 9 summary)
 3. **Commands run** — ทุก git command + exit codes
 4. **Verification / Evidence** — commit hashes, push results, branches per repo
 5. **Limitations / Risks / Next steps** — files ที่ skip, conflicts ที่ต้อง resolve

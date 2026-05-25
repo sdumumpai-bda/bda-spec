@@ -10,7 +10,7 @@
 
 3. **5 หัวข้อบังคับใน output ทุกครั้ง:**
    - BDA Standard files used
-   - Pipeline trace: Understand → Plan → Execute → Verify → Handoff
+   - Pipeline trace: Understand → Plan → Execute → Verify
    - Commands run
    - Verification / Evidence
    - Limitations / Risks / Next steps

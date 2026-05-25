@@ -64,7 +64,7 @@ bin/bda-spec doctor    — health check
 ทุก output ของ Claude ต้องมี **5 หัวข้อบังคับ**:
 
 1. **BDA Standard files used** — path ของไฟล์มาตรฐานที่อ้างอิงจริง
-2. **Pipeline trace** — Understand → Plan → Execute → Verify → Handoff
+2. **Pipeline trace** — Understand → Plan → Execute → Verify
 3. **Commands run** — คำสั่งที่รันจริง พร้อมผลลัพธ์
 4. **Verification / Evidence** — หลักฐานตรวจจริง (test/lint/build/screenshot)
 5. **Limitations / Risks / Next steps** — ข้อจำกัด ความเสี่ยง งานต่อ

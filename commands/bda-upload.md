@@ -278,7 +278,7 @@ Storage:
 ## Output (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/policies/no-fake-evidence.md`, `standards/templates/evidence-manifest.md`
-2. **Pipeline trace** — Understand (Phase 0/1 scan) → Plan (Phase 3 structure) → Execute (Phase 4 upload) → Verify (Phase 8 status / file exists in GDrive) → Handoff (Phase 6/7 checkin + mirror)
+2. **Pipeline trace** — Understand (Phase 0/1 scan) → Plan (Phase 3 structure) → Execute (Phase 4 upload) → Verify (Phase 8 status / file exists in GDrive)
 3. **Commands run** — `rclone copy`, `rclone link`, manifest updates
 4. **Verification / Evidence** — items uploaded count, total size, gdrive folder, sample link (cite จริงไม่ fake)
 5. **Limitations / Risks / Next steps** — blocked items + reasons, pending PII masking, oversize files, network failures

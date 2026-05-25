@@ -83,7 +83,7 @@ model: claude-sonnet-4-6
 ## Output (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/policies/no-fake-evidence.md`, `standards/policies/evidence-verification.md`
-2. **Pipeline trace** — Understand (Phase 1) → Plan (plan file) → Execute (implement) → Verify (Phase 2-6) → Handoff (pending `/bda-handoff`)
+2. **Pipeline trace** — Understand (Phase 1) → Plan (plan file) → Execute (implement) → Verify (Phase 2-6)
 3. **Commands run** — ทุก test/lint/build command ที่รันจริง พร้อมผล
 4. **Verification / Evidence** — ผลแต่ละ Phase + paths ของ evidence
 5. **Limitations / Risks / Next steps** — รายการที่ยังไม่ผ่าน + `→ /bda-handoff` ถัดไป

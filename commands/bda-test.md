@@ -133,7 +133,7 @@ Next: รัน /bda-fix "search returns empty..." → diagnose
 ## Output (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/policies/no-fake-evidence.md`, `standards/templates/test-scenario-report.md`
-2. **Pipeline trace** — Understand (Phase 1 detect) → Plan (Phase 2 setup) → Execute (Phase 3 dispatch) → Verify (Phase 4 evidence) → Handoff (Phase 6 report)
+2. **Pipeline trace** — Understand (Phase 1 detect) → Plan (Phase 2 setup) → Execute (Phase 3 dispatch) → Verify (Phase 4 evidence)
 3. **Commands run** — `git diff`, server commands, test commands ทั้งหมด พร้อม exit code
 4. **Verification / Evidence** — evidence folder path + screenshot count + status taxonomy
 5. **Limitations / Risks / Next steps** — flaky tests, blocked scenarios, suggested fix-log

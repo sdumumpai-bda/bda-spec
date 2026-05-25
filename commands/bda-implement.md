@@ -114,7 +114,7 @@ Instructions:
 ## Phase 7 — Output (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/policies/no-fake-evidence.md`, `standards/policies/evidence-verification.md`, plan file
-2. **Pipeline trace** — Understand (Phase 1 read plan) → Plan (plan file itself) → Execute (Phase 3 spawn subagent) → Verify (Phase 5 evidence) → Handoff (Phase 6 update)
+2. **Pipeline trace** — Understand (Phase 1 read plan) → Plan (plan file itself) → Execute (Phase 3 spawn subagent) → Verify (Phase 5 evidence)
 3. **Commands run** — ทุก bash, test, build command ที่รันจริง พร้อมผล
 4. **Verification / Evidence** — paths ของ evidence files + test results (pass/fail counts)
 5. **Limitations / Risks / Next steps** — เช่น "Manual UAT ยังไม่ทำ", "Production deploy ต้อง /bda-verify ก่อน"

@@ -186,7 +186,7 @@ risk_level: <low | medium | high>
 ## Output (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `standards/STANDARD.md`, plan template
-2. **Pipeline trace** — Understand (Phase 1 read vault) → Plan (Phase 2-3 ถาม + เขียน) → Execute (Phase 3 write plan file only) → Verify (file exists check) → Handoff (Phase 5 STOP message)
+2. **Pipeline trace** — Understand (Phase 1 read vault) → Plan (Phase 2-3 ถาม + เขียน) → Execute (Phase 3 write plan file only) → Verify (file exists check)
 3. **Commands run** — Read of vault docs, Write of plan file
 4. **Verification / Evidence** — plan file path + list of vault docs read
 5. **Limitations / Risks / Next steps** — risks section จาก plan + "ต้อง approve ก่อน /bda-implement"

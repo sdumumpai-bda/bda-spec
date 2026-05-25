@@ -454,7 +454,7 @@ fi
 ## Output (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/templates/daily-log-v5.md`
-2. **Pipeline trace** — Understand (Phase 0 detect) → Plan (Phase 1 file scaffold) → Execute (Phase 2/3/4/5 ตาม section) → Verify (Phase 6 show) → Handoff (status: closed + carry-over)
+2. **Pipeline trace** — Understand (Phase 0 detect) → Plan (Phase 1 file scaffold) → Execute (Phase 2/3/4/5 ตาม section) → Verify (Phase 6 show)
 3. **Commands run** — `git log`, grep ของ in-progress, file Write
 4. **Verification / Evidence** — `docs/obsidian-vault/75-Checkins/<date>.md` path + sections filled count
 5. **Limitations / Risks / Next steps** — incomplete outcomes ที่ carry over

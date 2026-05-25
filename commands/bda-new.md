@@ -123,7 +123,7 @@ test -f "$PRD_PATH" || echo "ไฟล์ไม่พบ"
 ## Output ที่ต้องมี (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/policies/no-fake-evidence.md`, `templates/prd.md`, `templates/srs.md`, `templates/tech-spec.md`
-2. **Pipeline trace** — Understand (Phase 0 detect) → Plan (Phase 1 ถามคำถาม) → Execute (Phase 1.1-1.6 สร้างเอกสาร) → Verify (file existence check + frontmatter validation) → Handoff (Phase 3 next-step)
+2. **Pipeline trace** — Understand (Phase 0 detect) → Plan (Phase 1 ถามคำถาม) → Execute (Phase 1.1-1.6 สร้างเอกสาร) → Verify (file existence check + frontmatter validation)
 3. **Commands run** — `mkdir -p docs/{10-PRD,...}`, `Write docs/...`, ฯลฯ
 4. **Verification / Evidence** — list ของไฟล์ที่สร้างจริง + จำนวน sections ใน PRD
 5. **Limitations / Risks / Next steps** — เช่น "PRD ยังเป็น draft — ต้อง review กับ stakeholder ก่อนสร้าง plan", "Tech stack ยังไม่ confirm กับทีม backend"

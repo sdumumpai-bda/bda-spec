@@ -105,7 +105,7 @@ Template lookup: `templates/<name>.md` first, fallback `standards/templates/<nam
 ## Output (5 หัวข้อบังคับ)
 
 1. **BDA Standard files used** — `standards/STANDARD.md`, template ที่ใช้
-2. **Pipeline trace** — Understand (Phase 2) → Plan (Phase 1 mode + outline) → Execute (Phase 3) → Verify (Phase 4 link + frontmatter check) → Handoff (Phase 6 checkin)
+2. **Pipeline trace** — Understand (Phase 2) → Plan (Phase 1 mode + outline) → Execute (Phase 3) → Verify (Phase 4 link + frontmatter check)
 3. **Commands run** — Read template, Read related docs, Write/Edit target
 4. **Verification / Evidence** — file path, sections filled count, link integrity result
 5. **Limitations / Risks / Next steps** — `draft` status ต้อง review, dependent docs ที่ flag ไว้

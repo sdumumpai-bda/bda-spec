@@ -12,7 +12,7 @@
 
 ตรวจว่ามีครบ:
 - [ ] BDA Standard files used — มี path จริง? มี content จริง?
-- [ ] Pipeline trace — มี 5 stage: Understand → Plan → Execute → Verify → Handoff?
+- [ ] Pipeline trace — มี 4 stage: Understand → Plan → Execute → Verify?
 - [ ] Commands run — มี actual commands + exit code/result?
 - [ ] Verification / Evidence — มี file paths + concrete proof?
 - [ ] Limitations / Risks / Next steps — มี realistic items?
