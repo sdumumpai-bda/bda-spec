@@ -4,7 +4,7 @@ model: claude-sonnet-4-6
 ---
 
 <!--
-BDA Standard v0.7.0 alignment (matches `commands/plan-work.md` + `workflows/obsidian.md`):
+BDA Standard v0.8.0 alignment (matches `commands/plan-work.md` + `workflows/obsidian.md`):
 - Read Obsidian context manifest (00-Agent-Context.md → bda-spec: IMPLEMENTATION-STATUS.md) FIRST
 - Include target Obsidian session/evidence note path in the plan when relevant
 - Reference `standards/templates/obsidian-context.md` ใน "BDA Standard files used"
@@ -131,8 +131,12 @@ risk_level: <low | medium | high>
 - [ ] Integration tests สำหรับ <Y>
 - [ ] Manual checks: <list scenarios>
 
+## Success Criteria
+- [ ] <เกณฑ์ที่ตรวจสอบได้จริง เช่น "unit test X ผ่าน", "endpoint ตอบ 200", "UI แสดง component Y">
+- [ ] <เกณฑ์ข้อ 2>
+
 ## Verification
-- เกณฑ์ pass ของ plan นี้ (acceptance criteria เชิงรูปธรรม)
+- map กลับไปยัง Success Criteria แต่ละข้อพร้อมผลลัพธ์จริง
 
 ## Risks
 - <risk 1> → mitigation: <plan>
@@ -188,3 +192,5 @@ risk_level: <low | medium | high>
 - ห้ามแก้โค้ด ห้ามรัน build/test/lint ใน /bda-plan
 - ห้าม spawn subagent — plan file เป็น text only
 - ห้าม set `status: approved` ให้ user — user ต้องทำเอง
+- ห้ามเพิ่ม Implementation Steps ที่นอก scope ที่ขอ (ห้าม speculative abstraction/refactor)
+- Success Criteria ต้องเป็น observable outcome ตรวจได้จริง ไม่ใช่ goal กว้างๆ

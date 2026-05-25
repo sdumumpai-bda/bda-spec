@@ -4,7 +4,7 @@ model: claude-sonnet-4-6
 ---
 
 <!--
-BDA Standard v0.7.0 alignment (matches `commands/build-feature.md` + `commands/fix-bug.md`):
+BDA Standard v0.8.0 alignment (matches `commands/build-feature.md` + `commands/fix-bug.md`):
 - Read Obsidian context manifest FIRST
 - Append feature/fix summary + changed files + verification + evidence to ACTIVE session note
 - After implementation: dispatch update-obsidian behavior — reconcile session/evidence/index notes
@@ -62,12 +62,17 @@ Plan file: <path>
 Task: <task field จาก frontmatter>
 
 Instructions:
-1. อ่าน full plan ก่อนแตะ code
-2. ทำตาม Implementation Steps ตามลำดับ
-3. Enforce gates ของ agent (test creation, design system compliance, security)
-4. หลังเสร็จ: update vault per Vault Update Checklist ของ plan
-5. Report: files changed (production vs test), vault docs updated
-6. ห้าม fake evidence — ถ้า test รันไม่ผ่าน บอก blocker
+1. อ่าน full plan ก่อนแตะ code — โดยเฉพาะ Success Criteria และ Implementation Steps
+2. ทำตาม Implementation Steps ตามลำดับ — minimum correct change เท่านั้น
+3. ทุก changed line ต้อง trace กลับไปยัง step ใน plan, success criteria, หรือ verification ได้
+4. ห้ามเพิ่ม abstraction/config/dependency/feature นอก scope ของ plan
+5. ห้าม refactor หรือ reformat ไฟล์ที่ไม่เกี่ยวกับ task
+6. ทำตาม existing patterns ของ repo ก่อนสร้าง pattern ใหม่
+7. Enforce gates ของ agent (test creation, design system compliance, security)
+8. หลังเสร็จ: map verification กลับไปยัง Success Criteria ทีละข้อ
+9. Update vault per Vault Update Checklist ของ plan
+10. Report: files changed (production vs test), vault docs updated
+11. ห้าม fake evidence — ถ้า test รันไม่ผ่าน บอก blocker
 ```
 
 ## Phase 4 — Design system gate (ถ้ามี)
@@ -120,3 +125,6 @@ Instructions:
 - ห้ามแก้ scope จาก plan โดยไม่ revise plan ก่อน (`/bda-plan --revise`)
 - ห้าม fake test/build evidence
 - ห้ามแก้ shared/production env โดยไม่ confirm
+- ห้ามเพิ่ม speculative abstraction/config/dependency/feature ที่ plan ไม่ได้ระบุ
+- ห้าม refactor หรือ format churn ไฟล์นอก scope
+- ห้าม deliver งานโดยไม่มี verification map กลับไปยัง success criteria

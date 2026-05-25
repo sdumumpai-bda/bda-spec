@@ -10,6 +10,40 @@ Semantic Versioning · `MAJOR.MINOR.PATCH`
 
 ---
 
+## [Unreleased] — split /bda-verify + new /bda-handoff command
+
+### New command: `/bda-handoff`
+
+แยก Handoff Report ออกจาก `/bda-verify` เป็น command ของตัวเอง
+
+- `commands/bda-handoff.md` — สร้าง Handoff Report (HOR-*.md) ส่งงานต่อ reviewer/exec/QA + อัปเดต status → `handed-off`
+- `.claude/commands/bda-handoff.md` — Claude Code slash shim
+- `codex/AGENTS.md` — เพิ่ม verb mapping `bda-handoff`
+- `AI-README.md` — เพิ่ม `/bda-handoff` ใน command list
+- `commands/bda-verify.md` — ตัด Phase 7-8 (handoff) ออก; เพิ่ม hint → `/bda-handoff`
+
+**Workflow ใหม่:** `/bda-verify` → ผ่านทุก check → `/bda-handoff` → reviewer approve
+
+---
+
+## [Unreleased] — sync BDA Standard v0.8.0 (coding discipline)
+
+### BDA Standard bump: v0.7.0 → v0.8.0
+
+Sync ตาม [BDA AI Dev Standard v0.8.0](https://github.com/BigDataAgency/bda-ai-dev-standard/releases/tag/v0.8.0)
+
+**Coding discipline** — หลักการใหม่สำหรับ AI agents ให้ทำงานแบบ surgical/goal-driven/minimum correct change:
+
+- `standards/STANDARD.md` — อัปเดต Plan (+success criteria, +minimum correct change), Execute (+trace, +no speculative abstraction, +pattern-first, +assumption rule), Verify (+map to criteria), Definition of Done ขยาย
+- `standards/checklists/before-commit.md` — เพิ่ม 4 รายการ: success criteria, minimum correct change, trace, no speculative abstraction/refactor
+- `standards/checklists/before-start.md` — เพิ่มข้อ: ระบุ success criteria ก่อนลงมือ
+- `AI-README.md` — Universal rule ข้อ 7: coding discipline
+- `codex/AGENTS.md` — Universal rule ข้อ 6: coding discipline
+- `commands/bda-plan.md` — template มี `## Success Criteria` section แยกชัด; ห้าม speculative steps
+- `commands/bda-implement.md` — subagent prompt บังคับ minimum correct change + trace + no refactor; ห้ามเพิ่ม 3 รายการ
+
+---
+
 ## [0.1.0] — 2026-05-21 — Initial public release
 
 ### Vault path convention

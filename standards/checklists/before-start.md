@@ -19,6 +19,7 @@
 
 - [ ] อ่าน `docs/00-Index/IMPLEMENTATION-STATUS.md`
 - [ ] อ่าน task description / issue / plan file
+- [ ] ระบุ success criteria ที่ตรวจสอบได้จริง (ก่อนลงมือ)
 - [ ] ระบุ scope: เฉพาะอะไร? ไม่ทำอะไร?
 - [ ] ระบุ submodule / area
 - [ ] อ่าน vault docs ที่เกี่ยวข้อง (PRD, Feature, Function)

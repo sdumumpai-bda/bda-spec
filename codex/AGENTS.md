@@ -27,6 +27,7 @@ bda-spec มี 13 commands ที่ source-of-truth อยู่ที่ `com
 | `bda-checkin` หรือ `checkin` | `commands/bda-checkin.md` |
 | `bda-secure` หรือ `secure` | `commands/bda-secure.md` |
 | `bda-verify` หรือ `verify` | `commands/bda-verify.md` |
+| `bda-handoff` หรือ `handoff` | `commands/bda-handoff.md` |
 | `bda-git` หรือ `git-sync` | `commands/bda-git.md` |
 | `bda-sync` หรือ `sync` | `commands/bda-sync.md` |
 
@@ -42,6 +43,7 @@ bda-spec มี 13 commands ที่ source-of-truth อยู่ที่ `com
 3. **No fake evidence** — ห้ามแต่ง commit hash, URL, test result, file content ที่ไม่เห็นจริง
 4. **Plan/Implement separation** — Plan + Fix ห้ามแก้โค้ด; Implement เท่านั้น
 5. **Thai-first** — รายงาน + log ภาษาไทย เว้นแต่ `.bda-spec.yml` `language: en`
+6. **Coding discipline** — ระบุ success criteria ก่อนลงมือ; minimum correct change; ทุก changed line ต้อง trace กลับไปยัง request/bug/criteria ได้; ห้ามเพิ่ม speculative abstraction/config/dependency/feature; ห้าม unrelated refactor/format churn; verification ต้อง map กลับไปยัง success criteria
 
 ## Sub-agent equivalence (Codex)
 

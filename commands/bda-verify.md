@@ -1,11 +1,13 @@
 ---
-description: Full verify (tests + evidence + vault + security + DS) then create executive handoff report
+description: Full verify (tests + evidence + vault + security + DS) — ไม่สร้าง handoff report (ใช้ /bda-handoff แยก)
 model: claude-sonnet-4-6
 ---
 
-# bda-verify — Full Verify + Handoff (รวม verify-work + handoff-report)
+# /bda-verify — Full Verify
 
-ตรวจครบทุกมิติ + สร้าง handoff report สำหรับ executive/reviewer
+ตรวจครบทุกมิติก่อนส่งงาน — tests, evidence, vault, security, design system
+
+> ต้องการสร้าง Handoff Report ส่งต่อให้ reviewer/exec? → `/bda-handoff <plan-or-fix-path>`
 
 ## Trigger
 
@@ -66,97 +68,23 @@ model: claude-sonnet-4-6
 - ตรวจ component compliance, contrast, focus state
 - Report violations
 
-## Phase 7 — Handoff report
+## Phase 7 — สรุปผลและขั้นตอนต่อไป
 
-สร้าง `docs/obsidian-vault/95-Handoff/HOR-<YYYY-MM-DD>-<slug>.md`:
+แสดงผลรวม:
+- ✅ / ❌ แต่ละ Phase (test, evidence, vault, security, DS)
+- รายการที่ยังไม่ผ่าน (ถ้ามี) + วิธีแก้
+- ขั้นตอนต่อไป: `→ /bda-handoff <path>` เพื่อสร้าง Handoff Report ส่งต่อ reviewer
 
-```markdown
----
-tags: [type/handoff]
-date: YYYY-MM-DD HH:mm
-title: <handoff title>
-scope: <plan-slug | feature-name | diff-range>
-status: ready-for-review     # ready-for-review | approved | deployed
-audience: [executive, reviewer, qa]
-recipient: <if specific>
----
+## Output (5 หัวข้อบังคับ)
 
-# <Title>
-
-## Summary (1 paragraph)
-สรุปงานที่เสร็จ + business value + ผลกระทบ ภาษาง่าย (สำหรับ exec)
-
-## What Changed
-- Files changed: N (production: M, tests: K)
-- New features: <list>
-- Bugs fixed: <list>
-- Docs updated: <list>
-
-## Verification
-- Tests: <N passed / M total> — evidence: <path>
-- Build: <pass/fail>
-- Lint: <pass/fail>
-- Manual checks: <list — link to evidence>
-
-## Design System Compliance
-- Components used: <list from DS>
-- New components added: <list — references in /bda-design>
-- Violations: 0 / N
-
-## Security Pre-flight
-- Secret scan: <result>
-- PII scan: <result>
-- Screenshot masking: <result>
-- Production guardrails: <result>
-
-## BDA Standard files used
-- standards/STANDARD.md
-- standards/policies/no-fake-evidence.md
-- standards/policies/evidence-verification.md
-- (list ที่ใช้จริง)
-
-## Pipeline trace
-- Understand: /bda-new / /bda-plan
-- Plan: docs/obsidian-vault/80-ImplementPlan/<slug>.md
-- Execute: /bda-implement → subagent <name>
-- Verify: /bda-test + /bda-verify (this report)
-- Handoff: this document
-
-## Commands run
-- (list ทุก slash command + bash command ที่รันจริง)
-
-## Evidence Manifest
-- docs/obsidian-vault/80-ImplementPlan/<slug>.md (plan, status: done)
-- docs/obsidian-vault/90-TestPlan/evidence/<slug>/ (N screenshots, N logs)
-- Git commits: <commit hashes>
-
-## Limitations / Risks / Next steps
-- <known limitation>
-- <risk + mitigation>
-- <next step recommended>
-
-## Rollback / Mitigation
-- <ถ้า production-facing — rollback plan>
-
-## Approval
-- [ ] Reviewed by: <reviewer>
-- [ ] Approved at: <YYYY-MM-DD HH:mm>
-- [ ] Deployed to: <env>
-```
-
-## Phase 8 — Update status
-
-- Plan → `status: handed-off`
-- IMPLEMENTATION-STATUS → mark scope `ready-for-review`
-- Checkin → log entry
-
-## Output (5 หัวข้อบังคับ — เป็นใน handoff doc เอง)
-
-handoff report **คือ** output 5 หัวข้อบังคับ — ครบทุก section
+1. **BDA Standard files used** — `standards/STANDARD.md`, `standards/policies/no-fake-evidence.md`, `standards/policies/evidence-verification.md`
+2. **Pipeline trace** — Understand (Phase 1) → Plan (plan file) → Execute (implement) → Verify (Phase 2-6) → Handoff (pending `/bda-handoff`)
+3. **Commands run** — ทุก test/lint/build command ที่รันจริง พร้อมผล
+4. **Verification / Evidence** — ผลแต่ละ Phase + paths ของ evidence
+5. **Limitations / Risks / Next steps** — รายการที่ยังไม่ผ่าน + `→ /bda-handoff` ถัดไป
 
 ## ห้าม
 
 - ห้าม verify ที่ test ไม่ผ่าน — STOP, แจ้ง user
-- ห้าม fake evidence ใน handoff report
-- ห้าม approve ตัวเอง — section Approval ให้ reviewer ทีหลัง
-- ห้าม push handoff to public ถ้ามี customer PII
+- ห้าม fake evidence
+- ห้ามสร้าง Handoff Report ใน command นี้ — ใช้ `/bda-handoff` แยก
