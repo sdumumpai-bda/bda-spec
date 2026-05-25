@@ -30,13 +30,13 @@
 set -euo pipefail
 
 # ---------- defaults ----------
-SOURCE_URL="${BDA_SPEC_SOURCE:-https://github.com/BigDataAgency/bda-spec.git}"
+SOURCE_URL="${BDA_SPEC_SOURCE:-https://github.com/sdumumpai-bda/bda-spec.git}"
 VERSION="${BDA_SPEC_VERSION:-main}"
 MODE="auto"
 AI_AGENTS=""                       # "" = ask interactively; "all" = all 5
 YES=0
 DRY_RUN=0
-TARGET="${1:-$(pwd)}"
+TARGET=""
 
 # ---------- parse args ----------
 while [[ $# -gt 0 ]]; do
@@ -49,9 +49,14 @@ while [[ $# -gt 0 ]]; do
     --dry-run) DRY_RUN=1; shift ;;
     -h|--help)
       grep '^#' "$0" | head -35; exit 0 ;;
+    --*)
+      err "Unknown flag: $1"; exit 1 ;;
     *) TARGET="$1"; shift ;;
   esac
 done
+
+# Default target: cwd (if no positional arg provided)
+TARGET="${TARGET:-$(pwd)}"
 
 # ---------- helpers ----------
 log() { printf '\033[1;36m[bda-spec]\033[0m %s\n' "$*"; }
@@ -99,7 +104,8 @@ detect_indicators() {
     found+=("docs/ (existing content)")
   fi
 
-  # Print one per line
+  # Print one per line (guard against empty array under set -u)
+  [[ ${#found[@]} -eq 0 ]] && return 0
   printf "%s\n" "${found[@]}"
 }
 
@@ -210,7 +216,7 @@ AI_AVAILABLE=(claude codex google gpt glm)
 
 ai_label() {
   case "$1" in
-    claude) echo "Claude Code (Anthropic) — slash commands + 9 subagents" ;;
+    claude) echo "Claude Code (Anthropic) — slash commands + agents folder" ;;
     codex)  echo "OpenAI Codex CLI — AGENTS.md routing" ;;
     google) echo "Google Gemini CLI/API — gemini/prompts/" ;;
     gpt)    echo "ChatGPT (web/API) — gpt/prompts/" ;;
@@ -242,7 +248,7 @@ if [[ -z "$AI_AGENTS" ]]; then
   else
     cat <<EOF
 
-🤖 ${c_bold:-}เลือก AI agent ที่จะใช้${c_reset:-} (พิมพ์เลขคั่นด้วย comma เลือกได้หลายตัว):
+🤖 ${c_bold:-}เลือก AI frontend ที่จะใช้${c_reset:-} (พิมพ์เลขคั่นด้วย comma เลือกได้หลายตัว):
 
    1) claude    — $(ai_label claude)
    2) codex     — $(ai_label codex)
@@ -252,6 +258,10 @@ if [[ -z "$AI_AGENTS" ]]; then
    a) all       — เลือกทั้ง 5
 
 Default: 1 (claude)
+
+หมายเหตุ: นี่คือ AI frontend (CLI/web ที่จะคุยด้วย) — ไม่ใช่ subagent
+         Subagent (backend/frontend/mobile/...) เริ่มต้นจะมีแค่ docs/verifier/security
+         enable เพิ่มภายหลังด้วย /bda-agent enable <name> หรือ /bda-agent suggest
 EOF
     read -r -p "เลือก: " ai_input
     ai_input="${ai_input:-1}"
@@ -306,13 +316,29 @@ if [[ -d "$SOURCE_URL" ]]; then
   run "cp -r '$SOURCE_URL/.claude' '$TMP_DIR/' 2>/dev/null || true"
 elif [[ "$SOURCE_URL" =~ ^https?:// ]]; then
   if command -v git > /dev/null; then
-    run "git clone --depth 1 --branch '$VERSION' '$SOURCE_URL' '$TMP_DIR' > /dev/null 2>&1"
+    # Don't suppress stderr — user needs to see clone failures (auth, missing repo, network)
+    if ! run "git clone --depth 1 --branch '$VERSION' '$SOURCE_URL' '$TMP_DIR' 2>&1"; then
+      err ""
+      err "❌ git clone ล้มเหลว"
+      err "   source: $SOURCE_URL"
+      err "   branch: $VERSION"
+      err "   ตรวจ: repo ถูกต้อง? branch/tag มีอยู่จริง? network/credential ok?"
+      exit 1
+    fi
   else
     err "git ไม่พบ ติดตั้ง git ก่อน หรือใช้ --source ชี้ไป local folder"
     exit 1
   fi
 else
   err "Source ไม่ valid: $SOURCE_URL"
+  exit 1
+fi
+
+# Sanity check — verify template actually landed (catches silent partial clones)
+if [[ $DRY_RUN -eq 0 ]] && [[ ! -f "$TMP_DIR/.bda-spec.yml" ]] && [[ ! -d "$TMP_DIR/commands" ]]; then
+  err "❌ Template ที่ clone มาว่างเปล่า หรือไม่ใช่ bda-spec repo"
+  err "   TMP_DIR: $TMP_DIR"
+  err "   source: $SOURCE_URL ($VERSION)"
   exit 1
 fi
 
@@ -346,11 +372,68 @@ for item in "${SAFE_ITEMS[@]}"; do
 done
 
 # ---------- AI agent folders (only selected ones) ----------
+# Always-on subagents (vault/quality/security keepers — every project needs these).
+# Specialized subagents (backend/frontend/mobile/design/figma/test-runner) ติดตั้งภายหลัง
+# ผ่าน /bda-agent enable <name> หรือ /bda-agent suggest หลัง /bda-init detect stack
+ALWAYS_ON_AGENTS=(docs verifier security)
+
+# Helper: install only always-on agents from .claude/agents/ (not the whole folder)
+install_claude_selective() {
+  local src="$TMP_DIR/.claude"
+  local dst="$TARGET/.claude"
+
+  run "mkdir -p '$dst/agents' '$dst/commands'"
+
+  # commands — copy all (these are slash commands, not subagent specs)
+  if [[ -d "$src/commands" ]]; then
+    run "cp -r '$src/commands/.' '$dst/commands/'"
+  fi
+
+  # settings.json — copy if exists (do NOT copy settings.local.json — per-machine)
+  [[ -f "$src/settings.json" ]] && run "cp '$src/settings.json' '$dst/'"
+
+  # agents — copy ONLY always-on (docs/verifier/security)
+  local copied=()
+  for a in "${ALWAYS_ON_AGENTS[@]}"; do
+    if [[ -f "$src/agents/$a.md" ]]; then
+      run "cp '$src/agents/$a.md' '$dst/agents/'"
+      copied+=("$a")
+    fi
+  done
+  log "  installed: .claude/ (commands + always-on agents: ${copied[*]:-none})"
+  log "  note: specialized agents (backend/frontend/mobile/...) — รัน /bda-agent suggest หลัง /bda-init"
+}
+
 log "Installing AI agent shims: $AI_AGENTS"
 IFS=',' read -ra AI_LIST <<< "$AI_AGENTS"
 INSTALLED_AI=()
 for ai in "${AI_LIST[@]}"; do
   folder=$(ai_folder "$ai")
+
+  # Claude: selective copy (commands + always-on agents only)
+  if [[ "$ai" == "claude" ]]; then
+    if [[ -d "$TMP_DIR/.claude" ]]; then
+      if [[ -d "$TARGET/.claude" && "$MODE" == "brownfield" && $YES -ne 1 ]]; then
+        warn "  skip existing: .claude/ (use --yes to overwrite)"
+      else
+        [[ -d "$TARGET/.claude" && $YES -eq 1 ]] && run "rm -rf '$TARGET/.claude'"
+        install_claude_selective
+        INSTALLED_AI+=("$ai")
+      fi
+    else
+      warn "  template missing: .claude/ (claude) — skipped"
+    fi
+
+    # Claude needs CLAUDE.md at root (AI-specific entry point)
+    if [[ -e "$TMP_DIR/CLAUDE.md" ]]; then
+      if [[ ! -e "$TARGET/CLAUDE.md" || $YES -eq 1 ]]; then
+        run "cp '$TMP_DIR/CLAUDE.md' '$TARGET/CLAUDE.md'"
+      fi
+    fi
+    continue
+  fi
+
+  # Other AI frontends: copy whole folder (no subagent concept)
   if [[ -e "$TMP_DIR/$folder" ]]; then
     if [[ -e "$TARGET/$folder" && "$MODE" == "brownfield" ]]; then
       warn "  skip existing: $folder (use --yes to overwrite)"
@@ -365,13 +448,6 @@ for ai in "${AI_LIST[@]}"; do
     fi
   else
     warn "  template missing: $folder ($ai) — skipped"
-  fi
-
-  # Claude needs CLAUDE.md at root (AI-specific entry point)
-  if [[ "$ai" == "claude" ]] && [[ -e "$TMP_DIR/CLAUDE.md" ]]; then
-    if [[ ! -e "$TARGET/CLAUDE.md" || $YES -eq 1 ]]; then
-      run "cp '$TMP_DIR/CLAUDE.md' '$TARGET/CLAUDE.md'"
-    fi
   fi
 done
 
@@ -531,8 +607,9 @@ log "ขั้นต่อไป:"
 case "${INSTALLED_AI[0]:-}" in
   claude)
     log "  1. เปิด Claude Code ใน folder นี้"
-    log "  2. รัน: /bda-init"
-    log "  3. ไม่รู้จะใช้ command ไหน? → /bda-help"
+    log "  2. รัน: /bda-init               (ตั้งค่า vault + detect stack)"
+    log "  3. รัน: /bda-agent suggest      (แนะนำ subagent เฉพาะทางตาม stack)"
+    log "  4. ไม่รู้จะใช้ command ไหน? → /bda-help"
     ;;
   codex)
     log "  1. รัน Codex CLI ใน folder นี้ (อ่าน codex/AGENTS.md)"
@@ -556,7 +633,16 @@ case "${INSTALLED_AI[0]:-}" in
     log "  2. รัน command bda-init เป็นอันดับแรก"
     ;;
 esac
-[[ ${#INSTALLED_AI[@]} -gt 1 ]] && log "  (มี ${#INSTALLED_AI[@]} AI agents ติดตั้ง — ใช้ตัวไหนก็ได้, command ตัวเดียวกัน)"
+[[ ${#INSTALLED_AI[@]} -gt 1 ]] && log "  (มี ${#INSTALLED_AI[@]} AI frontends ติดตั้ง — ใช้ตัวไหนก็ได้, command ตัวเดียวกัน)"
+
+# Subagent visibility — ผู้ใช้ควรรู้ว่ามี baseline 3 ตัว และจะเพิ่มได้ภายหลัง
+if [[ " ${INSTALLED_AI[*]:-} " == *" claude "* ]]; then
+  log ""
+  log "Subagents (Claude):"
+  log "  • Always-on (installed): docs, verifier, security"
+  log "  • Specialized (on-demand): backend, frontend, mobile, design, figma, test-runner"
+  log "    → /bda-agent suggest  หรือ  /bda-agent enable <name>"
+fi
 
 if [[ "$MODE" == "brownfield" ]]; then
   log ""
