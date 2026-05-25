@@ -118,10 +118,28 @@ DAILY_LOG_MIRROR=$(yget "$LOCAL" "paths.daily_log_mirror")
 EVIDENCE_STAGING=$(yget "$LOCAL" "paths.evidence_staging")
 SECRETS_FILE=$(yget "$LOCAL" "paths.secrets_file")
 
-# Standard
-STANDARD_VERSION=$(yget "$SHARED" "standard.version")
-STANDARD_LAST_SYNC=$(yget "$SHARED" "standard.last_synced")
-STANDARD_SOURCE=$(yget "$SHARED" "standard.source")
+# bda-spec metadata (v0.4.1+: was under `standard.*`; legacy keys still readable via fallback)
+# BDA standard version ที่ pinned อยู่ใน file `.bda-spec/VERSION` เท่านั้น (single source of truth)
+BDA_SPEC_VERSION=$(yget "$SHARED" "bda_spec.version")
+[ -z "$BDA_SPEC_VERSION" ] && BDA_SPEC_VERSION=$(yget "$SHARED" "standard.bda_spec_version")     # legacy
+BDA_SPEC_SOURCE=$(yget "$SHARED" "bda_spec.source")
+[ -z "$BDA_SPEC_SOURCE" ] && BDA_SPEC_SOURCE=$(yget "$SHARED" "standard.source")                 # legacy
+BDA_SPEC_LAST_SYNC=$(yget "$SHARED" "bda_spec.last_synced")
+[ -z "$BDA_SPEC_LAST_SYNC" ] && BDA_SPEC_LAST_SYNC=$(yget "$SHARED" "standard.last_synced")      # legacy
+
+# STANDARD_VERSION: อ่านจาก .bda-spec/VERSION (single source of truth — ไม่ duplicate ใน YAML)
+if [ -f "$ROOT/.bda-spec/VERSION" ]; then
+  STANDARD_VERSION=$(tr -d '[:space:]' < "$ROOT/.bda-spec/VERSION")
+elif [ -f "$ROOT/.bda-spec/standards/VERSION" ]; then
+  STANDARD_VERSION=$(tr -d '[:space:]' < "$ROOT/.bda-spec/standards/VERSION")  # v0.4-intermediate
+elif [ -f "$ROOT/standards/VERSION" ]; then
+  STANDARD_VERSION=$(tr -d '[:space:]' < "$ROOT/standards/VERSION")            # pre-v0.4
+else
+  STANDARD_VERSION=""
+fi
+# Back-compat aliases (so older callers still work)
+STANDARD_LAST_SYNC="$BDA_SPEC_LAST_SYNC"
+STANDARD_SOURCE="$BDA_SPEC_SOURCE"
 
 # Common derived paths
 IMPL_STATUS="$VAULT_ABS/00-Index/IMPLEMENTATION-STATUS.md"
@@ -170,6 +188,19 @@ else
   STANDARD_ROOT="$ROOT/.bda-spec"
 fi
 
+# Commands lookup chain (v0.4.1+: commands moved into .bda-spec/)
+# Order: project override (root) → .bda-spec/commands → legacy fallback
+# COMMANDS_DIR_PRIMARY: where AI shims should @-reference (the canonical source)
+# COMMANDS_DIR_OVERRIDE: optional user override layer (root commands/)
+if [ -d "$ROOT/.bda-spec/commands" ]; then
+  COMMANDS_DIR_PRIMARY="$ROOT/.bda-spec/commands"   # v0.4.1 current
+elif [ -d "$ROOT/commands" ]; then
+  COMMANDS_DIR_PRIMARY="$ROOT/commands"             # pre-v0.4.1 legacy
+else
+  COMMANDS_DIR_PRIMARY="$ROOT/.bda-spec/commands"   # default for fresh install
+fi
+COMMANDS_DIR_OVERRIDE="$ROOT/commands"
+
 # Subagents (enabled list)
 ENABLED_AGENTS=""
 for a in docs verifier security design backend frontend mobile figma test-runner; do
@@ -198,8 +229,12 @@ case "$MODE" in
     print_var DAILY_LOG_MIRROR "$DAILY_LOG_MIRROR"
     print_var EVIDENCE_STAGING "$EVIDENCE_STAGING"
     print_var SECRETS_FILE     "$SECRETS_FILE"
-    print_var STANDARD_VERSION "$STANDARD_VERSION"
-    print_var STANDARD_SOURCE  "$STANDARD_SOURCE"
+    print_var STANDARD_VERSION    "$STANDARD_VERSION"
+    print_var STANDARD_SOURCE     "$STANDARD_SOURCE"
+    print_var STANDARD_LAST_SYNC  "$STANDARD_LAST_SYNC"
+    print_var BDA_SPEC_VERSION    "$BDA_SPEC_VERSION"
+    print_var BDA_SPEC_SOURCE     "$BDA_SPEC_SOURCE"
+    print_var BDA_SPEC_LAST_SYNC  "$BDA_SPEC_LAST_SYNC"
     print_var IMPL_STATUS      "$IMPL_STATUS"
     print_var PRD_DIR          "$PRD_DIR"
     print_var FEAT_DIR         "$FEAT_DIR"
@@ -218,6 +253,9 @@ case "$MODE" in
     print_var TEMPLATES_LOCAL  "$TEMPLATES_LOCAL"
     print_var TEMPLATES_PROJECT "$TEMPLATES_PROJECT"
     print_var TEMPLATES_STANDARD "$TEMPLATES_STANDARD"
+    print_var COMMANDS_DIR_PRIMARY  "$COMMANDS_DIR_PRIMARY"
+    print_var COMMANDS_DIR_OVERRIDE "$COMMANDS_DIR_OVERRIDE"
+    print_var STANDARD_ROOT    "$STANDARD_ROOT"
     print_var ENABLED_AGENTS   "$ENABLED_AGENTS"
     ;;
   json)
@@ -239,7 +277,9 @@ case "$MODE" in
     "today_checkin":"$TODAY_CHECKIN"
   },
   "templates": {"local":"$TEMPLATES_LOCAL","project":"$TEMPLATES_PROJECT","standard":"$TEMPLATES_STANDARD"},
-  "standard": {"version":"$STANDARD_VERSION","source":"$STANDARD_SOURCE","last_synced":"$STANDARD_LAST_SYNC"},
+  "commands": {"primary":"$COMMANDS_DIR_PRIMARY","override":"$COMMANDS_DIR_OVERRIDE"},
+  "bda_spec": {"version":"$BDA_SPEC_VERSION","source":"$BDA_SPEC_SOURCE","last_synced":"$BDA_SPEC_LAST_SYNC"},
+  "standard": {"version":"$STANDARD_VERSION","root":"$STANDARD_ROOT"},
   "subagents_enabled": "$ENABLED_AGENTS",
   "today": "$TODAY"
 }

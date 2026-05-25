@@ -2,7 +2,7 @@
 
 > **Smoke test เฉพาะส่วน diff** — detect changed surface → spin servers → spawn test-runner → capture evidence
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-test.md`](../commands/bda-test.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-test.md`](../.bda-spec/commands/bda-test.md)
 
 ## เมื่อไหร่ใช้
 

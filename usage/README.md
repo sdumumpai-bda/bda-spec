@@ -2,7 +2,7 @@
 
 คู่มือใช้งาน 21 คำสั่งของ bda-spec แบบจริงจัง — 1 ไฟล์ต่อ command พร้อมตัวอย่าง, workflow, gotchas
 
-> ใช้คู่กับ [`commands/bda-*.md`](../commands/) (source-of-truth พร้อม Phase รายละเอียดเต็ม)
+> ใช้คู่กับ [`.bda-spec/commands/bda-*.md`](../.bda-spec/commands/) (source-of-truth พร้อม Phase รายละเอียดเต็ม)
 > ถ้าไม่รู้จะเริ่มจากไหน → อ่าน [/bda-help](./bda-help.md) ก่อน
 
 ---
@@ -126,6 +126,6 @@
 - [Multi-AI guide](../AI-README.md) — Claude/Codex/Gemini/GPT/GLM
 - [Evidence path strategy](../EVIDENCE-PATHS.md) — 3 tiers (raw/curated/uploaded)
 - [Changelog](../CHANGELOG.md)
-- Command source-of-truth: [`../commands/bda-*.md`](../commands/)
+- Command source-of-truth: [`../.bda-spec/commands/bda-*.md`](../.bda-spec/commands/)
 - Subagent specs: [`../.claude/agents/*.md`](../.claude/agents/)
 - Templates: [`../templates/*.md`](../templates/)

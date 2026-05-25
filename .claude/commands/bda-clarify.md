@@ -1,5 +1,5 @@
 ---
-description: bda-spec /bda-clarify — see commands/bda-clarify.md
+description: bda-spec /bda-clarify — see .bda-spec/commands/bda-clarify.md
 ---
 
-@commands/bda-clarify.md
+@.bda-spec/commands/bda-clarify.md

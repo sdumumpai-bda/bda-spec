@@ -10,6 +10,92 @@ Semantic Versioning · `MAJOR.MINOR.PATCH`
 
 ---
 
+## [0.4.1] — 2026-05-26 — `commands/` moved into `.bda-spec/commands/` + schema consolidation
+
+### Schema consolidation (`.bda-spec.yml`)
+
+รวม `standard:` block → `bda_spec:` block — user project ไม่มี field ที่อ้างถึง BDA standard upstream อีกต่อไป (เพราะ user sync จาก bda-spec เท่านั้น)
+
+**Before:**
+```yaml
+bda_spec:
+  version: "0.4.0"
+standard:
+  source: "https://github.com/sdumumpai-bda/bda-spec"
+  version: "0.8.0"
+  snapshot_path: .bda-spec
+  last_synced: "2026-05-21"
+  bda_spec_version: "0.4.0"
+```
+
+**After:**
+```yaml
+bda_spec:
+  version: "0.4.1"
+  source: "https://github.com/sdumumpai-bda/bda-spec"
+  last_synced: "2026-05-26"
+# BDA standard version pinned: read from .bda-spec/VERSION (single source of truth)
+```
+
+ลบ field ที่ซ้ำซ้อน/ไม่จำเป็น:
+- `standard.version` — duplicate ของ `.bda-spec/VERSION` file → อ่านจาก file เท่านั้น (single source of truth)
+- `standard.snapshot_path` — always `.bda-spec` → hardcode
+- `standard.bda_spec_version` — duplicate ของ `bda_spec.version`
+
+**Why:** จากมุมมอง user project — bda-spec คือ source เดียว, BDA standard upstream เป็นเรื่องภายในของ bda-spec. การมี field ที่อ้างถึง "standard" ใน user config สื่อสารผิดว่า user ต้องไปจัดการ BDA standard
+
+### Migration (อัตโนมัติ)
+
+`scripts/upgrade.sh` + `scripts/install.sh` ใช้ Python3 (works without yq) เพื่อ:
+1. Detect legacy `standard:` block ใน `.bda-spec.yml`
+2. Extract `source` + `last_synced` → ใส่ใน `bda_spec:` block
+3. Drop `standard:` block ทั้งหมด
+
+ทดสอบแล้ว: `bda_spec.version: 0.4.0` + legacy `standard:` → upgrade → consolidated `bda_spec.{version, source, last_synced}` clean
+
+### Layout consolidation
+
+ย้าย `commands/` (21 verb specs ที่เป็น source-of-truth) จาก root ไปอยู่ใน `.bda-spec/commands/` — ทำให้ machinery ของ bda-spec อยู่ที่เดียวทั้งหมดใน `.bda-spec/`
+
+**Why:** v0.4 ย้าย `standards/` → `.bda-spec/` ด้วยเหตุผลเดียวกัน (machinery ไม่ควรปนกับโค้ด user) แต่ `commands/` ตกหล่นไว้ที่ root — ทำให้ดูเหมือน user-facing แต่จริงๆ เป็น machinery ที่ห้ามแก้ + Claude shim `@commands/<verb>.md` ทำงานได้แต่ดูแปลก
+
+### Changes
+
+- **Source location:** `commands/<verb>.md` → `.bda-spec/commands/<verb>.md` (git mv, history preserved)
+- **Claude shims:** `.claude/commands/*.md` เปลี่ยน `@commands/<verb>.md` → `@.bda-spec/commands/<verb>.md`
+- **AI routers updated:** `codex/AGENTS.md`, `gpt/prompts/router.md`, `glm/prompts/router.md`, `gpt/README.md`, `gpt/prompts/system.md`, `glm/README.md`, `glm/prompts/system.md`, `prompts/general-ai/start-here.md`, `gemini/prompts/start-here.md`
+- **`scripts/bda-paths.sh`:** เพิ่ม `COMMANDS_DIR_PRIMARY` (`.bda-spec/commands/` → legacy `commands/`) + `COMMANDS_DIR_OVERRIDE` (root `commands/` for project-level customization) + expose `STANDARD_ROOT` ใน shell/JSON output
+- **`scripts/install.sh`:** SAFE_ITEMS: `commands` → `.bda-spec/commands`; sanity check ใช้ `$TMP_DIR/.bda-spec/commands`; เพิ่ม v0.4.1 migration logic — ถ้า user มี root `commands/` แบบ vanilla → archive เป็น `commands.bak-<ts>/`; ถ้ามี customization → keep เป็น override layer
+- **`scripts/upgrade.sh`:** REPLACE_PATHS ใช้ `.bda-spec/commands` + เพิ่มในรายการ SAFE_PATHS (override layer); migration cleanup คล้าย install
+- **`bin/bda-spec doctor`:** detect commands จาก `.bda-spec/commands/` ก่อน fallback ไป root `commands/` (with "legacy — run upgrade" hint)
+- **`scripts/test.sh`:** assertions อ่านจาก `.bda-spec/commands/bda-*.md`; shim verify ใช้ `@.bda-spec/commands/<name>.md`
+- **Docs:** README, AI-README, DISTRIBUTION, CLAUDE, usage/*.md ทุกตัวอัปเดต path
+
+### Override layer (new)
+
+Root `commands/` กลายเป็น **OPTIONAL override layer** — เหมือนกับ root `templates/`:
+- `bda-paths.sh` resolver จะ lookup: root `commands/` → `.bda-spec/commands/`
+- ถ้า user สร้าง `commands/bda-plan.md` ที่ root จะ override ตัวใน `.bda-spec/`
+- ทำให้ project-specific customization ทำได้โดยไม่แก้ snapshot
+
+### Migration (อัตโนมัติ)
+
+ทั้ง `install.sh` (รัน `--yes` ใหม่) และ `upgrade.sh` มี migration logic:
+
+```bash
+# ถ้า root commands/ = vanilla (เนื้อหาเหมือนกับ .bda-spec/commands/ ทุก verb)
+mv commands/ commands.bak-<timestamp>/
+
+# ถ้า root commands/ มี customization (file เพิ่มเองหรือเนื้อหาต่าง)
+# → keep ไว้เป็น override layer (warn user)
+```
+
+### Breaking changes — ไม่มี
+
+Shims ที่อัปเดตแล้วชี้ไป path ใหม่อัตโนมัติ; resolver fallback chain รองรับ legacy layout จนกว่า user จะรัน migration
+
+---
+
 ## [Unreleased] — new /bda-reverse-engineer command
 
 ### New command: `/bda-reverse-engineer`

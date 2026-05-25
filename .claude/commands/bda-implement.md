@@ -1,5 +1,5 @@
 ---
-description: bda-spec /bda-implement — see commands/bda-implement.md
+description: bda-spec /bda-implement — see .bda-spec/commands/bda-implement.md
 ---
 
-@commands/bda-implement.md
+@.bda-spec/commands/bda-implement.md

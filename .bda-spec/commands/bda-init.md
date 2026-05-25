@@ -94,7 +94,7 @@ test -f .gitmodules && cat .gitmodules
 ความหมายของแต่ละ mode:
 
 - **greenfield** — ลบ scaffolding เดิมที่ไม่จำเป็นได้, copy sample vault, สร้าง vault skeleton
-- **brownfield** — **ห้ามแตะ** ของเดิม, เพิ่มเฉพาะ `commands/`, `.claude/`, `.bda-spec/`, `templates/`, vault skeleton (ใหม่หรือใน sub-folder)
+- **brownfield** — **ห้ามแตะ** ของเดิม, เพิ่มเฉพาะ `.bda-spec/` (machinery + commands/), `.claude/`, vault skeleton (ใหม่หรือใน sub-folder)
 - **adopt-vault** — brownfield + ใช้ vault path ที่ user ระบุ (`docs/` เดิม), ไม่สร้าง vault ใหม่
 
 ## Phase 1 — ถามข้อมูลขั้นต่ำ (1 message รวมทุกคำถาม)
@@ -268,7 +268,7 @@ Subagents ที่ disable ก็ยังอยู่ใน `.claude/agents/` 
 - `vault_path`: ถ้า user เลือก A/B/C ใน Phase 1.2 → in-repo relative path; ถ้าเลือก D (external) → ใส่ `external` (special value)
 - `subagents.*`
 - `submodules` (auto-fill จาก `.gitmodules` ถ้ามี)
-- `standard.version` + `standard.last_synced`
+- `bda_spec.version` + `bda_spec.source` + `bda_spec.last_synced` (BDA standard version อ่านจาก `.bda-spec/VERSION` file)
 
 ### 6.2 `.bda-spec.local.yml` (gitignored — เฉพาะเครื่อง user)
 

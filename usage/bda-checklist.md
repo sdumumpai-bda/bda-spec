@@ -2,7 +2,7 @@
 
 > **"Unit tests for English"** — สร้าง checklist ที่ทดสอบคุณภาพ spec ไม่ใช่ behavior ของ code
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-checklist.md`](../commands/bda-checklist.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-checklist.md`](../.bda-spec/commands/bda-checklist.md)
 
 ## เมื่อไหร่ใช้
 

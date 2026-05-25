@@ -335,7 +335,7 @@ else
 fi
 
 # Sanity check — verify template actually landed (catches silent partial clones)
-if [[ $DRY_RUN -eq 0 ]] && [[ ! -f "$TMP_DIR/.bda-spec.yml" ]] && [[ ! -d "$TMP_DIR/commands" ]]; then
+if [[ $DRY_RUN -eq 0 ]] && [[ ! -f "$TMP_DIR/.bda-spec.yml" ]] && [[ ! -d "$TMP_DIR/.bda-spec/commands" ]]; then
   err "❌ Template ที่ clone มาว่างเปล่า หรือไม่ใช่ bda-spec repo"
   err "   TMP_DIR: $TMP_DIR"
   err "   source: $SOURCE_URL ($VERSION)"
@@ -346,13 +346,15 @@ fi
 log "Installing bda-spec scaffolding..."
 
 # Always-installed items (core — regardless of AI selection)
-# v0.4+ layout (FLAT under .bda-spec/, no more standards/ subfolder):
-#   - .bda-spec/{STANDARD.md, UPDATE-POLICY.md, VERSION, policies/, checklists/, templates/, workflows/}
+# v0.4.1+ layout (commands/ moved under .bda-spec/ — all bda-spec machinery in one place):
+#   - .bda-spec/{commands/, STANDARD.md, UPDATE-POLICY.md, VERSION, policies/, checklists/, templates/, workflows/}
+#   - .bda-spec/commands/ = the 21 BDA verb specs (source of truth for all AI shims)
 #   - .bda-spec/VERSION = BDA standard version (NOT bda-spec own version)
 #   - bda-spec own version lives in .bda-spec.yml `bda_spec.version` key (no separate file)
 #   - root templates/ — OPTIONAL project overrides (lookup chain: root → .bda-spec/templates/)
+#   - root commands/ — OPTIONAL project overrides (lookup chain: root → .bda-spec/commands/)
 SAFE_ITEMS=(
-  "commands"
+  ".bda-spec/commands"
   ".bda-spec/STANDARD.md"
   ".bda-spec/UPDATE-POLICY.md"
   ".bda-spec/VERSION"
@@ -447,6 +449,75 @@ if [[ -f "$TARGET/VERSION" ]]; then
     if ! grep -q "^bda_spec:" "$TARGET/.bda-spec.yml"; then
       printf '\nbda_spec:\n  version: "%s"\n' "$legacy_bda_spec_ver" >> "$TARGET/.bda-spec.yml"
     fi
+  fi
+fi
+
+# (4) v0.4.1 migration: legacy root commands/ → archive (commands moved to .bda-spec/commands/)
+# In v0.4 and earlier, commands/ sat at project root. Now it lives under .bda-spec/ together
+# with the rest of the bda-spec machinery. Archive the legacy folder if user has not customized
+# beyond what we now ship — otherwise warn and keep both as override layer.
+if [[ -d "$TARGET/commands" ]]; then
+  # Detect customization: any file in root commands/ that differs from the new .bda-spec/commands/ ?
+  has_custom=0
+  if [[ -d "$TARGET/.bda-spec/commands" ]]; then
+    while IFS= read -r f; do
+      rel="${f#$TARGET/commands/}"
+      if [[ ! -f "$TARGET/.bda-spec/commands/$rel" ]] || ! diff -q "$f" "$TARGET/.bda-spec/commands/$rel" >/dev/null 2>&1; then
+        has_custom=1
+        break
+      fi
+    done < <(find "$TARGET/commands" -type f -name '*.md' 2>/dev/null)
+  fi
+  if [[ $has_custom -eq 1 ]]; then
+    log "  note: root commands/ พบ + มี customization — เก็บไว้เป็น override layer (lookup: root commands/ → .bda-spec/commands/)"
+  else
+    bak="$TARGET/commands.bak-$(date +%Y%m%d-%H%M%S)"
+    log "  migration (v0.4.1): moving legacy root commands/ → $bak (now under .bda-spec/commands/)"
+    [[ $DRY_RUN -eq 0 ]] && mv "$TARGET/commands" "$bak"
+  fi
+fi
+
+# (5) v0.4.1 schema migration: standard.* block → bda_spec.* block ใน .bda-spec.yml
+# Uses python3 (more available than yq); preserves comments + ordering best-effort
+if [[ -f "$TARGET/.bda-spec.yml" ]] && command -v python3 >/dev/null 2>&1 && [[ $DRY_RUN -eq 0 ]]; then
+  migrated=$(python3 - "$TARGET/.bda-spec.yml" <<'PYEOF'
+import re, sys
+p = sys.argv[1]
+with open(p) as f: txt = f.read()
+m = re.search(r'(?ms)^standard:\s*\n((?:[ \t]+.+\n?)+)', txt)
+if not m:
+    sys.exit(0)  # nothing to migrate
+block = m.group(1)
+src_m   = re.search(r'^\s+source:\s*"?([^"\n]+)"?', block, re.M)
+sync_m  = re.search(r'^\s+last_synced:\s*"?([^"\n]+)"?', block, re.M)
+src     = src_m.group(1).strip() if src_m else ''
+sync    = sync_m.group(1).strip() if sync_m else ''
+# Drop the whole standard: block
+new = re.sub(r'(?ms)^standard:\s*\n(?:[ \t]+.+\n?)+', '', txt)
+# Ensure bda_spec: block has source + last_synced if not already
+bs_m = re.search(r'(?ms)^bda_spec:\s*\n((?:[ \t]+.+\n?)+)', new)
+if bs_m:
+    bs_block = bs_m.group(1)
+    additions = ''
+    if src and 'source:' not in bs_block:
+        additions += f'  source: "{src}"\n'
+    if sync and 'last_synced:' not in bs_block:
+        additions += f'  last_synced: "{sync}"\n'
+    if additions:
+        # Append to bda_spec: block
+        new = new[:bs_m.end()] + additions + new[bs_m.end():]
+else:
+    # No bda_spec: block at all — create one
+    block_yaml = 'bda_spec:\n'
+    if src:  block_yaml += f'  source: "{src}"\n'
+    if sync: block_yaml += f'  last_synced: "{sync}"\n'
+    new = new.rstrip() + '\n\n' + block_yaml
+with open(p, 'w') as f: f.write(new)
+print('OK')
+PYEOF
+)
+  if [[ "$migrated" == "OK" ]]; then
+    log "  migration (v0.4.1): consolidated .bda-spec.yml standard.* → bda_spec.*  (BDA standard version อ่านจาก .bda-spec/VERSION เท่านั้น)"
   fi
 fi
 

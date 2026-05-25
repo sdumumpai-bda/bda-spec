@@ -2,7 +2,7 @@
 
 > **เขียน/แก้/review vault doc** — PRD, SRS, Tech, ADR, Feature, Function, Role, Flow, Phase, TestPlan, Reference
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-doc.md`](../commands/bda-doc.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-doc.md`](../.bda-spec/commands/bda-doc.md)
 
 ## เมื่อไหร่ใช้
 

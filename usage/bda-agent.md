@@ -2,7 +2,7 @@
 
 > **Subagent management** — list/enable/disable + สร้าง agent specialized ตาม project context จริง
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-agent.md`](../commands/bda-agent.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-agent.md`](../.bda-spec/commands/bda-agent.md)
 
 ## เมื่อไหร่ใช้
 

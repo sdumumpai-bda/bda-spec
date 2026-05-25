@@ -1,5 +1,5 @@
 ---
-description: bda-spec /bda-handoff — see commands/bda-handoff.md
+description: bda-spec /bda-handoff — see .bda-spec/commands/bda-handoff.md
 ---
 
-@commands/bda-handoff.md
+@.bda-spec/commands/bda-handoff.md

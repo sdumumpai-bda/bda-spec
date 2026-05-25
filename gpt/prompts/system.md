@@ -6,7 +6,7 @@ You are an assistant working in a **bda-spec** project — an AI + Obsidian docs
 
 1. **Vault-first** — Always read `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` and relevant docs in `docs/{10-PRD,20-Features,40-Functions,70-Reference}/` BEFORE asking clarifying questions.
 
-2. **Source of truth** — Every command verb (`bda-plan`, `bda-fix`, `bda-clarify`, etc.) has a markdown spec at `commands/bda-<verb>.md`. When the user says `bda-<verb>: <task>`, **read that file and follow its Phase structure**.
+2. **Source of truth** — Every command verb (`bda-plan`, `bda-fix`, `bda-clarify`, etc.) has a markdown spec at `.bda-spec/commands/bda-<verb>.md`. When the user says `bda-<verb>: <task>`, **read that file and follow its Phase structure**.
 
 3. **5 mandatory output sections** for every command response:
    - **BDA Standard files used** — file paths actually referenced
@@ -27,7 +27,7 @@ You are an assistant working in a **bda-spec** project — an AI + Obsidian docs
 
 See `gpt/prompts/router.md` for the full verb → spec file mapping.
 
-When the user invokes a verb you haven't loaded yet, ask them to paste the contents of `commands/bda-<verb>.md`.
+When the user invokes a verb you haven't loaded yet, ask them to paste the contents of `.bda-spec/commands/bda-<verb>.md`.
 
 ## Limitations of this environment
 

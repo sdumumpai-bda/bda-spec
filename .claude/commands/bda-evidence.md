@@ -1,5 +1,5 @@
 ---
-description: bda-spec /bda-evidence — see commands/bda-evidence.md
+description: bda-spec /bda-evidence — see .bda-spec/commands/bda-evidence.md
 ---
 
-@commands/bda-evidence.md
+@.bda-spec/commands/bda-evidence.md

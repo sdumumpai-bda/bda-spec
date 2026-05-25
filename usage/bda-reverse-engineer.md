@@ -2,7 +2,7 @@
 
 > **อ่านโค้ดที่มีอยู่ → สร้าง vault docs draft** — TechStack, API, domain models, feature clusters (brownfield)
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-reverse-engineer.md`](../commands/bda-reverse-engineer.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-reverse-engineer.md`](../.bda-spec/commands/bda-reverse-engineer.md)
 
 ## เมื่อไหร่ใช้
 

@@ -2,7 +2,7 @@
 
 > **Sync BDA Standard snapshot** — pull update ล่าสุดจาก org repo แล้วทับ `.bda-spec/`
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-sync.md`](../commands/bda-sync.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-sync.md`](../.bda-spec/commands/bda-sync.md)
 
 ## เมื่อไหร่ใช้
 
@@ -53,7 +53,7 @@ Update standards from 0.4.1 → 0.4.3?
 3. **Phase 3** — Diff (เทียบ blob sha)
 4. **Phase 4** — Confirm กับ user (ถ้าไม่ `--force`)
 5. **Phase 5** — Download + atomic swap **scope: `.bda-spec/` only** (สร้าง `standards.backup-<ts>` ก่อน)
-6. **Phase 6** — Update `.bda-spec.yml` `standard.version` + `standard.last_synced`
+6. **Phase 6** — Update `.bda-spec.yml` `bda_spec.version` + `bda_spec.last_synced` (BDA standard version อัพเดทผ่านการเขียน `.bda-spec/VERSION` file ใหม่)
 7. **Phase 7** — Impact check (template overrides ที่ user แก้ใน `templates/` ยัง compatible ไหม)
 8. **Phase 8** — Log ลง checkin + `.bda-spec/SYNC-HISTORY.md`
 
@@ -61,7 +61,7 @@ Update standards from 0.4.1 → 0.4.3?
 
 - `.bda-spec/` ที่อัพเดต (ทับเฉพาะ folder นี้)
 - `standards.backup-<YYYYMMDD-HHMMSS>/` (rollback ได้)
-- `.bda-spec.yml` update 2 field: `standard.version`, `standard.last_synced`
+- `.bda-spec.yml` update 2 field: `bda_spec.version`, `bda_spec.last_synced`
 - `.bda-spec/SYNC-HISTORY.md` (append-only changelog)
 - Checkin entry: `HH:MM — [type/sync] /bda-sync 0.4.1 → 0.4.3 — files: ~5, +3, -0`
 
@@ -85,7 +85,7 @@ Update standards from 0.4.1 → 0.4.3?
 - 🚫 **ห้ามแตะ folder อื่นเด็ดขาด** — sync แค่ `.bda-spec/` เท่านั้น ถ้าเจอ path นอก scope → abort + restore backup
 - 🚫 ห้ามแก้ `.bda-spec/` ด้วยมือ — แก้ผ่าน feedback loop ที่ `bda-ai-dev-standard` repo ก่อน (ทุกไฟล์มี banner "READ-ONLY · DO NOT EDIT")
 - 🚫 ห้ามใส่ template ของ project เข้า `.bda-spec/templates/` — ใส่ `templates/` แทน
-- ⚠️ `.bda-spec.yml` `.bda-spec.local.yml` ไม่ถูกแตะ — sync แค่ bump `standard.version` ของไฟล์เดียว
+- ⚠️ `.bda-spec.yml` `.bda-spec.local.yml` ไม่ถูกแตะ — sync แค่ bump `bda_spec.version` + `bda_spec.last_synced` ของไฟล์เดียว
 - 💡 เก็บ backup อย่างน้อย 3 อันล่าสุด — `rm -rf standards.backup-*` ทีหลังถ้าเก่าเกิน
 - 💡 ถ้า public repo + standard เป็น private → ต้อง `GITHUB_TOKEN` env var
 
@@ -102,7 +102,7 @@ Update standards from 0.4.1 → 0.4.3?
 A: ไม่ทับ — sync แตะแค่ `.bda-spec/templates/` ของ project lookup chain: `.bda-spec/local/templates/` > `templates/` > `.bda-spec/templates/` — สองตัวแรกไม่ถูก sync
 
 **Q: rollback ยังไง?**
-A: `rm -rf standards && mv standards.backup-<ts> standards && yq -i '.standard.version = "<old>"' .bda-spec.yml`
+A: `rm -rf .bda-spec && mv .bda-spec.backup-<ts> .bda-spec && yq -i '.bda_spec.version = "<old>"' .bda-spec.yml` (BDA standard version จะถูกกู้กลับอัตโนมัติเมื่อ `.bda-spec/VERSION` ถูก restore)
 
 **Q: ใน CI ใช้ยังไง?**
 A: `/bda-sync --force --to <pinned-version>` — pin ไป version เฉพาะ ไม่ถาม confirm

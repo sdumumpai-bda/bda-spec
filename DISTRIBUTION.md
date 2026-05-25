@@ -136,7 +136,7 @@ bda-spec upgrade --rollback
 ```
 
 `upgrade` **ห้ามแตะ**: `templates/`, `docs/`, `.bda-spec.yml`, `.bda-spec.local.yml`, `.bda-spec/local/`, `CLAUDE.md`, `AI-README.md`, `README.md`
-**แทนที่** (v0.4+): `commands/`, `.claude/commands/`, `.claude/agents/`, `.bda-spec/`, `.bda-spec/VERSION`, `scripts/`, `bin/`, `codex/`, `gemini/`, `gpt/`, `glm/`, `prompts/`
+**แทนที่** (v0.4.1+): `.bda-spec/commands/`, `.claude/commands/`, `.claude/agents/`, `.bda-spec/`, `.bda-spec/VERSION`, `scripts/`, `bin/`, `codex/`, `gemini/`, `gpt/`, `glm/`, `prompts/`
 
 ---
 

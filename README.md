@@ -276,27 +276,27 @@ bash scripts/install.sh --source $(pwd) --target /tmp/test-bda --dry-run
 ├── .bda-spec.local.yml.example← personal config template
 ├── .gitignore
 │
-├── commands/                  ← 21 source-of-truth commands (Phase descriptions)
 ├── usage/                     ← 21+1 user-facing usage docs (Quick start, FAQ, gotchas)
 ├── .claude/
-│   ├── commands/              ← Claude slash command shims
+│   ├── commands/              ← Claude slash command shims (5 lines each, @.bda-spec/commands/…)
 │   ├── agents/                ← 9 subagents in catalog (install picks 3 always-on; rest enable via /bda-agent)
 │   └── settings.json
-├── codex/                     ← Codex AGENTS.md routing
+├── codex/                     ← Codex AGENTS.md routing (→ .bda-spec/commands/)
 ├── gemini/                    ← Gemini prompts
 ├── gpt/                       ← ChatGPT prompts
 ├── glm/                       ← Zhipu GLM prompts
 ├── prompts/general-ai/        ← Generic AI prompts
 │
-├── .bda-spec/                         ← bda-spec machinery (v0.4+)
-│   ├── VERSION                        ← bda-spec version (was: root VERSION pre-v0.4)
-│   └── standards/                     ← BDA Standard v0.7.0 snapshot (read-only)
-│       ├── VERSION                    ← BDA standard version (DIFFERENT from bda-spec version)
-│       ├── STANDARD.md
-│       ├── policies/                  ← 4 policies
-│       ├── checklists/                ← 5 checklists
-│       └── templates/                 ← canonical templates
-├── templates/                 ← OPTIONAL — project-customizable overrides (create when customizing)
+├── .bda-spec/                         ← all bda-spec machinery (v0.4.1+)
+│   ├── VERSION                        ← BDA standard version (= snapshot ver)
+│   ├── STANDARD.md
+│   ├── policies/                      ← 4 policies
+│   ├── checklists/                    ← 5 checklists
+│   ├── templates/                     ← canonical templates
+│   ├── workflows/
+│   └── commands/                      ← 21 source-of-truth verb specs (Phase descriptions)
+├── commands/                  ← OPTIONAL project override layer (lookup: root → .bda-spec/commands/)
+├── templates/                 ← OPTIONAL project override layer (lookup: root → .bda-spec/templates/)
 │
 ├── scripts/                   ← bash helpers
 │   ├── bda-paths.sh           ← config resolver [installed to user project]

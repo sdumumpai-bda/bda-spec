@@ -2,7 +2,7 @@
 
 > **Vault-first research + สร้าง plan file** — อ่าน vault → clarify → เขียน plan → **หยุดก่อนแตะโค้ดเสมอ**
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-plan.md`](../commands/bda-plan.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-plan.md`](../.bda-spec/commands/bda-plan.md)
 
 ## เมื่อไหร่ใช้
 

@@ -287,7 +287,7 @@ Storage:
 
 - **ห้ามอัปโหลด evidence ที่ `pii: raw` หรือ `safe_to_share: no`** — เด็ดขาด ไม่มี --force ข้าม
 - ห้าม fake gdrive_link — ถ้า upload fail ให้ใส่ `[FAILED: <reason>]` ใน manifest
-- ห้าม upload `.bda-spec/`, `templates/`, `.bda-spec/`, `commands/` — ไม่ใช่ evidence
+- ห้าม upload `.bda-spec/` (รวม commands + standards) หรือ `templates/` — ไม่ใช่ evidence
 - ห้ามตั้งค่า `link_visibility: anyone` โดยไม่ confirm กับ user (default: org)
 - ห้ามลบ local file หลัง upload ถ้า config ไม่ explicit set `cleanup_local_after_upload: true`
 - ห้ามใส่ secret/credential ใน file ที่ upload — `/bda-secure` ควรรันก่อน

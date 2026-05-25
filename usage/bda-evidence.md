@@ -2,7 +2,7 @@
 
 > **Capture, mask, store evidence** — จัดเก็บ screenshot/log/trace/test-report ใน vault + update manifest
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-evidence.md`](../commands/bda-evidence.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-evidence.md`](../.bda-spec/commands/bda-evidence.md)
 
 ## เมื่อไหร่ใช้
 

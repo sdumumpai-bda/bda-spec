@@ -47,8 +47,8 @@ echo "  BDA standard: $current_std"
 ## Phase 2 — Fetch latest from bda-spec repo
 
 ```bash
-# bda-spec repo is the source — NOT upstream BDA standard repo
-source_url=$(yq '.standard.source' .bda-spec.yml)
+# bda-spec repo is the source (v0.4.1+ schema: bda_spec.source; fallback: standard.source)
+source_url=$(yq '.bda_spec.source // .standard.source' .bda-spec.yml)
 # Default (v0.4+): https://github.com/sdumumpai-bda/bda-spec
 
 # Public repo — use raw VERSION
@@ -111,7 +111,7 @@ Update standards snapshot from bda-spec 0.4.0 → 0.4.3?
 # Pre-flight: verify ห้ามแตะของ project
 PROTECTED=(
   templates                       # project-level template overrides
-  commands
+  commands                        # project-level command overrides (optional, layered over .bda-spec/commands/)
   .claude
   docs
   codex
@@ -122,11 +122,13 @@ PROTECTED=(
   .bda-spec.yml
   .bda-spec.local.yml
   .bda-spec/local
-  .bda-spec/VERSION               # bda-spec version (separate from standard.version)
   CLAUDE.md
   AI-README.md
   README.md
 )
+# NOTE (v0.4.1+): /bda-sync REPLACES .bda-spec/commands/, .bda-spec/policies/, .bda-spec/templates/,
+# .bda-spec/STANDARD.md, .bda-spec/VERSION (= BDA standard version) — these are part of the synced snapshot.
+# User keeps customizations in root commands/ and templates/ (PROTECTED above).
 echo "Protected paths (จะไม่ถูกแตะ): ${PROTECTED[*]}"
 
 # Stage download from bda-spec repo
@@ -163,15 +165,25 @@ for p in "${PROTECTED[@]}"; do
 done
 ```
 
-## Phase 6 — Update .bda-spec.yml
+## Phase 6 — Update .bda-spec.yml (v0.4.1+ schema)
 
 ```yaml
-standard:
-  source: "https://github.com/sdumumpai-bda/bda-spec"   # NOT upstream BDA standard — curated layer
-  version: "0.8.1"                                       # BDA standard version (from snapshot)
-  snapshot_path: .bda-spec/standards
+bda_spec:
+  version: "0.4.3"                                       # bumped to bda-spec release that brought this snapshot
+  source: "https://github.com/sdumumpai-bda/bda-spec"
   last_synced: "2026-05-25"
-  bda_spec_version: "0.4.3"                              # which bda-spec release this snapshot came from
+# BDA standard version อยู่ใน file .bda-spec/VERSION (single source of truth — ไม่ duplicate ใน YAML)
+```
+
+**Migration:** ถ้าพบ legacy `standard:` block ใน `.bda-spec.yml` ให้ migrate fields แล้วลบ block ทิ้ง:
+```bash
+# Move standard.source → bda_spec.source (ถ้ายังไม่มี)
+if [ -z "$(yq '.bda_spec.source // ""' .bda-spec.yml)" ]; then
+  src=$(yq '.standard.source' .bda-spec.yml)
+  yq -i ".bda_spec.source = $src" .bda-spec.yml
+fi
+# Drop ทุก field ที่ deprecated
+yq -i 'del(.standard)' .bda-spec.yml
 ```
 
 ## Phase 7 — Run impact check
@@ -213,7 +225,7 @@ standard:
 - **ห้ามดึงจาก upstream BDA standard (BigDataAgency/bda-ai-dev-standard) ตรงๆ** — ต้องผ่าน bda-spec ที่ curated แล้วเสมอ
 - ห้ามแก้ `.bda-spec/` ด้วยมือ — แก้ผ่าน feedback loop ที่ bda-spec repo (ซึ่งจะ propagate ขึ้น upstream BDA standard ผ่าน UPDATE-POLICY)
 - ห้ามใส่ template ของ project เข้า `.bda-spec/templates/` — ใส่ `templates/` แทน
-- **ห้ามแตะ folder อื่นโดยเด็ดขาด** — ถ้า sync ทับ `templates/`, `commands/`, `.claude/`, `docs/`, `scripts/`, หรือ config ของ user → abort + restore backup ทันที
-- ห้ามแตะ `.bda-spec/VERSION` (bda-spec version) — sync เฉพาะ `.bda-spec/VERSION` (BDA standard version)
-- ห้ามแก้ `.bda-spec.yml` หรือ `.bda-spec.local.yml` (เปลี่ยนแค่ `standard.version` + `standard.last_synced` + `standard.bda_spec_version` ได้ผ่าน Phase 6)
+- **ห้ามแตะ folder อื่นโดยเด็ดขาด** — ถ้า sync ทับ root `templates/`, root `commands/` (override layers), `.claude/`, `docs/`, `scripts/`, หรือ config ของ user → abort + restore backup ทันที
+- ห้ามแตะ `.bda-spec.yml` bda_spec.version (bda-spec own version) — sync เฉพาะ `.bda-spec/VERSION` (BDA standard version) + `.bda-spec/commands/`, `.bda-spec/policies/`, `.bda-spec/templates/`, etc.
+- ห้ามแก้ `.bda-spec.yml` หรือ `.bda-spec.local.yml` (เปลี่ยนแค่ `bda_spec.version` + `bda_spec.last_synced` ได้ผ่าน Phase 6; BDA standard version อ่านจาก `.bda-spec/VERSION` file เท่านั้น)
 - ห้ามลบ `.bda-spec/standards.backup-*` โดยไม่บอก user — เก็บไว้อย่างน้อย 3 backup ล่าสุด

@@ -2,7 +2,7 @@
 
 > **Interactive help + cheatsheet + decision tree** — ใช้เมื่อไม่รู้ว่าจะใช้ command ไหน
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-help.md`](../commands/bda-help.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-help.md`](../.bda-spec/commands/bda-help.md)
 
 ## เมื่อไหร่ใช้
 
@@ -42,10 +42,10 @@
 
 1. **Phase 0** — Detect intent (ถ้า args ว่าง → ถาม mode)
 2. **Phase 1** — "แนะนำตามสถานการณ์" (batch 3-5 คำถาม)
-3. **Phase 2** — "อธิบาย command เฉพาะ" (อ่าน `commands/<cmd>.md` แล้วสรุป)
+3. **Phase 2** — "อธิบาย command เฉพาะ" (อ่าน `.bda-spec/commands/<cmd>.md` แล้วสรุป)
 4. **Phase 3** — "workflows" (แสดง workflow cards)
 5. **Phase 4** — "cheatsheet" (ตาราง 1 หน้า)
-6. **Phase 5** — "search" (grep ใน commands/ + agents/)
+6. **Phase 5** — "search" (grep ใน .bda-spec/commands/ + .claude/agents/)
 
 ## Output ที่ได้
 
@@ -64,7 +64,7 @@
 ตัวอย่าง: user อยาก deep-dive command
 ```
 1. /bda-help plan           ← สรุป + path ของ full spec
-2. cat commands/bda-plan.md  ← อ่านเต็ม
+2. cat .bda-spec/commands/bda-plan.md  ← อ่านเต็ม
 ```
 
 ## Gotchas / ข้อควรระวัง
@@ -75,7 +75,7 @@
 
 ## Related
 
-- ทุก command ที่ help อ้างถึง → ดู `commands/<name>.md` หรือ `usage/bda-<name>.md`
+- ทุก command ที่ help อ้างถึง → ดู `.bda-spec/commands/<name>.md` หรือ `usage/bda-<name>.md`
 - README หลัก: [`../README.md`](../README.md)
 
 ## FAQ
@@ -84,4 +84,4 @@
 A: ไม่ — help ตอบเฉพาะ command + workflow ของ bda-spec ถ้าถามทั่วไป (เช่น "Vue คืออะไร") ให้ใช้ general AI
 
 **Q: ถ้า help แนะนำ command ไม่มีจริงล่ะ?**
-A: ไม่ควรเกิด — help ผูกกับ 20 commands ที่ list ใน `commands/` เท่านั้น ถ้าเจอ bug แจ้งเลย
+A: ไม่ควรเกิด — help ผูกกับ 21 commands ที่ list ใน `.bda-spec/commands/` เท่านั้น ถ้าเจอ bug แจ้งเลย

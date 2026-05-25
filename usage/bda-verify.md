@@ -4,7 +4,7 @@
 
 > ต้องการสร้าง Handoff Report ส่งต่อ reviewer/exec? → `/bda-handoff <path>` (command แยก)
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-verify.md`](../commands/bda-verify.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-verify.md`](../.bda-spec/commands/bda-verify.md)
 
 ## เมื่อไหร่ใช้
 

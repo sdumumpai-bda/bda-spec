@@ -2,7 +2,7 @@
 
 > **เริ่ม project/feature ใหม่** — brainstorm จาก idea หรือ import PRD ที่มีอยู่ → สร้าง PRD/SRS/Tech-spec ครบชุด
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-new.md`](../commands/bda-new.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-new.md`](../.bda-spec/commands/bda-new.md)
 
 ## เมื่อไหร่ใช้
 

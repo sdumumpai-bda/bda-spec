@@ -2,7 +2,7 @@
 
 > **Execute plan ที่ approve แล้ว** ผ่าน subagent — เก็บ evidence + sync vault + update IMPLEMENTATION-STATUS
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-implement.md`](../commands/bda-implement.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-implement.md`](../.bda-spec/commands/bda-implement.md)
 
 ## เมื่อไหร่ใช้
 

@@ -2,7 +2,7 @@
 
 > **Security pre-flight** — scan secrets, PII, screenshot masking, public-repo, dependency CVE, prod guardrails
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-secure.md`](../commands/bda-secure.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-secure.md`](../.bda-spec/commands/bda-secure.md)
 
 ## เมื่อไหร่ใช้
 
@@ -133,7 +133,7 @@ Verdict: REVIEW NEEDED (2 yellow)
 A: `/bda-secure` แค่ flag — ต้อง rotate credential + `git filter-repo` แยกต่างหาก
 
 **Q: PII Thai pattern คลุม ID อื่นๆ ไหม?**
-A: คลุม citizen ID, phone, email, hospital number ถ้ามี custom pattern → extend ใน `commands/bda-secure.md` patterns array
+A: คลุม citizen ID, phone, email, hospital number ถ้ามี custom pattern → extend ใน `.bda-spec/commands/bda-secure.md` patterns array
 
 **Q: ใช้ตัวเดียวกับ pre-commit hook ได้ไหม?**
 A: ได้ — `bash <path>/.bda-spec/scripts/secure.sh` (ถ้า project มี) หรือ `/bda-secure --since HEAD` ใน hook

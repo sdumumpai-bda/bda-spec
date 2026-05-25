@@ -2,7 +2,7 @@
 
 > **Diagnose bug + สร้าง fix-log** — ไม่แก้โค้ด, เก็บ before-evidence, เตรียม root cause + fix approach
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-fix.md`](../commands/bda-fix.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-fix.md`](../.bda-spec/commands/bda-fix.md)
 
 ## เมื่อไหร่ใช้
 

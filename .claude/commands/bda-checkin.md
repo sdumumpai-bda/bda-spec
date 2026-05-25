@@ -1,5 +1,5 @@
 ---
-description: bda-spec /bda-checkin — see commands/bda-checkin.md
+description: bda-spec /bda-checkin — see .bda-spec/commands/bda-checkin.md
 ---
 
-@commands/bda-checkin.md
+@.bda-spec/commands/bda-checkin.md

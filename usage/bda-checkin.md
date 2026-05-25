@@ -2,7 +2,7 @@
 
 > **Daily executive check-in** — morning/midday/note/end ใน 1 ไฟล์/วัน · v5 schema · รวบรวม 7 แหล่งข้อมูล
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-checkin.md`](../commands/bda-checkin.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-checkin.md`](../.bda-spec/commands/bda-checkin.md)
 
 ## เมื่อไหร่ใช้
 

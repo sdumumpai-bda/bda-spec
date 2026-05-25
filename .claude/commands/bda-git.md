@@ -1,5 +1,5 @@
 ---
-description: bda-spec /bda-git — see commands/bda-git.md
+description: bda-spec /bda-git — see .bda-spec/commands/bda-git.md
 ---
 
-@commands/bda-git.md
+@.bda-spec/commands/bda-git.md

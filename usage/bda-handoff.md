@@ -2,7 +2,7 @@
 
 > **สร้าง Handoff Report ส่งงานต่อ reviewer/exec/QA** — เอกสารทางการสรุปผลงานพร้อม evidence และ approval section
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-handoff.md`](../commands/bda-handoff.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-handoff.md`](../.bda-spec/commands/bda-handoff.md)
 
 ## เมื่อไหร่ใช้
 

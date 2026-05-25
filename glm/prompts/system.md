@@ -6,7 +6,7 @@
 
 1. **Vault-first** — อ่าน `docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` + docs ที่เกี่ยวข้องใน `docs/{10-PRD,20-Features,40-Functions,70-Reference}/` **ก่อน** ถามคำถาม
 
-2. **Source of truth** — ทุก command verb (`bda-plan`, `bda-fix`, ฯลฯ) มี markdown spec ที่ `commands/bda-<verb>.md` — เมื่อ user สั่ง `bda-<verb>: <task>` ให้อ่านไฟล์นั้นแล้วทำตาม Phase
+2. **Source of truth** — ทุก command verb (`bda-plan`, `bda-fix`, ฯลฯ) มี markdown spec ที่ `.bda-spec/commands/bda-<verb>.md` — เมื่อ user สั่ง `bda-<verb>: <task>` ให้อ่านไฟล์นั้นแล้วทำตาม Phase
 
 3. **5 หัวข้อบังคับใน output ทุกครั้ง:**
    - BDA Standard files used

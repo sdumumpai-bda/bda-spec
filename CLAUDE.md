@@ -36,7 +36,7 @@ spec-driven:     /bda-new         /bda-clarify    /bda-plan
 ส่งมอบ:           /bda-secure      /bda-verify     /bda-git         /bda-handoff
 ```
 
-รวม **21 commands** — ดู `commands/` (source) หรือ `usage/` (วิธีใช้)
+รวม **21 commands** — ดู `.bda-spec/commands/` (source) หรือ `usage/` (วิธีใช้)
 
 **ไม่รู้จะเริ่มที่ไหน?** → `/bda-help` แล้วตอบคำถาม → จะแนะนำ command ที่ตรงสถานการณ์
 <!-- BDA-SPEC END: command-list -->
@@ -103,12 +103,13 @@ scripts/test.sh              — smoke tests for bda-spec source repo
 
 ## Configuration
 
-`.bda-spec.yml` ที่ root กำหนด:
-- `bda_spec.version`: version ของ bda-spec ที่ติดตั้ง (อัปเดตอัตโนมัติโดย `scripts/upgrade.sh`)
+`.bda-spec.yml` ที่ root กำหนด (v0.4.1+ consolidated schema):
+- `bda_spec.version`: version ของ bda-spec ที่ติดตั้ง (อัปเดตอัตโนมัติโดย `scripts/upgrade.sh` + `/bda-sync`)
+- `bda_spec.source`: URL ที่ `/bda-sync` ดึง snapshot ใหม่จาก (default: `https://github.com/sdumumpai-bda/bda-spec`)
+- `bda_spec.last_synced`: วันที่ sync ครั้งล่าสุด
+- BDA standard version pinned: อ่านจาก file `.bda-spec/VERSION` — ไม่อยู่ใน YAML (single source of truth)
 - `mode`: `standalone` หรือ `submodule`
 - `vault_path`: ตำแหน่ง vault (default: `docs/obsidian-vault`)
-- `standard.version`: version ของ BDA AI Dev Standard ที่ pinned (อัปเดตโดย `/bda-sync`)
-- `standard.source`: bda-spec curated layer (`https://github.com/sdumumpai-bda/bda-spec`)
 - `subagents`: subagents enabled — always-on: `docs`, `verifier`, `security`; on-demand: `backend`, `frontend`, `mobile`, `design`, `figma`, `test-runner` (enable ผ่าน `/bda-agent enable <name>`)
 - `submodules`: list submodules ถ้ามี (เช่น `[api, web, app]`)
 

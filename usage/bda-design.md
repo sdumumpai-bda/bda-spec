@@ -2,7 +2,7 @@
 
 > **Design system** — tokens + components + patterns + preview.html (Storybook-lite single-file)
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-design.md`](../commands/bda-design.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-design.md`](../.bda-spec/commands/bda-design.md)
 
 ## เมื่อไหร่ใช้
 

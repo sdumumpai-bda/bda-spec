@@ -1,36 +1,36 @@
 # Codex Agent Instructions — bda-spec
 
-ตัว Codex ใช้ AGENTS.md เป็น top-level instruction. ไฟล์นี้ shadow `commands/<verb>.md` ของ bda-spec
+ตัว Codex ใช้ AGENTS.md เป็น top-level instruction. ไฟล์นี้ shadow `.bda-spec/commands/<verb>.md` ของ bda-spec
 
 ## หลักการ
 
-bda-spec มี 21 commands ที่ source-of-truth อยู่ที่ `commands/`. เมื่อ user ระบุ verb (`bda-plan`, `bda-fix`, ฯลฯ), อ่านไฟล์ใน `commands/<verb>.md` แล้วทำตาม Phase ที่กำหนด
+bda-spec มี 21 commands ที่ source-of-truth อยู่ที่ `.bda-spec/commands/`. เมื่อ user ระบุ verb (`bda-plan`, `bda-fix`, ฯลฯ), อ่านไฟล์ใน `.bda-spec/commands/<verb>.md` แล้วทำตาม Phase ที่กำหนด
 
 ## Verb mapping
 
 | User input | Read file |
 |---|---|
-| `bda-help` หรือ `help`, `?` | `commands/bda-help.md` |
-| `bda-init` หรือ `init` | `commands/bda-init.md` |
-| `bda-reverse-engineer` หรือ `reverse-engineer` | `commands/bda-reverse-engineer.md` |
-| `bda-clarify` หรือ `clarify` | `commands/bda-clarify.md` |
-| `bda-checklist` หรือ `checklist` | `commands/bda-checklist.md` |
-| `bda-evidence` หรือ `evidence` | `commands/bda-evidence.md` |
-| `bda-agent` หรือ `agent` | `commands/bda-agent.md` |
-| `bda-new` หรือ `new` | `commands/bda-new.md` |
-| `bda-plan` หรือ `plan` | `commands/bda-plan.md` |
-| `bda-implement` หรือ `implement` | `commands/bda-implement.md` |
-| `bda-fix` หรือ `fix` | `commands/bda-fix.md` |
-| `bda-doc` หรือ `doc` | `commands/bda-doc.md` |
-| `bda-test` หรือ `test` | `commands/bda-test.md` |
-| `bda-design` หรือ `design` | `commands/bda-design.md` |
-| `bda-checkin` หรือ `checkin` | `commands/bda-checkin.md` |
-| `bda-secure` หรือ `secure` | `commands/bda-secure.md` |
-| `bda-verify` หรือ `verify` | `commands/bda-verify.md` |
-| `bda-handoff` หรือ `handoff` | `commands/bda-handoff.md` |
-| `bda-git` หรือ `git-sync` | `commands/bda-git.md` |
-| `bda-upload` หรือ `upload` | `commands/bda-upload.md` |
-| `bda-sync` หรือ `sync` | `commands/bda-sync.md` |
+| `bda-help` หรือ `help`, `?` | `.bda-spec/commands/bda-help.md` |
+| `bda-init` หรือ `init` | `.bda-spec/commands/bda-init.md` |
+| `bda-reverse-engineer` หรือ `reverse-engineer` | `.bda-spec/commands/bda-reverse-engineer.md` |
+| `bda-clarify` หรือ `clarify` | `.bda-spec/commands/bda-clarify.md` |
+| `bda-checklist` หรือ `checklist` | `.bda-spec/commands/bda-checklist.md` |
+| `bda-evidence` หรือ `evidence` | `.bda-spec/commands/bda-evidence.md` |
+| `bda-agent` หรือ `agent` | `.bda-spec/commands/bda-agent.md` |
+| `bda-new` หรือ `new` | `.bda-spec/commands/bda-new.md` |
+| `bda-plan` หรือ `plan` | `.bda-spec/commands/bda-plan.md` |
+| `bda-implement` หรือ `implement` | `.bda-spec/commands/bda-implement.md` |
+| `bda-fix` หรือ `fix` | `.bda-spec/commands/bda-fix.md` |
+| `bda-doc` หรือ `doc` | `.bda-spec/commands/bda-doc.md` |
+| `bda-test` หรือ `test` | `.bda-spec/commands/bda-test.md` |
+| `bda-design` หรือ `design` | `.bda-spec/commands/bda-design.md` |
+| `bda-checkin` หรือ `checkin` | `.bda-spec/commands/bda-checkin.md` |
+| `bda-secure` หรือ `secure` | `.bda-spec/commands/bda-secure.md` |
+| `bda-verify` หรือ `verify` | `.bda-spec/commands/bda-verify.md` |
+| `bda-handoff` หรือ `handoff` | `.bda-spec/commands/bda-handoff.md` |
+| `bda-git` หรือ `git-sync` | `.bda-spec/commands/bda-git.md` |
+| `bda-upload` หรือ `upload` | `.bda-spec/commands/bda-upload.md` |
+| `bda-sync` หรือ `sync` | `.bda-spec/commands/bda-sync.md` |
 
 ## Universal rules (จาก BDA AI Dev Standard)
 
@@ -67,7 +67,7 @@ Codex ไม่มี sub-agent แบบ Claude Code; ใช้ persona switchi
 - `vault_path` (โดยมาก `docs`)
 - `subagents.*` (ตัวที่ true = persona ที่ใช้)
 - `submodules`
-- `standard.version`
+- `bda_spec.version` (bda-spec release); BDA standard version อ่านจาก file `.bda-spec/VERSION`
 
 ## ภาษา
 

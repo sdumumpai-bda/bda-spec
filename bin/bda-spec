@@ -95,11 +95,28 @@ cmd_doctor() {
   echo "  CLAUDE.md:        $([ -f CLAUDE.md ] && echo OK || echo MISSING)"
   echo "  AI-README.md:     $([ -f AI-README.md ] && echo OK || echo MISSING)"
   echo "  .gitignore:       $([ -f .gitignore ] && echo OK || echo "(missing — recommended)")"
-  echo "  commands/:        $([ -d commands ] && echo "$(ls commands/bda-*.md 2>/dev/null | wc -l) commands" || echo MISSING)"
+  # Commands lookup: .bda-spec/commands/ (v0.4.1+) → root commands/ (legacy)
+  cmd_dir=""
+  if [ -d ".bda-spec/commands" ]; then cmd_dir=".bda-spec/commands"
+  elif [ -d "commands" ]; then cmd_dir="commands (legacy — run upgrade)"
+  fi
+  if [ -n "$cmd_dir" ]; then
+    cmd_count=$(ls "${cmd_dir%% *}"/bda-*.md 2>/dev/null | wc -l | tr -d ' ')
+    echo "  commands ($cmd_dir): $cmd_count verbs"
+  else
+    echo "  commands:         MISSING"
+  fi
   echo "  .claude/commands: $([ -d .claude/commands ] && echo "$(ls .claude/commands/*.md 2>/dev/null | wc -l) shims" || echo MISSING)"
   echo "  .claude/agents/:  $([ -d .claude/agents ] && echo "$(ls .claude/agents/*.md 2>/dev/null | wc -l) agents" || echo MISSING)"
-  echo "  standards/:       $([ -d standards ] && echo "v$(cat standards/VERSION 2>/dev/null || echo unknown)" || echo MISSING)"
-  echo "  templates/:       $([ -d templates ] && echo "$(ls templates/*.md 2>/dev/null | wc -l) templates (project-shared)" || echo MISSING)"
+  # Standards lookup: .bda-spec/ (v0.4+ flat) → .bda-spec/standards/ (v0.4-intermediate) → standards/ (pre-v0.4)
+  std_ver=""
+  if [ -f .bda-spec/VERSION ]; then std_ver="v$(cat .bda-spec/VERSION 2>/dev/null) (.bda-spec/)"
+  elif [ -f .bda-spec/standards/VERSION ]; then std_ver="v$(cat .bda-spec/standards/VERSION 2>/dev/null) (.bda-spec/standards/ — legacy)"
+  elif [ -f standards/VERSION ]; then std_ver="v$(cat standards/VERSION 2>/dev/null) (standards/ — legacy)"
+  else std_ver="MISSING"
+  fi
+  echo "  BDA standard:     $std_ver"
+  echo "  templates/:       $([ -d templates ] && echo "$(ls templates/*.md 2>/dev/null | wc -l) templates (project override layer)" || echo "(none — using .bda-spec/templates/)")"
   echo "  scripts/:         $([ -f scripts/install.sh ] && [ -f scripts/upgrade.sh ] && [ -f scripts/test.sh ] && [ -f scripts/bda-paths.sh ] && echo "OK (4 helpers)" || echo "(some missing)")"
   local vault
   vault="$(grep -E '^vault_path:' .bda-spec.yml 2>/dev/null | awk '{print $2}' | tr -d '"')"

@@ -19,7 +19,7 @@
 
 Live standards: https://github.com/BigDataAgency/bda-ai-dev-standard
 
-Local snapshot: `standards/` — pin version ใน `.bda-spec.yml` `standard.version`
+Local snapshot: `.bda-spec/` — pin version ใน `.bda-spec/VERSION` file (อ่านโดยตรง — ไม่ duplicate ใน YAML)
 
 ## ห้าม
 
@@ -31,7 +31,7 @@ Local snapshot: `standards/` — pin version ใน `.bda-spec.yml` `standard.ve
 1. Feedback → BDA AI Dev Standard repo (issue / PR)
 2. Standard repo merge → tag new version
 3. `/bda-sync` ใน project → ดาวน์โหลด version ใหม่
-4. Update `.bda-spec.yml` `standard.version` + `last_synced`
+4. Update `.bda-spec/VERSION` (BDA standard ver) + `.bda-spec.yml` `bda_spec.last_synced`
 5. Log entry ใน `standards/SYNC-HISTORY.md`
 
 ## วิธี override (เมื่อ deviation จำเป็น)

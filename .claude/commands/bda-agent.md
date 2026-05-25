@@ -1,5 +1,5 @@
 ---
-description: bda-spec /bda-agent — see commands/bda-agent.md
+description: bda-spec /bda-agent — see .bda-spec/commands/bda-agent.md
 ---
 
-@commands/bda-agent.md
+@.bda-spec/commands/bda-agent.md

@@ -1,5 +1,5 @@
 ---
-description: bda-spec /bda-init — see commands/bda-init.md
+description: bda-spec /bda-init — see .bda-spec/commands/bda-init.md
 ---
 
-@commands/bda-init.md
+@.bda-spec/commands/bda-init.md

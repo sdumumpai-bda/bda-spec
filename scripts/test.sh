@@ -75,22 +75,24 @@ run "README.md exists"             '[ -f README.md ]'
 # Test 2: Folder structure
 # ════════════════════════════════════════════════════════════════════════════
 printf "\n${c_bold}Section 2 — Folder structure${c_reset}\n"
-for d in commands .claude/commands .claude/agents .bda-spec/policies .bda-spec/checklists .bda-spec/templates scripts bin codex/agents docs/obsidian-vault/00-Index docs/obsidian-vault/10-PRD docs/obsidian-vault/20-Features docs/obsidian-vault/30-Roles docs/obsidian-vault/40-Functions docs/obsidian-vault/50-Phases docs/obsidian-vault/60-Flows docs/obsidian-vault/70-Reference docs/obsidian-vault/75-Checkins docs/obsidian-vault/80-ImplementPlan docs/obsidian-vault/85-FixLog docs/obsidian-vault/90-TestPlan docs/obsidian-vault/95-Handoff; do
+for d in .bda-spec/commands .claude/commands .claude/agents .bda-spec/policies .bda-spec/checklists .bda-spec/templates scripts bin codex/agents docs/obsidian-vault/00-Index docs/obsidian-vault/10-PRD docs/obsidian-vault/20-Features docs/obsidian-vault/30-Roles docs/obsidian-vault/40-Functions docs/obsidian-vault/50-Phases docs/obsidian-vault/60-Flows docs/obsidian-vault/70-Reference docs/obsidian-vault/75-Checkins docs/obsidian-vault/80-ImplementPlan docs/obsidian-vault/85-FixLog docs/obsidian-vault/90-TestPlan docs/obsidian-vault/95-Handoff; do
   run "dir $d"                     "[ -d $d ]"
 done
 # v0.4: root `templates/` is OPTIONAL — only created when project customizes templates
+# v0.4.1: root `commands/` is OPTIONAL — only created when project overrides specific verbs
 # Sanity check just verifies it's a directory IF it exists (don't fail if absent)
 [ -e templates ] && [ ! -d templates ] && echo "FAIL: templates exists but is not a directory"
+[ -e commands ] && [ ! -d commands ] && echo "FAIL: commands exists but is not a directory"
 
 # ════════════════════════════════════════════════════════════════════════════
 # Test 3: Commands — source + shim integrity
 # ════════════════════════════════════════════════════════════════════════════
 printf "\n${c_bold}Section 3 — Commands${c_reset}\n"
-for cmd_file in commands/bda-*.md; do
+for cmd_file in .bda-spec/commands/bda-*.md; do
   cmd_name=$(basename "$cmd_file" .md)
   shim=".claude/commands/${cmd_name}.md"
   run "shim exists: $cmd_name"     "[ -f $shim ]"
-  run "shim → source: $cmd_name"   "grep -q '@commands/${cmd_name}.md' $shim"
+  run "shim → source: $cmd_name"   "grep -q '@.bda-spec/commands/${cmd_name}.md' $shim"
   run "frontmatter: $cmd_name"     "head -1 $cmd_file | grep -q '^---$'"
 done
 
@@ -98,7 +100,7 @@ done
 # Test 4: Commands contain required sections
 # ════════════════════════════════════════════════════════════════════════════
 printf "\n${c_bold}Section 4 — Command structure${c_reset}\n"
-for cmd_file in commands/bda-*.md; do
+for cmd_file in .bda-spec/commands/bda-*.md; do
   cmd_name=$(basename "$cmd_file" .md)
   # 5 mandatory output sections + ห้าม section
   run "5-section output: $cmd_name"  "grep -q '5 หัวข้อบังคับ\|Output (' $cmd_file"

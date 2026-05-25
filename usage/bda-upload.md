@@ -2,7 +2,7 @@
 
 > **Upload evidence ไป GDrive** (rclone) — ผ่าน HARD gates (PII/safe-to-share) → ใส่ link ใน manifest
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-upload.md`](../commands/bda-upload.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-upload.md`](../.bda-spec/commands/bda-upload.md)
 
 ## เมื่อไหร่ใช้
 
@@ -139,7 +139,7 @@ Blocked items (need attention):
 
 - 🚫 **ห้ามอัปโหลด evidence ที่ `pii: raw` หรือ `safe_to_share: no`** — **เด็ดขาด ไม่มี `--force` ข้าม**
 - 🚫 ห้าม fake `gdrive_link` — ถ้า upload fail ใส่ `[FAILED: <reason>]`
-- 🚫 ห้าม upload `.bda-spec/`, `templates/`, `.bda-spec/`, `commands/` — ไม่ใช่ evidence
+- 🚫 ห้าม upload `.bda-spec/` (รวม commands + standards) หรือ `templates/` — ไม่ใช่ evidence
 - 🚫 ห้ามตั้ง `link_visibility: anyone` โดยไม่ confirm — default: org
 - 🚫 ห้ามลบ local file หลัง upload เว้นแต่ explicit `cleanup_local_after_upload: true`
 - 🚫 ห้ามใส่ secret/credential ใน file ที่ upload — รัน `/bda-secure` ก่อน

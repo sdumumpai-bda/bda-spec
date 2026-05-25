@@ -7,7 +7,7 @@
 ### Web (chatgpt.com)
 1. เริ่ม new chat — paste `prompts/system.md` เป็น Custom Instructions
 2. เริ่มงานด้วย verb เช่น "bda-plan: เพิ่ม search feature"
-3. ChatGPT จะอ่าน `prompts/router.md` mapping → route ไป `commands/bda-<verb>.md`
+3. ChatGPT จะอ่าน `prompts/router.md` mapping → route ไป `.bda-spec/commands/bda-<verb>.md`
 
 ### API
 ```bash
@@ -24,7 +24,7 @@ curl https://api.openai.com/v1/chat/completions \
 
 ## Verb mapping (เหมือน Codex AGENTS.md)
 
-ChatGPT อ่าน `gpt/prompts/router.md` แล้ว load `commands/<verb>.md` ผ่าน file attachment หรือ paste
+ChatGPT อ่าน `gpt/prompts/router.md` แล้ว load `.bda-spec/commands/<verb>.md` ผ่าน file attachment หรือ paste
 
 ## ข้อจำกัด
 

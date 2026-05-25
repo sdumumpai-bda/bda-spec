@@ -2,7 +2,7 @@
 
 > **Taxonomy ambiguity scan** — ถามทีละข้อ (max 5) พร้อม recommended answer → เขียนกลับเข้า doc เป็น Clarifications section
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-clarify.md`](../commands/bda-clarify.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-clarify.md`](../.bda-spec/commands/bda-clarify.md)
 
 ## เมื่อไหร่ใช้
 

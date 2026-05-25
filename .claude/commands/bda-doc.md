@@ -1,5 +1,5 @@
 ---
-description: bda-spec /bda-doc — see commands/bda-doc.md
+description: bda-spec /bda-doc — see .bda-spec/commands/bda-doc.md
 ---
 
-@commands/bda-doc.md
+@.bda-spec/commands/bda-doc.md

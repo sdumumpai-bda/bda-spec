@@ -2,7 +2,7 @@
 
 > **Bootstrap bda-spec** — ตั้งค่า project ครั้งแรก + สร้าง Obsidian vault + เลือก subagent
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-init.md`](../commands/bda-init.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-init.md`](../.bda-spec/commands/bda-init.md)
 
 ## เมื่อไหร่ใช้
 

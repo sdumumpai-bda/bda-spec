@@ -38,12 +38,12 @@ docs/              ← Obsidian vault (00-Index → 95-Handoff)
 User จะบอกชื่อ verb (เช่น `bda-plan: เพิ่ม search feature`)
 
 ถ้าเข้าถึง file system ได้:
-1. อ่าน `commands/<verb>.md`
+1. อ่าน `.bda-spec/commands/<verb>.md`
 2. ทำตาม Phase ตามลำดับ
 3. Output 5 mandatory sections
 
 ถ้าเข้าถึง file system ไม่ได้ (web chat):
-1. ขอ user paste content ของ `commands/<verb>.md` ที่จะใช้
+1. ขอ user paste content ของ `.bda-spec/commands/<verb>.md` ที่จะใช้
 2. ขอ user paste `.bda-spec.yml`
 3. ขอ user paste relevant vault docs (`docs/obsidian-vault/00-Index/IMPLEMENTATION-STATUS.md` + others ตาม task)
 4. ทำตาม Phase

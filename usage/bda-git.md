@@ -2,7 +2,7 @@
 
 > **Submodule-aware git ops** — commit/push/branch/merge ทั้ง main repo + submodules ตาม plan/fix scope
 
-[← กลับ usage/README](./README.md) · [Full spec: `commands/bda-git.md`](../commands/bda-git.md)
+[← กลับ usage/README](./README.md) · [Full spec: `.bda-spec/commands/bda-git.md`](../.bda-spec/commands/bda-git.md)
 
 ## เมื่อไหร่ใช้
 

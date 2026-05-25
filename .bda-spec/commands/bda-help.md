@@ -62,7 +62,7 @@ model: claude-sonnet-4-6
    - มี → `/bda-new --import <path>` (import + ต่อ SRS/Tech)
    - มี vault feature แล้ว → `/bda-plan <task>` ตรงๆ
 
-→ แนะนำ command + cite link path ของ `commands/<name>.md` ให้อ่านต่อ
+→ แนะนำ command + cite link path ของ `.bda-spec/commands/<name>.md` ให้อ่านต่อ
 
 ### Decision tree (ใช้ใน `tree` mode)
 
@@ -87,7 +87,7 @@ model: claude-sonnet-4-6
 
 ## Phase 2 — Mode "อธิบาย command เฉพาะ"
 
-อ่าน `commands/<cmd>.md` แล้วสรุปให้ user ในรูปแบบ:
+อ่าน `.bda-spec/commands/<cmd>.md` แล้วสรุปให้ user ในรูปแบบ:
 
 ```
 ## /bda-<name>
@@ -109,7 +109,7 @@ Trigger:
 
 ต่อด้วย: → /bda-<next>
 
-อ่าน full spec: commands/bda-<name>.md
+อ่าน full spec: .bda-spec/commands/bda-<name>.md
 ```
 
 ## Phase 3 — Mode "workflows"
@@ -222,10 +222,10 @@ Trigger:
 
 ## Phase 5 — Mode "search"
 
-อ่าน description + frontmatter ของทุก `commands/*.md` + key sections — ค้น keyword:
+อ่าน description + frontmatter ของทุก `.bda-spec/commands/*.md` + key sections — ค้น keyword:
 
 ```bash
-grep -l "$KEYWORD" commands/*.md
+grep -l "$KEYWORD" .bda-spec/commands/*.md
 grep -l "$KEYWORD" .claude/agents/*.md
 ```
 
@@ -268,4 +268,4 @@ Standards refs:
 - ห้ามแก้ไฟล์ใดๆ — help เป็น read-only
 - ห้าม guess command ที่ไม่มีจริง — list 14 commands เท่านั้น
 - ห้าม invent workflow ที่ไม่อยู่ใน Phase 3 cards — ถ้าผู้ใช้ถามนอกขอบเขต → ใช้ Phase 1 ถามต่อ
-- ห้ามอธิบาย internal phase ของ command เกินที่จำเป็น — ส่ง user ไปอ่าน `commands/<name>.md` เอง
+- ห้ามอธิบาย internal phase ของ command เกินที่จำเป็น — ส่ง user ไปอ่าน `.bda-spec/commands/<name>.md` เอง

@@ -7,7 +7,7 @@
 ### Web (chatglm.cn / z.ai)
 1. เริ่ม new chat — paste `prompts/system.md` เป็น system message
 2. เริ่มงานด้วย verb เช่น "bda-plan: เพิ่ม search feature"
-3. GLM จะอ่าน `prompts/router.md` mapping → route ไป `commands/bda-<verb>.md`
+3. GLM จะอ่าน `prompts/router.md` mapping → route ไป `.bda-spec/commands/bda-<verb>.md`
 
 ### API (Zhipu API)
 ```bash
